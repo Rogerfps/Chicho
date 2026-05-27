@@ -1,0 +1,57 @@
+﻿@model CarGoCR.Models.Cliente
+
+@{
+    ViewData["Title"] = "Eliminar Cliente";
+}
+
+<h1 class="mb-4 text-danger">
+    Eliminar Cliente
+</h1>
+
+<div class="alert alert-warning">
+
+    ¿Está seguro que desea eliminar este cliente?
+
+</div>
+
+<div class="card">
+
+    <div class="card-body">
+
+        <p>
+            <strong>Nombre:</strong>
+            @Model.NombreCompleto
+        </p>
+
+        <p>
+            <strong>Correo:</strong>
+            @Model.Correo
+        </p>
+
+        <p>
+            <strong>Teléfono:</strong>
+            @Model.Telefono
+        </p>
+
+        <p>
+            <strong>Cédula:</strong>
+            @Model.Cedula
+        </p>
+
+    </div>
+
+</div>
+
+<form asp-action="Delete" method="post" class="mt-3">
+
+    <input type="hidden" asp-for="Id" />
+
+    <button type="submit" class="btn btn-danger">
+        Eliminar
+    </button>
+
+    <a asp-action="Index" class="btn btn-secondary">
+        Cancelar
+    </a>
+
+</form>
