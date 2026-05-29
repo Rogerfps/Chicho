@@ -12,5 +12,7 @@ namespace CarGoCR.Data
         }
 
         public DbSet<Cliente> Clientes { get; set; }
+
+        public DbSet<Tarifa> Tarifas { get; set; }
     }
 }

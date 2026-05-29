@@ -1,0 +1,275 @@
+﻿@model CarGoCR.Models.Tarifa
+
+@{
+    ViewData["Title"] = "Editar Tarifa";
+}
+
+<style>
+
+    body {
+        background: #020817;
+    }
+
+    .page-container {
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+
+    .form-card {
+        background: #071226;
+        border: 1px solid #1e293b;
+        border-radius: 25px;
+        padding: 40px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+        color: white;
+    }
+
+    .page-title {
+        font-weight: 800;
+        margin-bottom: 10px;
+    }
+
+    .page-subtitle {
+        color: #94a3b8;
+        margin-bottom: 35px;
+    }
+
+    .form-label {
+        color: #cbd5e1;
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+
+    .form-control {
+        background: #0f172a;
+        border: 1px solid #334155;
+        color: white;
+        border-radius: 14px;
+        padding: 12px 15px;
+    }
+
+        .form-control:focus {
+            background: #0f172a;
+            color: white;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 0.2rem rgba(59,130,246,0.25);
+        }
+
+    .form-check-input {
+        width: 20px;
+        height: 20px;
+    }
+
+    .form-check-label {
+        margin-left: 10px;
+        color: #e2e8f0;
+    }
+
+    .text-danger {
+        font-size: 0.9rem;
+    }
+
+    .btn-save {
+        background: linear-gradient(135deg, #f59e0b, #d97706);
+        border: none;
+        color: white;
+        font-weight: 700;
+        padding: 12px 24px;
+        border-radius: 14px;
+        transition: 0.3s;
+    }
+
+        .btn-save:hover {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+    .btn-back {
+        background: #1e293b;
+        color: white;
+        padding: 12px 24px;
+        border-radius: 14px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+
+        .btn-back:hover {
+            background: #334155;
+            color: white;
+        }
+
+    .section-title {
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+        color: white;
+    }
+
+</style>
+
+<div class="container page-container">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-8">
+
+            <div class="form-card">
+
+                <h1 class="page-title">
+                    Editar Tarifa
+                </h1>
+
+                <p class="page-subtitle">
+                    Modifica precios y configuraciones de la tarifa
+                </p>
+
+                <form asp-action="Edit" method="post">
+
+                    <input type="hidden" asp-for="Id" />
+
+                    <div class="section-title">
+                        Información General
+                    </div>
+
+                    <div class="mb-4">
+
+                        <label asp-for="Categoria"
+                               class="form-label"></label>
+
+                        <input asp-for="Categoria"
+                               class="form-control" />
+
+                        <span asp-validation-for="Categoria"
+                              class="text-danger"></span>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-6 mb-4">
+
+                            <label asp-for="PesoMinimo"
+                                   class="form-label"></label>
+
+                            <input asp-for="PesoMinimo"
+                                   class="form-control" />
+
+                            <span asp-validation-for="PesoMinimo"
+                                  class="text-danger"></span>
+
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+
+                            <label asp-for="PesoMaximo"
+                                   class="form-label"></label>
+
+                            <input asp-for="PesoMaximo"
+                                   class="form-control" />
+
+                            <span asp-validation-for="PesoMaximo"
+                                  class="text-danger"></span>
+
+                        </div>
+
+                    </div>
+
+                    <div class="section-title mt-3">
+                        Precios
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-6 mb-4">
+
+                            <label asp-for="PrecioNacional"
+                                   class="form-label"></label>
+
+                            <input asp-for="PrecioNacional"
+                                   class="form-control" />
+
+                            <span asp-validation-for="PrecioNacional"
+                                  class="text-danger"></span>
+
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+
+                            <label asp-for="PrecioInternacional"
+                                   class="form-label"></label>
+
+                            <input asp-for="PrecioInternacional"
+                                   class="form-control" />
+
+                            <span asp-validation-for="PrecioInternacional"
+                                  class="text-danger"></span>
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-check mb-4">
+
+                        <input asp-for="RequiereCotizacion"
+                               class="form-check-input" />
+
+                        <label asp-for="RequiereCotizacion"
+                               class="form-check-label">
+
+                            Requiere cotización personalizada
+
+                        </label>
+
+                    </div>
+
+                    <div class="form-check mb-5">
+
+                        <input asp-for="Activo"
+                               class="form-check-input" />
+
+                        <label asp-for="Activo"
+                               class="form-check-label">
+
+                            Tarifa activa
+
+                        </label>
+
+                    </div>
+
+                    <div class="d-flex gap-3">
+
+                        <button type="submit"
+                                class="btn-save">
+
+                            Guardar Cambios
+
+                        </button>
+
+                        <a asp-action="Index"
+                           class="btn-back">
+
+                            Volver
+
+                        </a>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts {
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+}

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CarGoCR")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ad69828003b1b9c0a03d14e5e407019673e24ca9")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1f18eda8ac0881d29179dff81522ef8486ec1e40")]
 [assembly: System.Reflection.AssemblyProductAttribute("CarGoCR")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CarGoCR")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

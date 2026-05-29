@@ -1,0 +1,278 @@
+﻿@model CarGoCR.Models.Tarifa
+
+@{
+    ViewData["Title"] = "Detalles de Tarifa";
+}
+
+<style>
+
+    body {
+        background: #020817;
+    }
+
+    .page-container {
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+
+    .details-card {
+        background: #071226;
+        border: 1px solid #1e293b;
+        border-radius: 25px;
+        padding: 40px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+        color: white;
+    }
+
+    .page-title {
+        font-weight: 800;
+        margin-bottom: 10px;
+    }
+
+    .page-subtitle {
+        color: #94a3b8;
+        margin-bottom: 35px;
+    }
+
+    .info-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+    }
+
+    .info-card {
+        background: #0f172a;
+        border: 1px solid #1e293b;
+        border-radius: 18px;
+        padding: 25px;
+    }
+
+    .info-label {
+        color: #94a3b8;
+        font-size: 0.9rem;
+        margin-bottom: 10px;
+    }
+
+    .info-value {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: white;
+    }
+
+    .status-active {
+        background: #16a34a;
+        color: white;
+        padding: 8px 14px;
+        border-radius: 30px;
+        font-size: 0.9rem;
+        display: inline-block;
+    }
+
+    .status-inactive {
+        background: #dc2626;
+        color: white;
+        padding: 8px 14px;
+        border-radius: 30px;
+        font-size: 0.9rem;
+        display: inline-block;
+    }
+
+    .cotizacion {
+        background: #f59e0b;
+        color: white;
+        padding: 8px 14px;
+        border-radius: 30px;
+        font-size: 0.9rem;
+        display: inline-block;
+    }
+
+    .btn-edit {
+        background: linear-gradient(135deg, #f59e0b, #d97706);
+        border: none;
+        color: white;
+        padding: 12px 24px;
+        border-radius: 14px;
+        font-weight: 700;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+
+        .btn-edit:hover {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+    .btn-back {
+        background: #1e293b;
+        color: white;
+        padding: 12px 24px;
+        border-radius: 14px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+
+        .btn-back:hover {
+            background: #334155;
+            color: white;
+        }
+
+</style>
+
+<div class="container page-container">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-10">
+
+            <div class="details-card">
+
+                <h1 class="page-title">
+                    Detalles de Tarifa
+                </h1>
+
+                <p class="page-subtitle">
+                    Información completa de la tarifa registrada
+                </p>
+
+                <div class="info-grid">
+
+                    <div class="info-card">
+
+                        <div class="info-label">
+                            Categoría
+                        </div>
+
+                        <div class="info-value">
+                            @Model.Categoria
+                        </div>
+
+                    </div>
+
+                    <div class="info-card">
+
+                        <div class="info-label">
+                            Peso mínimo
+                        </div>
+
+                        <div class="info-value">
+                            @Model.PesoMinimo kg
+                        </div>
+
+                    </div>
+
+                    <div class="info-card">
+
+                        <div class="info-label">
+                            Peso máximo
+                        </div>
+
+                        <div class="info-value">
+                            @Model.PesoMaximo kg
+                        </div>
+
+                    </div>
+
+                    <div class="info-card">
+
+                        <div class="info-label">
+                            Precio nacional
+                        </div>
+
+                        <div class="info-value">
+                            $@Model.PrecioNacional
+                        </div>
+
+                    </div>
+
+                    <div class="info-card">
+
+                        <div class="info-label">
+                            Precio internacional
+                        </div>
+
+                        <div class="info-value">
+                            $@Model.PrecioInternacional
+                        </div>
+
+                    </div>
+
+                    <div class="info-card">
+
+                        <div class="info-label">
+                            Cotización personalizada
+                        </div>
+
+                        <div class="info-value">
+
+                            @if (Model.RequiereCotizacion)
+                            {
+                                <span class="cotizacion">
+                                    Requiere cotización
+                                </span>
+                            }
+                            else
+                            {
+                                <span>
+                                    No requerida
+                                </span>
+                            }
+
+                        </div>
+
+                    </div>
+
+                    <div class="info-card">
+
+                        <div class="info-label">
+                            Estado
+                        </div>
+
+                        <div class="info-value">
+
+                            @if (Model.Activo)
+                            {
+                                <span class="status-active">
+                                    Activa
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="status-inactive">
+                                    Inactiva
+                                </span>
+                            }
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="mt-5 d-flex gap-3">
+
+                    <a asp-action="Edit"
+                       asp-route-id="@Model.Id"
+                       class="btn-edit">
+
+                        Editar Tarifa
+
+                    </a>
+
+                    <a asp-action="Index"
+                       class="btn-back">
+
+                        Volver
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

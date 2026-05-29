@@ -1,0 +1,355 @@
+﻿@model List<CarGoCR.Models.Tarifa>
+
+@{
+    ViewData["Title"] = "Tarifas";
+}
+
+<style>
+
+    body {
+        background: #020817;
+    }
+
+    .page-container {
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+
+    .header-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+
+    .title-section h1 {
+        color: white;
+        font-weight: 800;
+        margin-bottom: 5px;
+    }
+
+    .title-section p {
+        color: #94a3b8;
+        margin-bottom: 0;
+    }
+
+    .btn-new {
+        background: #3b82f6;
+        color: white;
+        border: none;
+        padding: 12px 22px;
+        border-radius: 14px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+
+        .btn-new:hover {
+            background: #2563eb;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+
+    .stat-card {
+        background: #071226;
+        border: 1px solid #1e293b;
+        border-radius: 22px;
+        padding: 30px;
+        color: white;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+
+        .stat-card h4 {
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .stat-card p {
+            color: #94a3b8;
+            margin-bottom: 25px;
+        }
+
+    .price-range {
+        font-size: 2.2rem;
+        font-weight: 800;
+    }
+
+    .table-card {
+        background: #071226;
+        border-radius: 22px;
+        overflow: hidden;
+        border: 1px solid #1e293b;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+
+    .table {
+        margin-bottom: 0;
+        color: white;
+    }
+
+        .table thead {
+            background: #0f172a;
+        }
+
+        .table th {
+            color: #94a3b8;
+            border-bottom: 1px solid #1e293b;
+            padding: 18px;
+        }
+
+        .table td {
+            padding: 18px;
+            border-bottom: 1px solid #1e293b;
+            vertical-align: middle;
+        }
+
+        .table tbody tr:hover {
+            background: rgba(255,255,255,0.03);
+        }
+
+    .categoria {
+        font-weight: 700;
+        color: white;
+    }
+
+    .peso {
+        color: #cbd5e1;
+    }
+
+    .precio {
+        font-weight: 700;
+        color: white;
+    }
+
+    .btn-action {
+        border-radius: 10px;
+        padding: 6px 12px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-right: 5px;
+    }
+
+    .empty-message {
+        color: #94a3b8;
+        text-align: center;
+        padding: 40px;
+    }
+
+</style>
+
+<div class="container-fluid page-container">
+
+    <div class="header-section">
+
+        <div class="title-section">
+
+            <h1>
+                Tarifas
+            </h1>
+
+            <p>
+                Configura precios por peso, categoría y destino
+            </p>
+
+        </div>
+
+        <a asp-action="Create"
+           class="btn-new">
+
+            + Nueva tarifa
+
+        </a>
+
+    </div>
+
+    <div class="stats-grid">
+
+        <div class="stat-card">
+
+            <h4>
+                Envíos nacionales
+            </h4>
+
+            <p>
+                Dentro de Costa Rica
+            </p>
+
+            <div class="price-range">
+
+                @{
+                    var minNacional = Model.Any()
+                        ? Model.Min(x => x.PrecioNacional)
+                        : 0;
+
+                    var maxNacional = Model.Any()
+                        ? Model.Max(x => x.PrecioNacional)
+                        : 0;
+                }
+
+                $@minNacional - $@maxNacional
+
+            </div>
+
+        </div>
+
+        <div class="stat-card">
+
+            <h4>
+                Envíos internacionales
+            </h4>
+
+            <p>
+                USA, EU y más
+            </p>
+
+            <div class="price-range">
+
+                @{
+                    var minInternacional = Model.Any()
+                        ? Model.Min(x => x.PrecioInternacional)
+                        : 0;
+
+                    var maxInternacional = Model.Any()
+                        ? Model.Max(x => x.PrecioInternacional)
+                        : 0;
+                }
+
+                $@minInternacional - $@maxInternacional
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="table-card">
+
+        <div class="table-responsive">
+
+            <table class="table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Categoría</th>
+                        <th>Rango de peso</th>
+                        <th>Nacional</th>
+                        <th>Internacional</th>
+                        <th width="250">Acciones</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    @if (Model.Any())
+                    {
+                        @foreach (var tarifa in Model)
+                        {
+                            <tr>
+
+                                <td class="categoria">
+                                    @tarifa.Categoria
+                                </td>
+
+                                <td class="peso">
+                                    @tarifa.PesoMinimo kg - @tarifa.PesoMaximo kg
+                                </td>
+
+                                <td class="precio">
+
+                                    @if (tarifa.RequiereCotizacion)
+                                    {
+                                        <span>
+                                            Cotizar
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span>
+                                            $@tarifa.PrecioNacional
+                                        </span>
+                                    }
+
+                                </td>
+
+                                <td class="precio">
+
+                                    @if (tarifa.RequiereCotizacion)
+                                    {
+                                        <span>
+                                            Cotizar
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span>
+                                            $@tarifa.PrecioInternacional
+                                        </span>
+                                    }
+
+                                </td>
+
+                                <td>
+
+                                    <a asp-action="Details"
+                                       asp-route-id="@tarifa.Id"
+                                       class="btn btn-info btn-sm btn-action">
+
+                                        Detalles
+
+                                    </a>
+
+                                    <a asp-action="Edit"
+                                       asp-route-id="@tarifa.Id"
+                                       class="btn btn-warning btn-sm btn-action">
+
+                                        Editar
+
+                                    </a>
+
+                                    <a asp-action="Delete"
+                                       asp-route-id="@tarifa.Id"
+                                       class="btn btn-danger btn-sm btn-action">
+
+                                        Eliminar
+
+                                    </a>
+
+                                </td>
+
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+
+                            <td colspan="5" class="empty-message">
+
+                                No hay tarifas registradas
+
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
