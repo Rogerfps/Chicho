@@ -1,253 +1,544 @@
 ﻿@model List<CarGoCR.Models.Tarifa>
 
 @{
-    ViewData["Title"] = "Tarifas";
+    ViewData["Title"] = "Clientes";
 }
-
 <style>
+    :root {
+        --bg: #0f1117;
+        --sidebar-bg: #13151e;
+        --card-bg: #1a1d27;
+        --card-border: #252836;
+        --text-primary: #f0f2f8;
+        --text-secondary: #7b8099;
+        --text-muted: #4a5068;
+        --accent-blue: #4f7cff;
+        --accent-green: #34d399;
+        --accent-red: #f87171;
+        --accent-purple: #a78bfa;
+        --hover-bg: #1f2235;
+        --active-bg: #252a3d;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
     body {
-        background: #020817;
+        font-family: 'DM Sans',sans-serif;
+        background: var(--bg);
+        color: var(--text-primary);
+        display: flex;
+        min-height: 100vh;
     }
 
-    .page-container {
-        padding-top: 40px;
-        padding-bottom: 40px;
+    .sidebar {
+        width: 220px;
+        min-width: 220px;
+        background: var(--sidebar-bg);
+        border-right: 1px solid var(--card-border);
+        display: flex;
+        flex-direction: column;
+        padding: 1.25rem 0;
+        position: fixed;
+        height: 100vh;
+        z-index: 100;
     }
 
-    .header-section {
+    .sidebar-brand {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0 1.25rem 1.5rem;
+        border-bottom: 1px solid var(--card-border);
+        margin-bottom: 1rem;
+    }
+
+    .brand-avatar {
+        width: 38px;
+        height: 38px;
+        border-radius: 10px;
+        background: linear-gradient(135deg,#4f7cff,#a78bfa);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 1rem;
+        color: white;
+    }
+
+    .brand-name {
+        font-weight: 700;
+        font-size: 0.95rem;
+        color: var(--text-primary);
+    }
+
+    .brand-sub {
+        font-size: 0.7rem;
+        color: var(--text-secondary);
+    }
+
+    .nav-section-label {
+        font-size: 0.65rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--text-muted);
+        padding: 0.75rem 1.25rem 0.4rem;
+    }
+
+    .nav-item {
+        display: flex;
+        align-items: center;
+        gap: 0.65rem;
+        padding: 0.55rem 1.25rem;
+        margin: 0.1rem 0.5rem;
+        border-radius: 8px;
+        color: var(--text-secondary);
+        text-decoration: none;
+        font-size: 0.85rem;
+        font-weight: 500;
+        transition: all 0.18s;
+    }
+
+        .nav-item:hover {
+            background: var(--hover-bg);
+            color: var(--text-primary);
+        }
+
+        .nav-item.active {
+            background: var(--active-bg);
+            color: var(--accent-blue);
+        }
+
+        .nav-item svg {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+        }
+
+    .sidebar-footer {
+        margin-top: auto;
+        padding: 1rem 1.25rem;
+        border-top: 1px solid var(--card-border);
+        font-size: 0.78rem;
+        color: var(--text-muted);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        cursor: pointer;
+    }
+
+    .main {
+        margin-left: 220px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .topbar {
+        height: 60px;
+        background: var(--sidebar-bg);
+        border-bottom: 1px solid var(--card-border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 2rem;
+        position: sticky;
+        top: 0;
+        z-index: 50;
+    }
+
+    .search-box {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 8px;
+        padding: 0.45rem 0.9rem;
+        width: 320px;
+    }
+
+        .search-box input {
+            background: none;
+            border: none;
+            outline: none;
+            color: var(--text-primary);
+            font-size: 0.82rem;
+            width: 100%;
+            font-family: inherit;
+        }
+
+            .search-box input::placeholder {
+                color: var(--text-muted);
+            }
+
+    .topbar-right {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .topbar-btn {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: var(--text-secondary);
+        position: relative;
+    }
+
+    .notif-dot {
+        width: 7px;
+        height: 7px;
+        background: var(--accent-red);
+        border-radius: 50%;
+        position: absolute;
+        top: 6px;
+        right: 6px;
+        border: 1px solid var(--sidebar-bg);
+    }
+
+    .user-chip {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 8px;
+        padding: 0.35rem 0.75rem;
+        cursor: pointer;
+    }
+
+    .user-avatar {
+        width: 26px;
+        height: 26px;
+        border-radius: 6px;
+        background: linear-gradient(135deg,#4f7cff,#a78bfa);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.7rem;
+        font-weight: 700;
+        color: white;
+    }
+
+    .user-name {
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: var(--text-primary);
+    }
+
+    .content {
+        padding: 2rem;
+        flex: 1;
+    }
+
+    .page-header-row {
         display: flex;
         justify-content: space-between;
-        align-items: center;
-        margin-bottom: 30px;
+        align-items: flex-start;
+        margin-bottom: 1.75rem;
     }
 
-    .title-section h1 {
-        color: white;
-        font-weight: 800;
-        margin-bottom: 5px;
+    .page-header h1 {
+        font-size: 1.5rem;
+        font-weight: 700;
     }
 
-    .title-section p {
-        color: #94a3b8;
-        margin-bottom: 0;
+    .page-header p {
+        font-size: 0.82rem;
+        color: var(--text-secondary);
+        margin-top: 0.2rem;
     }
 
-    .btn-new {
-        background: #3b82f6;
+    .btn-primary {
+        background: var(--accent-blue);
         color: white;
         border: none;
-        padding: 12px 22px;
-        border-radius: 14px;
+        padding: 0.5rem 1.1rem;
+        border-radius: 8px;
+        font-size: 0.82rem;
         font-weight: 600;
-        text-decoration: none;
-        transition: 0.3s;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        transition: all 0.18s;
+        font-family: inherit;
     }
 
-        .btn-new:hover {
-            background: #2563eb;
-            color: white;
-            transform: translateY(-2px);
+        .btn-primary:hover {
+            background: #3a66e8;
         }
 
-    .stats-grid {
+    .range-cards {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 20px;
-        margin-bottom: 30px;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
     }
 
-    .stat-card {
-        background: #071226;
-        border: 1px solid #1e293b;
-        border-radius: 22px;
-        padding: 30px;
-        color: white;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    .range-card {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 14px;
+        padding: 1.5rem 2rem;
+        display: flex;
+        align-items: center;
+        gap: 1.25rem;
     }
 
-        .stat-card h4 {
-            font-size: 1.4rem;
-            margin-bottom: 8px;
-            font-weight: 700;
+    .range-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+        .range-icon.blue {
+            background: rgba(79,124,255,0.12);
+            color: var(--accent-blue);
         }
 
-        .stat-card p {
-            color: #94a3b8;
-            margin-bottom: 25px;
+        .range-icon.purple {
+            background: rgba(167,139,250,0.12);
+            color: var(--accent-purple);
         }
 
-    .price-range {
-        font-size: 2.2rem;
-        font-weight: 800;
+    .range-label {
+        font-size: 0.78rem;
+        color: var(--text-secondary);
+    }
+
+    .range-desc {
+        font-size: 0.72rem;
+        color: var(--text-muted);
+        margin-top: 0.15rem;
+    }
+
+    .range-amount {
+        font-size: 1.6rem;
+        font-weight: 700;
+        margin-top: 0.35rem;
+    }
+
+    .range-sub {
+        font-size: 0.72rem;
+        color: var(--text-muted);
+        margin-top: 0.15rem;
     }
 
     .table-card {
-        background: #071226;
-        border-radius: 22px;
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 14px;
         overflow: hidden;
-        border: 1px solid #1e293b;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.3);
     }
 
-    .table {
-        margin-bottom: 0;
-        color: white;
+    .data-table {
+        width: 100%;
+        border-collapse: collapse;
     }
 
-        .table thead {
-            background: #0f172a;
+        .data-table th {
+            text-align: left;
+            padding: 0.75rem 1.5rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            background: rgba(255,255,255,0.02);
+            border-bottom: 1px solid var(--card-border);
         }
 
-        .table th {
-            color: #94a3b8;
-            border-bottom: 1px solid #1e293b;
-            padding: 18px;
+        .data-table td {
+            padding: 1rem 1.5rem;
+            font-size: 0.84rem;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
         }
 
-        .table td {
-            padding: 18px;
-            border-bottom: 1px solid #1e293b;
-            vertical-align: middle;
+        .data-table tbody tr:last-child td {
+            border-bottom: none;
         }
 
-        .table tbody tr:hover {
-            background: rgba(255,255,255,0.03);
+        .data-table tbody tr:hover td {
+            background: rgba(255,255,255,0.02);
         }
 
-    .categoria {
-        font-weight: 700;
-        color: white;
-    }
-
-    .peso {
-        color: #cbd5e1;
-    }
-
-    .precio {
-        font-weight: 700;
-        color: white;
-    }
-
-    .btn-action {
-        border-radius: 10px;
-        padding: 6px 12px;
-        font-size: 0.85rem;
+    .td-name {
         font-weight: 600;
-        margin-right: 5px;
+        color: var(--text-primary);
     }
 
-    .empty-message {
-        color: #94a3b8;
-        text-align: center;
-        padding: 40px;
+    .td-range {
+        color: var(--text-secondary);
+        font-size: 0.8rem;
     }
 
+    .td-price {
+        font-weight: 700;
+        color: var(--text-primary);
+    }
+
+    .td-cotizar {
+        color: var(--text-muted);
+        font-style: italic;
+    }
+
+    .edit-btn {
+        width: 28px;
+        height: 28px;
+        border-radius: 6px;
+        background: transparent;
+        border: 1px solid var(--card-border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: var(--text-muted);
+        transition: all 0.18s;
+    }
+
+        .edit-btn:hover {
+            background: var(--hover-bg);
+            color: var(--text-primary);
+        }
+
+    .actions {
+        display: flex;
+        gap: .5rem;
+        flex-wrap: wrap;
+    }
+
+    .action-btn {
+        text-decoration: none;
+        padding: .45rem .85rem;
+        border-radius: 8px;
+        font-size: .75rem;
+        font-weight: 600;
+        transition: .2s;
+    }
+
+        .action-btn.details {
+            background: rgba(79,124,255,.15);
+            color: var(--accent-blue);
+        }
+
+        .action-btn.edit {
+            background: rgba(167,139,250,.15);
+            color: var(--accent-purple);
+        }
+
+        .action-btn.delete {
+            background: rgba(248,113,113,.15);
+            color: var(--accent-red);
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+        }
 </style>
 
-<div class="container-fluid page-container">
+<div class="main">
+    <div class="content">
+        <div class="page-header-row">
+            <div class="page-header">
+                <h1>Tarifas</h1>
+                <p>Configura precios por peso, categoría y destino</p>
+            </div>
 
-    <div class="header-section">
-
-        <div class="title-section">
-
-            <h1>
-                Tarifas
-            </h1>
-
-            <p>
-                Configura precios por peso, categoría y destino
-            </p>
-
+            <a asp-action="Create" class="btn-primary">
+                + Nueva tarifa
+            </a>
         </div>
+        <div class="range-cards">
 
-        <a asp-action="Create"
-           class="btn-new">
+            <div class="range-card">
+                <div>
+                    <div class="range-label">
+                        Envíos nacionales
+                    </div>
 
-            + Nueva tarifa
+                    <div class="range-desc">
+                        Dentro de Costa Rica
+                    </div>
 
-        </a>
+                    <div class="range-amount">
+                        @{
+                            var minNacional = Model.Any()
+                                ? Model.Min(x => x.PrecioNacional)
+                                : 0;
 
-    </div>
+                            var maxNacional = Model.Any()
+                                ? Model.Max(x => x.PrecioNacional)
+                                : 0;
+                        }
 
-    <div class="stats-grid">
+                        $@minNacional - $@maxNacional
+                    </div>
 
-        <div class="stat-card">
+                    <div class="range-sub">
+                        Rango actual
+                    </div>
+                </div>
+            </div>
 
-            <h4>
-                Envíos nacionales
-            </h4>
+            <div class="range-card">
+                <div>
+                    <div class="range-label">
+                        Envíos internacionales
+                    </div>
 
-            <p>
-                Dentro de Costa Rica
-            </p>
+                    <div class="range-desc">
+                        USA, EU y más
+                    </div>
 
-            <div class="price-range">
+                    <div class="range-amount">
+                        @{
+                            var minInternacional = Model.Any()
+                                ? Model.Min(x => x.PrecioInternacional)
+                                : 0;
 
-                @{
-                    var minNacional = Model.Any()
-                        ? Model.Min(x => x.PrecioNacional)
-                        : 0;
+                            var maxInternacional = Model.Any()
+                                ? Model.Max(x => x.PrecioInternacional)
+                                : 0;
+                        }
 
-                    var maxNacional = Model.Any()
-                        ? Model.Max(x => x.PrecioNacional)
-                        : 0;
-                }
+                        $@minInternacional - $@maxInternacional
+                    </div>
 
-                $@minNacional - $@maxNacional
-
+                    <div class="range-sub">
+                        Rango actual
+                    </div>
+                </div>
             </div>
 
         </div>
 
-        <div class="stat-card">
-
-            <h4>
-                Envíos internacionales
-            </h4>
-
-            <p>
-                USA, EU y más
-            </p>
-
-            <div class="price-range">
-
-                @{
-                    var minInternacional = Model.Any()
-                        ? Model.Min(x => x.PrecioInternacional)
-                        : 0;
-
-                    var maxInternacional = Model.Any()
-                        ? Model.Max(x => x.PrecioInternacional)
-                        : 0;
-                }
-
-                $@minInternacional - $@maxInternacional
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <div class="table-card">
-
-        <div class="table-responsive">
-
-            <table class="table">
+        <div class="table-card">
+            <table class="data-table">
 
                 <thead>
-
                     <tr>
-
                         <th>Categoría</th>
                         <th>Rango de peso</th>
                         <th>Nacional</th>
                         <th>Internacional</th>
-                        <th width="250">Acciones</th>
-
+                        <th>Acciones</th>
                     </tr>
-
                 </thead>
 
                 <tbody>
@@ -258,19 +549,19 @@
                         {
                             <tr>
 
-                                <td class="categoria">
+                                <td class="td-name">
                                     @tarifa.Categoria
                                 </td>
 
-                                <td class="peso">
+                                <td class="td-range">
                                     @tarifa.PesoMinimo kg - @tarifa.PesoMaximo kg
                                 </td>
 
-                                <td class="precio">
+                                <td class="td-price">
 
                                     @if (tarifa.RequiereCotizacion)
                                     {
-                                        <span>
+                                        <span class="td-cotizar">
                                             Cotizar
                                         </span>
                                     }
@@ -283,11 +574,11 @@
 
                                 </td>
 
-                                <td class="precio">
+                                <td class="td-price">
 
                                     @if (tarifa.RequiereCotizacion)
                                     {
-                                        <span>
+                                        <span class="td-cotizar">
                                             Cotizar
                                         </span>
                                     }
@@ -301,31 +592,27 @@
                                 </td>
 
                                 <td>
+                                    <div class="actions">
 
-                                    <a asp-action="Details"
-                                       asp-route-id="@tarifa.Id"
-                                       class="btn btn-info btn-sm btn-action">
+                                        <a asp-action="Details"
+                                           asp-route-id="@tarifa.Id"
+                                           class="action-btn details">
+                                            Detalles
+                                        </a>
 
-                                        Detalles
+                                        <a asp-action="Edit"
+                                           asp-route-id="@tarifa.Id"
+                                           class="action-btn edit">
+                                            Editar
+                                        </a>
 
-                                    </a>
+                                        <a asp-action="Delete"
+                                           asp-route-id="@tarifa.Id"
+                                           class="action-btn delete">
+                                            Eliminar
+                                        </a>
 
-                                    <a asp-action="Edit"
-                                       asp-route-id="@tarifa.Id"
-                                       class="btn btn-warning btn-sm btn-action">
-
-                                        Editar
-
-                                    </a>
-
-                                    <a asp-action="Delete"
-                                       asp-route-id="@tarifa.Id"
-                                       class="btn btn-danger btn-sm btn-action">
-
-                                        Eliminar
-
-                                    </a>
-
+                                    </div>
                                 </td>
 
                             </tr>
@@ -334,22 +621,13 @@
                     else
                     {
                         <tr>
-
-                            <td colspan="5" class="empty-message">
-
+                            <td colspan="5" style="text-align:center;padding:2rem;color:var(--text-secondary);">
                                 No hay tarifas registradas
-
                             </td>
-
                         </tr>
                     }
 
                 </tbody>
 
             </table>
-
         </div>
-
-    </div>
-
-</div>

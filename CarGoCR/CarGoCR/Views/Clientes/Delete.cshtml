@@ -3,55 +3,147 @@
 @{
     ViewData["Title"] = "Eliminar Cliente";
 }
+<style>
+    .warning-box {
+        background: rgba(248,113,113,.08);
+        border: 1px solid rgba(248,113,113,.25);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
 
-<h1 class="mb-4 text-danger">
-    Eliminar Cliente
-</h1>
+        .warning-box h3 {
+            color: white;
+            margin-bottom: .8rem;
+        }
 
-<div class="alert alert-warning">
+        .warning-box p {
+            color: var(--text-secondary);
+            margin-bottom: .4rem;
+        }
 
-    ¿Está seguro que desea eliminar este cliente?
+    .btn-delete {
+        background: var(--accent-red);
+        color: white;
+        border: none;
+        padding: .8rem 1.5rem;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+    }
 
-</div>
+        .btn-delete:hover {
+            opacity: .9;
+        }
 
-<div class="card">
+    .action-buttons {
+        margin-top: 2rem;
+        display: flex;
+        gap: .75rem;
+    }
 
-    <div class="card-body">
+    /* Botón Editar */
+    .btn-edit {
+        background: var(--accent-blue);
+        color: #fff;
+        padding: .85rem 1.4rem;
+        border-radius: 10px;
+        text-decoration: none;
+        font-weight: 600;
+        border: none;
+        transition: .25s;
+        display: inline-flex;
+        align-items: center;
+        gap: .5rem;
+    }
 
-        <p>
-            <strong>Nombre:</strong>
-            @Model.NombreCompleto
-        </p>
+        .btn-edit:hover {
+            background: #3a66e8;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(79,124,255,.25);
+        }
 
-        <p>
-            <strong>Correo:</strong>
-            @Model.Correo
-        </p>
+    /* Botón Volver / Cancelar */
+    .btn-secondary-modern {
+        background: transparent;
+        border: 1px solid var(--card-border);
+        color: var(--text-primary);
+        padding: .85rem 1.4rem;
+        border-radius: 10px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: .25s;
+        display: inline-flex;
+        align-items: center;
+    }
 
-        <p>
-            <strong>Teléfono:</strong>
-            @Model.Telefono
-        </p>
+        .btn-secondary-modern:hover {
+            background: var(--hover-bg);
+            border-color: var(--accent-blue);
+        }
 
-        <p>
-            <strong>Cédula:</strong>
-            @Model.Cedula
-        </p>
+    /* Botón Eliminar */
+    .btn-delete {
+        background: var(--accent-red);
+        color: white;
+        border: none;
+        padding: .85rem 1.4rem;
+        border-radius: 10px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: .25s;
+    }
+
+        .btn-delete:hover {
+            background: #dc2626;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(248,113,113,.25);
+        }
+    .layout-content {
+        margin-left: 220px;
+        width: calc(100% - 220px);
+        min-height: 100vh;
+        padding: 2rem;
+    }
+</style>
+<div class="page-card">
+
+    <h1 class="page-title text-danger">
+        Eliminar Cliente
+    </h1>
+
+    <p class="page-subtitle">
+        Esta acción no se puede deshacer.
+    </p>
+
+    <div class="warning-box">
+
+        <h3>@Model.NombreCompleto</h3>
+
+        <p>@Model.Correo</p>
+
+        <p>@Model.Telefono</p>
+
+        <p>@Model.Cedula</p>
 
     </div>
 
+    <form asp-action="Delete" method="post">
+
+        <input type="hidden" asp-for="Id" />
+
+        <div class="action-buttons">
+
+            <button type="submit" class="btn-delete">
+                 Eliminar Cliente
+            </button>
+
+            <a asp-action="Index"
+               class="btn-secondary-modern">
+                Cancelar
+            </a>
+
+        </div>
+    </form>
+
 </div>
-
-<form asp-action="Delete" method="post" class="mt-3">
-
-    <input type="hidden" asp-for="Id" />
-
-    <button type="submit" class="btn btn-danger">
-        Eliminar
-    </button>
-
-    <a asp-action="Index" class="btn btn-secondary">
-        Cancelar
-    </a>
-
-</form>

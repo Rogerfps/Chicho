@@ -1,77 +1,199 @@
 ﻿@model CarGoCR.Models.Cliente
 
 @{
-    ViewData["Title"] = "Editar Cliente";
+    ViewData["Title"] = "Crear Cliente";
 }
 
-<h1 class="mb-4">Editar Cliente</h1>
+<style>
+    :root {
+        --bg: #0f1117;
+        --card-bg: #1a1d27;
+        --card-border: #252836;
+        --text-primary: #f0f2f8;
+        --text-secondary: #7b8099;
+        --accent-blue: #4f7cff;
+        --accent-green: #34d399;
+        --accent-red: #f87171;
+    }
 
-<form asp-action="Edit" method="post">
+    .page-card {
+        max-width: 900px;
+        margin: 30px auto;
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 14px;
+        padding: 2rem;
+    }
 
-    <input type="hidden" asp-for="Id" />
+    .page-title {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: .5rem;
+    }
 
-    <div class="mb-3">
-        <label asp-for="NombreCompleto" class="form-label"></label>
+    .page-subtitle {
+        color: var(--text-secondary);
+        margin-bottom: 2rem;
+    }
 
-        <input asp-for="NombreCompleto" class="form-control" />
+    .form-group {
+        margin-bottom: 1rem;
+    }
 
-        <span asp-validation-for="NombreCompleto" class="text-danger"></span>
-    </div>
+    .form-label {
+        display: block;
+        margin-bottom: .5rem;
+        color: var(--text-primary);
+        font-weight: 600;
+    }
 
-    <div class="mb-3">
-        <label asp-for="Correo" class="form-label"></label>
+    .form-input {
+        width: 100%;
+        background: var(--bg);
+        border: 1px solid var(--card-border);
+        color: var(--text-primary);
+        border-radius: 8px;
+        padding: .8rem 1rem;
+    }
 
-        <input asp-for="Correo" class="form-control" />
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+        }
 
-        <span asp-validation-for="Correo" class="text-danger"></span>
-    </div>
+    .btn-save,
+    .btn-back,
+    .btn-delete {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: .5rem;
+        min-width: 140px;
+        height: 44px;
+        padding: 0 1.2rem;
+        border-radius: 10px;
+        font-size: .9rem;
+        font-weight: 600;
+        text-decoration: none;
+        cursor: pointer;
+        transition: all .2s ease;
+    }
 
-    <div class="mb-3">
-        <label asp-for="Telefono" class="form-label"></label>
+    .btn-save {
+        background: var(--accent-green);
+        color: white;
+        border: none;
+    }
 
-        <input asp-for="Telefono" class="form-control" />
+        .btn-save:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(52,211,153,.25);
+        }
 
-        <span asp-validation-for="Telefono" class="text-danger"></span>
-    </div>
+    .btn-delete {
+        background: var(--accent-red);
+        color: white;
+        border: none;
+    }
 
-    <div class="mb-3">
-        <label asp-for="Cedula" class="form-label"></label>
+        .btn-delete:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(248,113,113,.25);
+        }
 
-        <input asp-for="Cedula" class="form-control" />
+    .btn-back {
+        background: transparent;
+        border: 1px solid var(--card-border);
+        color: var(--text-primary);
+    }
 
-        <span asp-validation-for="Cedula" class="text-danger"></span>
-    </div>
+        .btn-back:hover {
+            background: #252836;
+            border-color: #3a3f52;
+        }
 
-    <div class="mb-3">
-        <label asp-for="Direccion" class="form-label"></label>
+    .action-buttons {
+        display: flex;
+        gap: .75rem;
+        margin-top: 2rem;
+    }
 
-        <textarea asp-for="Direccion" class="form-control"></textarea>
+    .text-danger {
+        color: var(--accent-red);
+    }
 
-        <span asp-validation-for="Direccion" class="text-danger"></span>
-    </div>
+    .layout-content {
+        margin-left: 220px;
+        width: calc(100% - 220px);
+        min-height: 100vh;
+        padding: 2rem;
+    }
+</style>
 
-    <div class="form-check mb-3">
+<div class="page-card">
 
-        <input asp-for="Activo" class="form-check-input" />
+    <h1 class="page-title">Nuevo Cliente</h1>
+    <p class="page-subtitle">
+        Registrar un nuevo cliente en el sistema
+    </p>
 
-        <label asp-for="Activo" class="form-check-label"></label>
+    <form asp-action="Edit" method="post">
+        <input type="hidden" asp-for="Id" />
 
-    </div>
+        <div class="form-group">
+            <label asp-for="NombreCompleto" class="form-label"></label>
+            <input asp-for="NombreCompleto" class="form-input" />
+            <span asp-validation-for="NombreCompleto" class="text-danger"></span>
+        </div>
 
-    <button type="submit" class="btn btn-warning">
-        Guardar Cambios
-    </button>
+        <div class="form-group">
+            <label asp-for="Correo" class="form-label"></label>
+            <input asp-for="Correo" class="form-input" />
+            <span asp-validation-for="Correo" class="text-danger"></span>
+        </div>
 
-    <a asp-action="Index" class="btn btn-secondary">
-        Volver
-    </a>
+        <div class="form-group">
+            <label asp-for="Telefono" class="form-label"></label>
+            <input asp-for="Telefono" class="form-input" />
+            <span asp-validation-for="Telefono" class="text-danger"></span>
+        </div>
 
-</form>
+        <div class="form-group">
+            <label asp-for="Cedula" class="form-label"></label>
+            <input asp-for="Cedula" class="form-input" />
+            <span asp-validation-for="Cedula" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Direccion" class="form-label"></label>
+            <textarea asp-for="Direccion" class="form-input" rows="4"></textarea>
+            <span asp-validation-for="Direccion" class="text-danger"></span>
+        </div>
+
+        <div style="margin-bottom:20px;">
+            <input asp-for="Activo" />
+            <label asp-for="Activo"></label>
+        </div>
+
+        <div class="action-buttons">
+
+            <button type="submit" class="btn-save">
+                Guardar Cambios
+            </button>
+
+            <a asp-action="Index" class="btn-back">
+                Cancelar
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
 
 @section Scripts {
-
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-
 }

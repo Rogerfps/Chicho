@@ -1,0 +1,544 @@
+﻿
+    <style>
+            :root {
+                --bg: #0f1117;
+                --sidebar-bg: #13151e;
+                --card-bg: #1a1d27;
+                --card-border: #252836;
+                --text-primary: #f0f2f8;
+                --text-secondary: #7b8099;
+                --text-muted: #4a5068;
+                --accent-blue: #4f7cff;
+                --accent-green: #34d399;
+                --accent-red: #f87171;
+                --accent-purple: #a78bfa;
+                --hover-bg: #1f2235;
+                --active-bg: #252a3d;
+            }
+
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: 'DM Sans',sans-serif;
+                background: var(--bg);
+                color: var(--text-primary);
+                display: flex;
+                min-height: 100vh;
+            }
+
+            .sidebar {
+                width: 220px;
+                min-width: 220px;
+                background: var(--sidebar-bg);
+                border-right: 1px solid var(--card-border);
+                display: flex;
+                flex-direction: column;
+                padding: 1.25rem 0;
+                position: fixed;
+                height: 100vh;
+                z-index: 100;
+            }
+
+            .sidebar-brand {
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+                padding: 0 1.25rem 1.5rem;
+                border-bottom: 1px solid var(--card-border);
+                margin-bottom: 1rem;
+            }
+
+            .brand-avatar {
+                width: 38px;
+                height: 38px;
+                border-radius: 10px;
+                background: linear-gradient(135deg,#4f7cff,#a78bfa);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: 700;
+                font-size: 1rem;
+                color: white;
+            }
+
+            .brand-name {
+                font-weight: 700;
+                font-size: 0.95rem;
+                color: var(--text-primary);
+            }
+
+            .brand-sub {
+                font-size: 0.7rem;
+                color: var(--text-secondary);
+            }
+
+            .nav-section-label {
+                font-size: 0.65rem;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                color: var(--text-muted);
+                padding: 0.75rem 1.25rem 0.4rem;
+            }
+
+            .nav-item {
+                display: flex;
+                align-items: center;
+                gap: 0.65rem;
+                padding: 0.55rem 1.25rem;
+                margin: 0.1rem 0.5rem;
+                border-radius: 8px;
+                color: var(--text-secondary);
+                text-decoration: none;
+                font-size: 0.85rem;
+                font-weight: 500;
+                transition: all 0.18s;
+            }
+
+                .nav-item:hover {
+                    background: var(--hover-bg);
+                    color: var(--text-primary);
+                }
+
+                .nav-item.active {
+                    background: var(--active-bg);
+                    color: var(--accent-blue);
+                }
+
+                .nav-item svg {
+                    width: 16px;
+                    height: 16px;
+                    flex-shrink: 0;
+                }
+
+            .sidebar-footer {
+                margin-top: auto;
+                padding: 1rem 1.25rem;
+                border-top: 1px solid var(--card-border);
+                font-size: 0.78rem;
+                color: var(--text-muted);
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                cursor: pointer;
+            }
+
+            .main {
+                margin-left: 220px;
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .topbar {
+                height: 60px;
+                background: var(--sidebar-bg);
+                border-bottom: 1px solid var(--card-border);
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0 2rem;
+                position: sticky;
+                top: 0;
+                z-index: 50;
+            }
+
+            .search-box {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                background: var(--card-bg);
+                border: 1px solid var(--card-border);
+                border-radius: 8px;
+                padding: 0.45rem 0.9rem;
+                width: 320px;
+            }
+
+                .search-box input {
+                    background: none;
+                    border: none;
+                    outline: none;
+                    color: var(--text-primary);
+                    font-size: 0.82rem;
+                    width: 100%;
+                    font-family: inherit;
+                }
+
+                    .search-box input::placeholder {
+                        color: var(--text-muted);
+                    }
+
+            .topbar-right {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            .topbar-btn {
+                width: 36px;
+                height: 36px;
+                border-radius: 8px;
+                background: var(--card-bg);
+                border: 1px solid var(--card-border);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                color: var(--text-secondary);
+                position: relative;
+            }
+
+            .notif-dot {
+                width: 7px;
+                height: 7px;
+                background: var(--accent-red);
+                border-radius: 50%;
+                position: absolute;
+                top: 6px;
+                right: 6px;
+                border: 1px solid var(--sidebar-bg);
+            }
+
+            .user-chip {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                background: var(--card-bg);
+                border: 1px solid var(--card-border);
+                border-radius: 8px;
+                padding: 0.35rem 0.75rem;
+                cursor: pointer;
+            }
+
+            .user-avatar {
+                width: 26px;
+                height: 26px;
+                border-radius: 6px;
+                background: linear-gradient(135deg,#4f7cff,#a78bfa);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 0.7rem;
+                font-weight: 700;
+                color: white;
+            }
+
+            .user-name {
+                font-size: 0.8rem;
+                font-weight: 600;
+                color: var(--text-primary);
+            }
+
+            .content {
+                padding: 2rem;
+                flex: 1;
+            }
+
+            .page-header-row {
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+                margin-bottom: 1.75rem;
+            }
+
+            .page-header h1 {
+                font-size: 1.5rem;
+                font-weight: 700;
+            }
+
+            .page-header p {
+                font-size: 0.82rem;
+                color: var(--text-secondary);
+                margin-top: 0.2rem;
+            }
+
+            .btn-primary {
+                background: var(--accent-blue);
+                color: white;
+                border: none;
+                padding: 0.5rem 1.1rem;
+                border-radius: 8px;
+                font-size: 0.82rem;
+                font-weight: 600;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                gap: 0.4rem;
+                transition: all 0.18s;
+                font-family: inherit;
+            }
+
+                .btn-primary:hover {
+                    background: #3a66e8;
+                }
+
+            .empresa-grid {
+                display: grid;
+                grid-template-columns: 1fr 340px;
+                gap: 1.5rem;
+                align-items: start;
+            }
+
+            .card {
+                background: var(--card-bg);
+                border: 1px solid var(--card-border);
+                border-radius: 14px;
+                padding: 1.75rem;
+                margin-bottom: 1.25rem;
+            }
+
+                .card:last-child {
+                    margin-bottom: 0;
+                }
+
+            .card-title {
+                font-size: 0.95rem;
+                font-weight: 600;
+                margin-bottom: 1.25rem;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                color: var(--text-primary);
+            }
+
+                .card-title svg {
+                    color: var(--text-muted);
+                }
+
+            .logo-upload {
+                border: 1.5px dashed var(--card-border);
+                border-radius: 10px;
+                padding: 1.25rem;
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                margin-bottom: 1.25rem;
+                cursor: pointer;
+                transition: border-color 0.2s;
+            }
+
+                .logo-upload:hover {
+                    border-color: var(--accent-blue);
+                }
+
+            .logo-placeholder {
+                width: 48px;
+                height: 48px;
+                border-radius: 10px;
+                background: linear-gradient(135deg,#4f7cff,#a78bfa);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+            }
+
+            .logo-info {
+                flex: 1;
+            }
+
+            .logo-info-title {
+                font-size: 0.85rem;
+                font-weight: 500;
+            }
+
+            .logo-info-sub {
+                font-size: 0.73rem;
+                color: var(--text-muted);
+                margin-top: 0.15rem;
+            }
+
+            .upload-btn {
+                background: transparent;
+                border: 1px solid var(--card-border);
+                color: var(--text-secondary);
+                padding: 0.35rem 0.8rem;
+                border-radius: 7px;
+                font-size: 0.75rem;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                gap: 0.35rem;
+                font-family: inherit;
+                transition: all 0.18s;
+            }
+
+                .upload-btn:hover {
+                    background: var(--hover-bg);
+                    color: var(--text-primary);
+                }
+
+            .form-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+            }
+
+            .form-group {
+                display: flex;
+                flex-direction: column;
+                gap: 0.4rem;
+            }
+
+                .form-group.full {
+                    grid-column: 1/-1;
+                }
+
+            .form-label {
+                font-size: 0.75rem;
+                font-weight: 500;
+                color: var(--text-secondary);
+            }
+
+            .form-input {
+                background: var(--bg);
+                border: 1px solid var(--card-border);
+                color: var(--text-primary);
+                padding: 0.55rem 0.85rem;
+                border-radius: 8px;
+                font-size: 0.83rem;
+                font-family: inherit;
+                outline: none;
+                transition: border-color 0.18s;
+            }
+
+                .form-input:focus {
+                    border-color: var(--accent-blue);
+                }
+
+            .bottom-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                gap: 1.25rem;
+                margin-top: 1.25rem;
+            }
+
+            .toggle-row {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0.6rem 0;
+            }
+
+            .toggle-info {
+            }
+
+            .toggle-label {
+                font-size: 0.83rem;
+                font-weight: 500;
+            }
+
+            .toggle-sub {
+                font-size: 0.72rem;
+                color: var(--text-muted);
+            }
+
+            .toggle {
+                width: 42px;
+                height: 24px;
+                border-radius: 99px;
+                background: var(--accent-blue);
+                display: flex;
+                align-items: center;
+                padding: 2px;
+                cursor: pointer;
+                transition: background 0.2s;
+                flex-shrink: 0;
+            }
+
+            .toggle-knob {
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                background: white;
+                margin-left: auto;
+            }
+
+            .toggle.off {
+                background: var(--card-border);
+            }
+
+                .toggle.off .toggle-knob {
+                    margin-left: 0;
+                }
+    </style>
+
+
+    <div class="main">
+        <div class="topbar">
+            <div class="search-box"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="color:var(--text-muted)"><circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" /></svg><input type="text" placeholder="Buscar clientes, paquetes, facturas..."></div>
+            <div class="topbar-right">
+                <div class="topbar-btn"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" /><path d="M13.73 21a2 2 0 0 1-3.46 0" /></svg><span class="notif-dot"></span></div>
+                <div class="topbar-btn"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" /><path d="M19.07 4.93A10 10 0 1 0 4.93 19.07 10 10 0 0 0 19.07 4.93z" /></svg></div>
+                <div class="user-chip"><div class="user-avatar">AP</div><span class="user-name">Admin</span></div>
+            </div>
+        </div>
+        <div class="content">
+            <div class="page-header-row">
+                <div class="page-header"><h1>Empresa</h1><p>Configura los datos e identidad de tu empresa</p></div>
+                <button class="btn-primary">Guardar cambios</button>
+            </div>
+
+            <div class="empresa-grid">
+                <!-- LEFT -->
+                <div>
+                    <div class="card">
+                        <div class="card-title"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" /><path d="M3 9h18M9 21V9" /></svg>Identidad corporativa</div>
+                        <div class="logo-upload">
+                            <div class="logo-placeholder"><svg width="22" height="22" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" /></svg></div>
+                            <div class="logo-info"><div class="logo-info-title">Logo de la empresa</div><div class="logo-info-sub">PNG o SVG, máx. 2MB</div></div>
+                            <button class="upload-btn"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="16 16 12 12 8 16" /><line x1="12" y1="12" x2="12" y2="21" /><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3" /></svg>Subir</button>
+                        </div>
+                        <div class="form-grid">
+                            <div class="form-group"><label class="form-label">Nombre de la empresa</label><input class="form-input" value="Sistema Chicho"></div>
+                            <div class="form-group"><label class="form-label">Razón social</label><input class="form-input" value="Chicho Logistics S.A."></div>
+                            <div class="form-group"><label class="form-label">Cédula jurídica</label><input class="form-input" value="3-101-789456"></div>
+                            <div class="form-group"><label class="form-label">Industria</label><input class="form-input" value="Logística y envíos"></div>
+                            <div class="form-group full"><label class="form-label">Descripción</label><input class="form-input" value="Soluciones logísticas modernas para empresas y particulares."></div>
+                        </div>
+                    </div>
+
+                    <div class="bottom-grid">
+                        <div class="card">
+                            <div class="card-title">Redes sociales</div>
+                            <div class="form-group" style="margin-bottom:0.75rem"><label class="form-label">Instagram</label><input class="form-input" value=""></div>
+                            <div class="form-group" style="margin-bottom:0.75rem"><label class="form-label">Facebook</label><input class="form-input" value="ChichoOficial"></div>
+                            <div class="form-group"><label class="form-label">Twitter / X</label><input class="form-input" value=""></div>
+                        </div>
+                        <div class="card">
+                            <div class="card-title">Moneda</div>
+                            <div class="form-group" style="margin-bottom:0.75rem"><label class="form-label">Moneda principal</label><input class="form-input" value="USD - Dólar estadounidense"></div>
+                            <div class="form-group" style="margin-bottom:0.75rem"><label class="form-label">Moneda secundaria</label><input class="form-input" value="CRC - Colón costarricense"></div>
+                            <div class="form-group"><label class="form-label">Tasa de cambio</label><input class="form-input" value="1 USD = 520 CRC"></div>
+                        </div>
+                        <div class="card">
+                            <div class="card-title">Impuestos</div>
+                            <div class="form-group" style="margin-bottom:1rem"><label class="form-label">IVA (%)</label><input class="form-input" value="13"></div>
+                            <div class="toggle-row"><div class="toggle-info"><div class="toggle-label">Incluir impuestos</div><div class="toggle-sub">En precios mostrados</div></div><div class="toggle"><div class="toggle-knob"></div></div></div>
+                            <div class="toggle-row" style="border-top:1px solid var(--card-border);margin-top:0.5rem;padding-top:0.75rem"><div class="toggle-info"><div class="toggle-label">Facturación electrónica</div><div class="toggle-sub">Conectar con MH</div></div><div class="toggle"><div class="toggle-knob"></div></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT -->
+                <div class="card">
+                    <div class="card-title">Contacto</div>
+                    <div class="form-group" style="margin-bottom:0.85rem">
+                        <label class="form-label"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display:inline;margin-right:4px"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22,6 12,13 2,6" /></svg>Email principal</label>
+                        <input class="form-input" value="info@chicho.com">
+                    </div>
+                    <div class="form-group" style="margin-bottom:0.85rem">
+                        <label class="form-label"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display:inline;margin-right:4px"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.19 12 19.79 19.79 0 0 1 1.08 3.18 2 2 0 0 1 3.05 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" /></svg>Teléfono</label>
+                        <input class="form-input" value="+506 2222-3333">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display:inline;margin-right:4px"><circle cx="12" cy="12" r="10" /><line x1="2" y1="12" x2="22" y2="12" /><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" /></svg>Sitio web</label>
+                        <input class="form-input" value="www.chicho.com">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

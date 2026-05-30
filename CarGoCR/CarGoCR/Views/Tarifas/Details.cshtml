@@ -7,117 +7,133 @@
 <style>
 
     body {
-        background: #020817;
-    }
-
-    .page-container {
-        padding-top: 40px;
-        padding-bottom: 40px;
+        background: #0f1117;
     }
 
     .details-card {
-        background: #071226;
-        border: 1px solid #1e293b;
-        border-radius: 25px;
+        background: #1a1d27;
+        border: 1px solid #252836;
+        border-radius: 20px;
         padding: 40px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+        box-shadow: 0 20px 40px rgba(0,0,0,.35);
         color: white;
     }
 
     .page-title {
+        font-size: 2rem;
         font-weight: 800;
-        margin-bottom: 10px;
+        color: #f0f2f8;
+        margin-bottom: .4rem;
     }
 
     .page-subtitle {
-        color: #94a3b8;
-        margin-bottom: 35px;
+        color: #7b8099;
+        margin-bottom: 2rem;
     }
 
     .info-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 20px;
+        grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+        gap: 18px;
     }
 
     .info-card {
-        background: #0f172a;
-        border: 1px solid #1e293b;
-        border-radius: 18px;
-        padding: 25px;
+        background: #0f1117;
+        border: 1px solid #252836;
+        border-radius: 16px;
+        padding: 20px;
+        transition: .25s;
     }
 
+        .info-card:hover {
+            transform: translateY(-3px);
+            border-color: #4f7cff;
+        }
+
     .info-label {
-        color: #94a3b8;
-        font-size: 0.9rem;
+        color: #7b8099;
+        font-size: .8rem;
+        text-transform: uppercase;
+        letter-spacing: .5px;
         margin-bottom: 10px;
     }
 
     .info-value {
-        font-size: 1.3rem;
+        color: #f0f2f8;
+        font-size: 1.25rem;
         font-weight: 700;
-        color: white;
+    }
+
+    .status-active,
+    .status-inactive,
+    .cotizacion {
+        padding: 8px 14px;
+        border-radius: 10px;
+        font-size: .8rem;
+        font-weight: 700;
     }
 
     .status-active {
-        background: #16a34a;
-        color: white;
-        padding: 8px 14px;
-        border-radius: 30px;
-        font-size: 0.9rem;
-        display: inline-block;
+        background: rgba(52,211,153,.15);
+        color: #34d399;
     }
 
     .status-inactive {
-        background: #dc2626;
-        color: white;
-        padding: 8px 14px;
-        border-radius: 30px;
-        font-size: 0.9rem;
-        display: inline-block;
+        background: rgba(248,113,113,.15);
+        color: #f87171;
     }
 
     .cotizacion {
-        background: #f59e0b;
-        color: white;
-        padding: 8px 14px;
-        border-radius: 30px;
-        font-size: 0.9rem;
-        display: inline-block;
+        background: rgba(245,158,11,.15);
+        color: #f59e0b;
     }
 
     .btn-edit {
-        background: linear-gradient(135deg, #f59e0b, #d97706);
+        background: linear-gradient(135deg,#4f7cff,#3b66f0);
         border: none;
         color: white;
         padding: 12px 24px;
-        border-radius: 14px;
-        font-weight: 700;
+        border-radius: 12px;
         text-decoration: none;
-        transition: 0.3s;
+        font-weight: 700;
+        transition: .25s;
     }
 
         .btn-edit:hover {
-            background: linear-gradient(135deg, #dc2626, #b91c1c);
             color: white;
             transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(79,124,255,.3);
         }
 
     .btn-back {
-        background: #1e293b;
-        color: white;
+        background: transparent;
+        border: 1px solid #252836;
+        color: #d7dbea;
         padding: 12px 24px;
-        border-radius: 14px;
+        border-radius: 12px;
         text-decoration: none;
         font-weight: 600;
-        transition: 0.3s;
+        transition: .25s;
     }
 
         .btn-back:hover {
-            background: #334155;
+            background: #252836;
             color: white;
         }
 
+    .action-buttons {
+        margin-top: 40px;
+        padding-top: 25px;
+        border-top: 1px solid #252836;
+        display: flex;
+        gap: 12px;
+    }
+    .layout-content {
+        margin-left: 220px;
+        width: calc(100% - 220px);
+        min-height: 100vh;
+        padding: 2rem;
+    }
 </style>
 
 <div class="container page-container">
@@ -180,7 +196,7 @@
                             Precio nacional
                         </div>
 
-                        <div class="info-value">
+                        <div class="info-value" style="color:#34d399;">
                             $@Model.PrecioNacional
                         </div>
 
@@ -192,7 +208,7 @@
                             Precio internacional
                         </div>
 
-                        <div class="info-value">
+                        <div class="info-value" style="color:#4f7cff;">
                             $@Model.PrecioInternacional
                         </div>
 
@@ -249,26 +265,20 @@
                     </div>
 
                 </div>
-
-                <div class="mt-5 d-flex gap-3">
+                <div class="action-buttons">
 
                     <a asp-action="Edit"
                        asp-route-id="@Model.Id"
                        class="btn-edit">
-
-                        Editar Tarifa
-
+                         Editar Tarifa
                     </a>
 
                     <a asp-action="Index"
                        class="btn-back">
-
-                        Volver
-
+                        ← Volver
                     </a>
 
                 </div>
-
             </div>
 
         </div>

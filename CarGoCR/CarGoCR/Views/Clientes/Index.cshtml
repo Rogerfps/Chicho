@@ -3,396 +3,695 @@
 @{
     ViewData["Title"] = "Clientes";
 }
+﻿
+    <style>
+            :root {
+                --bg: #0f1117;
+                --sidebar-bg: #13151e;
+                --card-bg: #1a1d27;
+                --card-border: #252836;
+                --text-primary: #f0f2f8;
+                --text-secondary: #7b8099;
+                --text-muted: #4a5068;
+                --accent-blue: #4f7cff;
+                --accent-green: #34d399;
+                --accent-red: #f87171;
+                --accent-purple: #a78bfa;
+                --hover-bg: #1f2235;
+                --active-bg: #252a3d;
+            }
 
-<style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
 
-    body {
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-        background: #f5f5f5;
-    }
+            body {
+                font-family: 'DM Sans',sans-serif;
+                background: var(--bg);
+                color: var(--text-primary);
+                display: flex;
+                min-height: 100vh;
+            }
 
-    /* Layout principal */
-    .dashboard-container {
-        max-width: 1440px;
-        margin: 0 auto;
-        padding: 2rem;
-    }
+            .sidebar {
+                width: 220px;
+                min-width: 220px;
+                background: var(--sidebar-bg);
+                border-right: 1px solid var(--card-border);
+                display: flex;
+                flex-direction: column;
+                padding: 1.25rem 0;
+                position: fixed;
+                height: 100vh;
+                z-index: 100;
+            }
 
-    /* Tarjeta principal */
-    .card-modern {
-        background: white;
-        border-radius: 16px;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1);
-        overflow: hidden;
-    }
+            .sidebar-brand {
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+                padding: 0 1.25rem 1.5rem;
+                border-bottom: 1px solid var(--card-border);
+                margin-bottom: 1rem;
+            }
 
-    /* Encabezado */
-    .header-modern {
-        padding: 1.5rem 2rem;
-        border-bottom: 1px solid #e5e5e5;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 1rem;
-    }
+            .brand-avatar {
+                width: 38px;
+                height: 38px;
+                border-radius: 10px;
+                background: linear-gradient(135deg,#4f7cff,#a78bfa);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: 700;
+                font-size: 1rem;
+                color: white;
+            }
 
-    .title-section h1 {
-        font-size: 1.5rem;
-        font-weight: 600;
-        color: #000000;
-        margin: 0;
-    }
+            .brand-name {
+                font-weight: 700;
+                font-size: 0.95rem;
+                color: var(--text-primary);
+            }
 
-    .title-section p {
-        font-size: 0.875rem;
-        color: #666666;
-        margin-top: 0.25rem;
-    }
+            .brand-sub {
+                font-size: 0.7rem;
+                color: var(--text-secondary);
+            }
 
-    /* Botón primario azul */
-    .btn-primary {
-        background: #2563eb;
-        color: white;
-        border: none;
-        padding: 0.5rem 1rem;
-        border-radius: 8px;
-        font-size: 0.875rem;
-        font-weight: 500;
-        cursor: pointer;
-        text-decoration: none;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        transition: all 0.2s ease;
-    }
+            .nav-section-label {
+                font-size: 0.65rem;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                color: var(--text-muted);
+                padding: 0.75rem 1.25rem 0.4rem;
+            }
 
-        .btn-primary:hover {
-            background: #1e40af;
-            transform: translateY(-1px);
+            .nav-item {
+                display: flex;
+                align-items: center;
+                gap: 0.65rem;
+                padding: 0.55rem 1.25rem;
+                margin: 0.1rem 0.5rem;
+                border-radius: 8px;
+                color: var(--text-secondary);
+                text-decoration: none;
+                font-size: 0.85rem;
+                font-weight: 500;
+                transition: all 0.18s;
+            }
+
+                .nav-item:hover {
+                    background: var(--hover-bg);
+                    color: var(--text-primary);
+                }
+
+                .nav-item.active {
+                    background: var(--active-bg);
+                    color: var(--accent-blue);
+                }
+
+                .nav-item svg {
+                    width: 16px;
+                    height: 16px;
+                    flex-shrink: 0;
+                }
+
+            .sidebar-footer {
+                margin-top: auto;
+                padding: 1rem 1.25rem;
+                border-top: 1px solid var(--card-border);
+                font-size: 0.78rem;
+                color: var(--text-muted);
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                cursor: pointer;
+            }
+
+            .main {
+                margin-left: 220px;
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .topbar {
+                height: 60px;
+                background: var(--sidebar-bg);
+                border-bottom: 1px solid var(--card-border);
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0 2rem;
+                position: sticky;
+                top: 0;
+                z-index: 50;
+            }
+
+            .search-box {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                background: var(--card-bg);
+                border: 1px solid var(--card-border);
+                border-radius: 8px;
+                padding: 0.45rem 0.9rem;
+                width: 320px;
+            }
+
+                .search-box input {
+                    background: none;
+                    border: none;
+                    outline: none;
+                    color: var(--text-primary);
+                    font-size: 0.82rem;
+                    width: 100%;
+                    font-family: inherit;
+                }
+
+                    .search-box input::placeholder {
+                        color: var(--text-muted);
+                    }
+
+            .topbar-right {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            .topbar-btn {
+                width: 36px;
+                height: 36px;
+                border-radius: 8px;
+                background: var(--card-bg);
+                border: 1px solid var(--card-border);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                color: var(--text-secondary);
+                transition: all 0.18s;
+                position: relative;
+            }
+
+                .topbar-btn:hover {
+                    color: var(--text-primary);
+                    background: var(--hover-bg);
+                }
+
+            .notif-dot {
+                width: 7px;
+                height: 7px;
+                background: var(--accent-red);
+                border-radius: 50%;
+                position: absolute;
+                top: 6px;
+                right: 6px;
+                border: 1px solid var(--sidebar-bg);
+            }
+
+            .user-chip {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                background: var(--card-bg);
+                border: 1px solid var(--card-border);
+                border-radius: 8px;
+                padding: 0.35rem 0.75rem;
+                cursor: pointer;
+            }
+
+            .user-avatar {
+                width: 26px;
+                height: 26px;
+                border-radius: 6px;
+                background: linear-gradient(135deg,#4f7cff,#a78bfa);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 0.7rem;
+                font-weight: 700;
+                color: white;
+            }
+
+            .user-name {
+                font-size: 0.8rem;
+                font-weight: 600;
+                color: var(--text-primary);
+            }
+
+            .content {
+                padding: 2rem;
+                flex: 1;
+            }
+
+            .page-header-row {
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+                margin-bottom: 1.75rem;
+            }
+
+            .page-header h1 {
+                font-size: 1.5rem;
+                font-weight: 700;
+                color: var(--text-primary);
+            }
+
+            .page-header p {
+                font-size: 0.82rem;
+                color: var(--text-secondary);
+                margin-top: 0.2rem;
+            }
+
+            .btn-primary {
+                background: var(--accent-blue);
+                color: white;
+                border: none;
+                padding: 0.5rem 1.1rem;
+                border-radius: 8px;
+                font-size: 0.82rem;
+                font-weight: 600;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                gap: 0.4rem;
+                transition: all 0.18s;
+                font-family: inherit;
+            }
+
+                .btn-primary:hover {
+                    background: #3a66e8;
+                    transform: translateY(-1px);
+                }
+
+            /* STAT MINI CARDS */
+            .stats-grid {
+                display: grid;
+                grid-template-columns: repeat(4,1fr);
+                gap: 1rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .stat-mini {
+                background: var(--card-bg);
+                border: 1px solid var(--card-border);
+                border-radius: 12px;
+                padding: 1.25rem 1.5rem;
+            }
+
+            .stat-mini-label {
+                font-size: 0.78rem;
+                color: var(--text-secondary);
+                margin-bottom: 0.4rem;
+            }
+
+            .stat-mini-val {
+                font-size: 1.6rem;
+                font-weight: 700;
+                color: var(--text-primary);
+            }
+
+                .stat-mini-val.green {
+                    color: var(--accent-green);
+                }
+
+                .stat-mini-val.blue {
+                    color: var(--accent-blue);
+                }
+
+            /* TABLE CARD */
+            .table-card {
+                background: var(--card-bg);
+                border: 1px solid var(--card-border);
+                border-radius: 14px;
+                overflow: hidden;
+            }
+
+            .table-toolbar {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 1.25rem 1.5rem;
+                border-bottom: 1px solid var(--card-border);
+            }
+
+            .table-search {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                background: var(--bg);
+                border: 1px solid var(--card-border);
+                border-radius: 8px;
+                padding: 0.45rem 0.9rem;
+                flex: 1;
+                max-width: 380px;
+            }
+
+                .table-search input {
+                    background: none;
+                    border: none;
+                    outline: none;
+                    color: var(--text-primary);
+                    font-size: 0.82rem;
+                    width: 100%;
+                    font-family: inherit;
+                }
+
+                    .table-search input::placeholder {
+                        color: var(--text-muted);
+                    }
+
+            .btn-filter {
+                display: flex;
+                align-items: center;
+                gap: 0.4rem;
+                background: transparent;
+                border: 1px solid var(--card-border);
+                color: var(--text-secondary);
+                padding: 0.45rem 0.9rem;
+                border-radius: 8px;
+                font-size: 0.82rem;
+                font-weight: 500;
+                cursor: pointer;
+                font-family: inherit;
+                transition: all 0.18s;
+            }
+
+                .btn-filter:hover {
+                    background: var(--hover-bg);
+                    color: var(--text-primary);
+                }
+
+            .data-table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+
+                .data-table th {
+                    text-align: left;
+                    padding: 0.75rem 1.25rem;
+                    font-size: 0.7rem;
+                    font-weight: 600;
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
+                    color: var(--text-muted);
+                    background: rgba(255,255,255,0.02);
+                    border-bottom: 1px solid var(--card-border);
+                }
+
+                .data-table td {
+                    padding: 0.9rem 1.25rem;
+                    font-size: 0.83rem;
+                    color: var(--text-primary);
+                    border-bottom: 1px solid rgba(255,255,255,0.04);
+                }
+
+                .data-table tbody tr:last-child td {
+                    border-bottom: none;
+                }
+
+                .data-table tbody tr:hover td {
+                    background: rgba(255,255,255,0.02);
+                }
+
+            .client-cell {
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+            }
+
+            .client-avatar {
+                width: 34px;
+                height: 34px;
+                border-radius: 9px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 0.75rem;
+                font-weight: 700;
+                color: white;
+                flex-shrink: 0;
+            }
+
+            .client-name {
+                font-weight: 600;
+                font-size: 0.85rem;
+                color: var(--text-primary);
+            }
+
+            .client-code {
+                font-size: 0.72rem;
+                color: var(--text-muted);
+                font-family: 'DM Mono',monospace;
+            }
+
+            .contact-line {
+                display: flex;
+                align-items: center;
+                gap: 0.4rem;
+                font-size: 0.78rem;
+                color: var(--text-secondary);
+                margin-bottom: 0.2rem;
+            }
+
+                .contact-line svg {
+                    width: 12px;
+                    height: 12px;
+                    flex-shrink: 0;
+                }
+
+            .badge-active {
+                background: rgba(52,211,153,0.12);
+                color: var(--accent-green);
+                font-size: 0.72rem;
+                font-weight: 600;
+                padding: 0.25rem 0.65rem;
+                border-radius: 6px;
+            }
+
+            .badge-inactive {
+                background: rgba(248,113,113,0.1);
+                color: var(--accent-red);
+                font-size: 0.72rem;
+                font-weight: 600;
+                padding: 0.25rem 0.65rem;
+                border-radius: 6px;
+            }
+
+            .actions-btn {
+                width: 28px;
+                height: 28px;
+                border-radius: 6px;
+                background: transparent;
+                border: none;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                color: var(--text-muted);
+                transition: all 0.18s;
+            }
+
+                .actions-btn:hover {
+                    background: var(--hover-bg);
+                    color: var(--text-primary);
+                }
+
+        .empty-message {
+            text-align: center;
+            padding: 3rem !important;
+            color: var(--text-secondary);
+            font-size: .95rem;
+            font-weight: 500;
         }
+    </style>
+<body>
 
-    /* Botón secundario */
-    .btn-secondary {
-        background: transparent;
-        color: #2563eb;
-        border: 1px solid #2563eb;
-        padding: 0.375rem 0.875rem;
-        border-radius: 6px;
-        font-size: 0.75rem;
-        font-weight: 500;
-        text-decoration: none;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.375rem;
-        transition: all 0.2s ease;
-    }
-
-        .btn-secondary:hover {
-            background: #eff6ff;
-        }
-
-    /* Botón peligro rojo */
-    .btn-danger {
-        background: #dc2626;
-        color: white;
-        border: none;
-        padding: 0.375rem 0.875rem;
-        border-radius: 6px;
-        font-size: 0.75rem;
-        font-weight: 500;
-        text-decoration: none;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.375rem;
-        transition: all 0.2s ease;
-    }
-
-        .btn-danger:hover {
-            background: #b91c1c;
-        }
-
-    /* Tabla moderna */
-    .table-wrapper {
-        overflow-x: auto;
-    }
-
-    .table-modern {
-        width: 100%;
-        border-collapse: collapse;
-    }
-
-        .table-modern thead {
-            background: #fafafa;
-            border-bottom: 1px solid #e5e5e5;
-        }
-
-        .table-modern th {
-            text-align: left;
-            padding: 1rem;
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: #666666;
-        }
-
-        .table-modern td {
-            padding: 1rem;
-            font-size: 0.875rem;
-            color: #000000;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .table-modern tbody tr:hover {
-            background: #fafafa;
-        }
-
-    /* ID destacado */
-    .id-modern {
-        font-weight: 600;
-        color: #2563eb;
-        font-family: 'Monaco', monospace;
-        font-size: 0.875rem;
-    }
-
-    /* Nombre */
-    .nombre-modern {
-        font-weight: 500;
-        color: #000000;
-    }
-
-    /* Enlace de correo */
-    .email-link {
-        color: #2563eb;
-        text-decoration: none;
-        font-size: 0.875rem;
-    }
-
-        .email-link:hover {
-            text-decoration: underline;
-            color: #1e40af;
-        }
-
-    /* Badge de estado */
-    .badge-modern {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.375rem;
-        padding: 0.25rem 0.625rem;
-        border-radius: 20px;
-        font-size: 0.75rem;
-        font-weight: 500;
-    }
-
-    .badge-active {
-        background: #dcfce7;
-        color: #166534;
-    }
-
-    .badge-inactive {
-        background: #fee2e2;
-        color: #991b1b;
-    }
-
-    /* Dirección truncada */
-    .direccion-truncada {
-        max-width: 200px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        color: #666666;
-    }
-
-    /* Grupo de acciones */
-    .actions-group {
-        display: flex;
-        gap: 0.5rem;
-    }
-
-    /* Contador de resultados */
-    .counter-modern {
-        padding: 1rem 1.5rem;
-        border-top: 1px solid #e5e5e5;
-        background: #fafafa;
-        display: flex;
-        justify-content: flex-end;
-    }
-
-    .counter-text {
-        font-size: 0.75rem;
-        color: #666666;
-        font-weight: 500;
-    }
-
-    .counter-number {
-        color: #2563eb;
-        font-weight: 700;
-        margin-left: 0.25rem;
-    }
-
-    /* Estado vacío */
-    .empty-state {
-        padding: 4rem 2rem;
-        text-align: center;
-    }
-
-    .empty-icon {
-        font-size: 3rem;
-        margin-bottom: 1rem;
-        opacity: 0.5;
-    }
-
-    .empty-title {
-        font-size: 1rem;
-        font-weight: 500;
-        color: #000000;
-        margin-bottom: 0.5rem;
-    }
-
-    .empty-text {
-        font-size: 0.875rem;
-        color: #666666;
-        margin-bottom: 1.5rem;
-    }
-
-    /* Responsive */
-    @@media (max-width: 768px) {
-        .dashboard-container {
-            padding: 1rem;
-        }
-
-        .header-modern {
-            padding: 1rem;
-            flex-direction: column;
-            align-items: stretch;
-        }
-
-        .table-modern th,
-        .table-modern td {
-            padding: 0.75rem;
-        }
-
-        .actions-group {
-            flex-direction: column;
-            gap: 0.375rem;
-        }
-
-        .direccion-truncada {
-            max-width: 120px;
-        }
-    }
-</style>
-
-<div class="dashboard-container">
-    <div class="card-modern">
-        <!-- Header -->
-        <div class="header-modern">
-            <div class="title-section">
-                <h1>Clientes</h1>
-                <p>Gestión y administración de clientes</p>
+            <div class="topbar-right">
+                <div class="topbar-btn"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" /><path d="M13.73 21a2 2 0 0 1-3.46 0" /></svg><span class="notif-dot"></span></div>
+                <div class="topbar-btn"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" /><path d="M19.07 4.93A10 10 0 1 0 4.93 19.07 10 10 0 0 0 19.07 4.93z" /></svg></div>
+                <div class="user-chip"><div class="user-avatar">AP</div><span class="user-name">Admin</span></div>
             </div>
-            <a asp-action="Create" class="btn-primary">
-                <span>+</span> Nuevo Cliente
-            </a>
         </div>
 
-        <!-- Tabla de clientes -->
-        @if (Model.Any())
-        {
-            <div class="table-wrapper">
-                <table class="table-modern">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nombre</th>
-                            <th>Correo</th>
-                            <th>Teléfono</th>
-                            <th>Cédula</th>
-                            <th>Dirección</th>
-                            <th>Estado</th>
-                            <th>Registro</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+        <div class="content">
+            <div class="page-header-row">
+                <div class="page-header">
+                    <h1>Clientes</h1>
+                    <p>Gestiona y consulta toda tu base de clientes</p>
+                </div>
+                    <a asp-action="Create" class="btn-primary" style="text-decoration:none;">
+                        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                            <line x1="12" y1="5" x2="12" y2="19" />
+                            <line x1="5" y1="12" x2="19" y2="12" />
+                        </svg>
+                        Nuevo cliente
+                    </a>
+            </div>
+
+            <div class="stats-grid">
+                    <div class="stat-mini">
+                        <div class="stat-mini-label">Total clientes</div>
+                        <div class="stat-mini-val">
+                            @Model.Count()
+                        </div>
+                    </div>
+
+                    <div class="stat-mini">
+                        <div class="stat-mini-label">Activos</div>
+                        <div class="stat-mini-val green">
+                            @Model.Count(c => c.Activo)
+                        </div>
+                    </div>
+
+                    <div class="stat-mini">
+                        <div class="stat-mini-label">Inactivos</div>
+                        <div class="stat-mini-val">
+                            @Model.Count(c => !c.Activo)
+                        </div>
+                    </div>
+
+   
+            </div>
+
+            <div class="table-card">
+                <div class="table-toolbar">
+                    <div class="table-search">
+                        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="color:var(--text-muted)"><circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" /></svg>
+                        <input type="text" placeholder="Buscar por nombre o email...">
+                    </div>
+                    <button class="btn-filter">
+                        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" /></svg>
+                        Filtros
+                    </button>
+                </div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Cliente</th>
+                                <th>Contacto</th>
+                                <th>Compras</th>
+                                <th>Total</th>
+                                <th>Estado</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                <tbody>
+
+                    @if (Model != null && Model.Any())
+                    {
                         @foreach (var cliente in Model)
                         {
                             <tr>
-                                <td class="id-modern">#@cliente.Id</td>
-                                <td class="nombre-modern">@cliente.NombreCompleto</td>
                                 <td>
-                                    <a href="mailto:@cliente.Correo" class="email-link">
-                                        @cliente.Correo
-                                    </a>
-                                </td>
-                                <td>@cliente.Telefono</td>
-                                <td>@cliente.Cedula</td>
-                                <td>
-                                    <div class="direccion-truncada" title="@cliente.Direccion">
-                                        @cliente.Direccion
+                                    <div class="client-cell">
+                                        <div class="client-avatar" style="background:linear-gradient(135deg,#4f7cff,#a78bfa)">
+                                            @(cliente.NombreCompleto.Substring(0, 1).ToUpper())
+                                        </div>
+
+                                        <div>
+                                            <div class="client-name">
+                                                @cliente.NombreCompleto
+                                            </div>
+                                            <div class="client-code">
+                                                #@cliente.Id
+                                            </div>
+                                        </div>
                                     </div>
                                 </td>
+
+                                <td>
+                                    <div class="contact-line">
+                                        @cliente.Correo
+                                    </div>
+
+                                    <div class="contact-line">
+                                        @cliente.Telefono
+                                    </div>
+                                </td>
+
+                                <td>
+                                    @cliente.FechaRegistro.ToShortDateString()
+                                </td>
+
+                                <td>
+                                    ₡0.00
+                                </td>
+
                                 <td>
                                     @if (cliente.Activo)
                                     {
-                                        <span class="badge-modern badge-active">
-                                            <span>●</span> Activo
+                                        <span class="badge-active">
+                                            Activo
                                         </span>
                                     }
                                     else
                                     {
-                                        <span class="badge-modern badge-inactive">
-                                            <span>●</span> Inactivo
+                                        <span class="badge-inactive">
+                                            Inactivo
                                         </span>
                                     }
                                 </td>
-                                <td>@cliente.FechaRegistro.ToShortDateString()</td>
+
                                 <td>
-                                    <div class="actions-group">
-                                        <a asp-action="Edit" asp-route-id="@cliente.Id"
-                                           class="btn-secondary">
-                                            Editar
+                                    <div style="display:flex; gap:5px;">
+                                        <a asp-action="Details"
+                                           asp-route-id="@cliente.Id"
+                                           class="actions-btn"
+                                           title="Ver">
+
+                                            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"></path>
+                                                <circle cx="12" cy="12" r="3"></circle>
+                                            </svg>
                                         </a>
-                                        <a asp-action="Details" asp-route-id="@cliente.Id"
-                                           class="btn-secondary">
-                                            Ver
+
+                                        <a asp-action="Edit"
+                                           asp-route-id="@cliente.Id"
+                                           class="actions-btn"
+                                           title="Editar">
+
+                                            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                                <path d="M12 20h9"></path>
+                                                <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"></path>
+                                            </svg>
                                         </a>
-                                        <a asp-action="Delete" asp-route-id="@cliente.Id"
-                                           class="btn-danger">
-                                            Eliminar
+
+                                        <a asp-action="Delete"
+                                           asp-route-id="@cliente.Id"
+                                           class="actions-btn"
+                                           title="Eliminar">
+
+                                            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                                <polyline points="3 6 5 6 21 6"></polyline>
+                                                <path d="M19 6l-1 14H6L5 6"></path>
+                                                <path d="M10 11v6"></path>
+                                                <path d="M14 11v6"></path>
+                                                <path d="M9 6V4h6v2"></path>
+                                            </svg>
                                         </a>
                                     </div>
                                 </td>
                             </tr>
                         }
-                    </tbody>
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="6" class="empty-message">
+                                No hay clientes registrados
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
                 </table>
             </div>
-
-            <!-- Contador -->
-            <div class="counter-modern">
-                <span class="counter-text">
-                    Total de clientes: <span class="counter-number">@Model.Count</span>
-                </span>
-            </div>
-        }
-        else
-        {
-            <!-- Estado vacío -->
-            <div class="empty-state">
-                <div class="empty-icon">📋</div>
-                <div class="empty-title">No hay clientes registrados</div>
-                <div class="empty-text">Comienza agregando tu primer cliente</div>
-                <a asp-action="Create" class="btn-primary">
-                    + Nuevo Cliente
-                </a>
-            </div>
-        }
+        </div>
     </div>
-</div>
+</body>

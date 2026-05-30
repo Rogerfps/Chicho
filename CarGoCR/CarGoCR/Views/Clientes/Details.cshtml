@@ -3,76 +3,201 @@
 @{
     ViewData["Title"] = "Detalles del Cliente";
 }
+<style>
+    .info-grid {
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        gap: 1rem;
+    }
 
-<h1 class="mb-4">Detalles del Cliente</h1>
+    .info-item {
+        background: var(--bg);
+        border: 1px solid var(--card-border);
+        border-radius: 10px;
+        padding: 1rem;
+    }
 
-<div class="card">
+        .info-item span {
+            display: block;
+            color: var(--text-secondary);
+            font-size: .8rem;
+            margin-bottom: .4rem;
+        }
 
-    <div class="card-body">
+        .info-item strong {
+            color: var(--text-primary);
+        }
 
-        <h4 class="card-title mb-4">
-            Información del Cliente
-        </h4>
+    .action-buttons {
+        margin-top: 2rem;
+        display: flex;
+        gap: .75rem;
+    }
 
-        <p>
-            <strong>ID:</strong>
-            @Model.Id
-        </p>
+    .badge-active {
+        background: rgba(52,211,153,.15);
+        color: var(--accent-green);
+        padding: .35rem .8rem;
+        border-radius: 8px;
+        font-size: .8rem;
+        font-weight: 600;
+    }
 
-        <p>
-            <strong>Nombre Completo:</strong>
-            @Model.NombreCompleto
-        </p>
+    .badge-inactive {
+        background: rgba(248,113,113,.15);
+        color: var(--accent-red);
+        padding: .35rem .8rem;
+        border-radius: 8px;
+        font-size: .8rem;
+        font-weight: 600;
+    }
 
-        <p>
-            <strong>Correo:</strong>
-            @Model.Correo
-        </p>
+    .action-buttons {
+        margin-top: 2rem;
+        display: flex;
+        gap: .75rem;
+    }
 
-        <p>
-            <strong>Teléfono:</strong>
-            @Model.Telefono
-        </p>
+    /* Botón Editar */
+    .btn-edit {
+        background: var(--accent-blue);
+        color: #fff;
+        padding: .85rem 1.4rem;
+        border-radius: 10px;
+        text-decoration: none;
+        font-weight: 600;
+        border: none;
+        transition: .25s;
+        display: inline-flex;
+        align-items: center;
+        gap: .5rem;
+    }
 
-        <p>
-            <strong>Cédula:</strong>
-            @Model.Cedula
-        </p>
+        .btn-edit:hover {
+            background: #3a66e8;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(79,124,255,.25);
+        }
 
-        <p>
-            <strong>Dirección:</strong>
-            @Model.Direccion
-        </p>
+    /* Botón Volver / Cancelar */
+    .btn-secondary-modern {
+        background: transparent;
+        border: 1px solid var(--card-border);
+        color: var(--text-primary);
+        padding: .85rem 1.4rem;
+        border-radius: 10px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: .25s;
+        display: inline-flex;
+        align-items: center;
+    }
 
-        <p>
-            <strong>Activo:</strong>
-            @(Model.Activo ? "Sí" : "No")
-        </p>
+        .btn-secondary-modern:hover {
+            background: var(--hover-bg);
+            border-color: var(--accent-blue);
+        }
 
-        <p>
-            <strong>Fecha Registro:</strong>
-            @Model.FechaRegistro.ToShortDateString()
-        </p>
+    /* Botón Eliminar */
+    .btn-delete {
+        background: var(--accent-red);
+        color: white;
+        border: none;
+        padding: .85rem 1.4rem;
+        border-radius: 10px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: .25s;
+    }
+
+        .btn-delete:hover {
+            background: #dc2626;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(248,113,113,.25);
+        }
+
+    .layout-content {
+        margin-left: 220px;
+        width: calc(100% - 220px);
+        min-height: 100vh;
+        padding: 2rem;
+    }
+
+</style>
+<div class="page-card">
+
+    <h1 class="page-title">Detalles del Cliente</h1>
+
+    <p class="page-subtitle">
+        Información completa del cliente registrado.
+    </p>
+
+    <div class="info-grid">
+
+        <div class="info-item">
+            <span>ID</span>
+            <strong>@Model.Id</strong>
+        </div>
+
+        <div class="info-item">
+            <span>Nombre Completo</span>
+            <strong>@Model.NombreCompleto</strong>
+        </div>
+
+        <div class="info-item">
+            <span>Correo</span>
+            <strong>@Model.Correo</strong>
+        </div>
+
+        <div class="info-item">
+            <span>Teléfono</span>
+            <strong>@Model.Telefono</strong>
+        </div>
+
+        <div class="info-item">
+            <span>Cédula</span>
+            <strong>@Model.Cedula</strong>
+        </div>
+
+        <div class="info-item">
+            <span>Dirección</span>
+            <strong>@Model.Direccion</strong>
+        </div>
+
+        <div class="info-item">
+            <span>Estado</span>
+
+            @if (Model.Activo)
+            {
+                <span class="badge-active">Activo</span>
+            }
+            else
+            {
+                <span class="badge-inactive">Inactivo</span>
+            }
+
+        </div>
+
+        <div class="info-item">
+            <span>Fecha Registro</span>
+            <strong>@Model.FechaRegistro.ToShortDateString()</strong>
+        </div>
 
     </div>
 
-</div>
+    <div class="action-buttons">
 
-<div class="mt-3">
+            <a asp-action="Edit"
+               asp-route-id="@Model.Id"
+               class="btn-edit">
+                 Editar Cliente
+            </a>
 
-    <a asp-action="Edit"
-       asp-route-id="@Model.Id"
-       class="btn btn-warning">
+            <a asp-action="Index"
+               class="btn-secondary-modern">
+                ← Volver
+            </a>
 
-        Editar
-
-    </a>
-
-    <a asp-action="Index"
-       class="btn btn-secondary">
-
-        Volver
-
-    </a>
+    </div>
 
 </div>
