@@ -14,9 +14,38 @@
             <div class="topbar-btn">
                 <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" /><path d="M19.07 4.93A10 10 0 1 0 4.93 19.07 10 10 0 0 0 19.07 4.93z" /></svg>
             </div>
-            <div class="user-chip">
-                <div class="user-avatar">AP</div>
-                <span class="user-name">Admin</span>
+            <div class="user-dropdown">
+                <div class="user-chip" onclick="toggleUserMenu()">
+                    <div class="user-avatar">
+                        @(User.Identity?.Name?.Substring(0, 1).ToUpper() ?? "A")
+                    </div>
+
+                    <span class="user-name">
+                        @User.Identity?.Name
+                    </span>
+
+                    <svg width="14" height="14"
+                         fill="none"
+                         stroke="currentColor"
+                         stroke-width="2"
+                         viewBox="0 0 24 24">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </div>
+
+                <div class="user-menu" id="userMenu">
+
+                    <a asp-controller="Users"
+                       asp-action="Index">
+                        Usuarios
+                    </a>
+
+                    <a asp-controller="Account"
+                       asp-action="Logout">
+                        Cerrar sesión
+                    </a>
+
+                </div>
             </div>
         </div>
     </div>

@@ -1,0 +1,102 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Iniciar Sesión</title>
+
+    <style>
+            body {
+                background: #0f1117;
+                color: white;
+                font-family: 'DM Sans', sans-serif;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 100vh;
+            }
+
+            .login-card {
+                width: 400px;
+                background: #1a1d27;
+                border: 1px solid #252836;
+                border-radius: 14px;
+                padding: 2rem;
+            }
+
+            h2 {
+                margin-bottom: 1.5rem;
+            }
+
+            .form-group {
+                margin-bottom: 1rem;
+            }
+
+            label {
+                display: block;
+                margin-bottom: .35rem;
+                color: #7b8099;
+            }
+
+            input {
+                width: 100%;
+                padding: .75rem;
+                border-radius: 8px;
+                border: 1px solid #252836;
+                background: #0f1117;
+                color: white;
+                box-sizing: border-box;
+            }
+
+            button {
+                width: 100%;
+                padding: .85rem;
+                background: #4f7cff;
+                border: none;
+                border-radius: 8px;
+                color: white;
+                font-weight: 600;
+                cursor: pointer;
+            }
+
+            .validation-summary-errors {
+                color: #f87171;
+                margin-bottom: 1rem;
+            }
+    </style>
+</head>
+<body>
+
+    <div class="login-card">
+
+        <h2>Iniciar Sesión</h2>
+
+        <div asp-validation-summary="All"></div>
+
+        <form method="post">
+
+            @Html.AntiForgeryToken()
+
+            <div class="form-group">
+                <label>Usuario</label>
+                <input type="text" name="userName" />
+            </div>
+
+            <div class="form-group">
+                <label>Contraseña</label>
+                <input type="password" name="password" />
+            </div>
+
+            <button type="submit">
+                Entrar
+            </button>
+
+        </form>
+
+    </div>
+
+</body>
+</html>

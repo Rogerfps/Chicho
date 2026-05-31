@@ -1,10 +1,12 @@
 ﻿using CarGoCR.Data;
 using CarGoCR.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarGoCR.Controllers
 {
+    [Authorize]
     public class TarifasController : Controller
     {
         private readonly AppDbContext _context;

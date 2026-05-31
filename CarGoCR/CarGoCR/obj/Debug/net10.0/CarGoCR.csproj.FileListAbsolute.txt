@@ -378,3 +378,4 @@ C:\Users\kevin\OneDrive\Escritorio\Proyectos\Chicho\CarGoCR\CarGoCR\obj\Debug\ne
 C:\Users\kevin\OneDrive\Escritorio\Proyectos\Chicho\CarGoCR\CarGoCR\obj\Debug\net10.0\ref\CarGoCR.dll
 C:\Users\kevin\OneDrive\Escritorio\Proyectos\Chicho\CarGoCR\CarGoCR\obj\Debug\net10.0\compressed\hgzlnzo5lq-{0}-gd4y6cxzae-gd4y6cxzae.gz
 C:\Proyectos\Chicho\CarGoCR\CarGoCR\obj\Debug\net10.0\compressed\hgzlnzo5lq-{0}-gd4y6cxzae-gd4y6cxzae.gz
+C:\Proyectos\Chicho\CarGoCR\CarGoCR\bin\Debug\net10.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll

@@ -3,12 +3,80 @@
   "WorkspaceRootPath": "C:\\Proyectos\\Chicho\\CarGoCR\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|c:\\proyectos\\chicho\\cargocr\\cargocr\\views\\empresa\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|solutionrelative:cargocr\\views\\empresa\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|c:\\proyectos\\chicho\\cargocr\\cargocr\\views\\users\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|solutionrelative:cargocr\\views\\users\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Migrations\\20260530175726_ModuloEmpresa2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:CarGoCR\\Migrations\\20260530175726_ModuloEmpresa2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|c:\\proyectos\\chicho\\cargocr\\cargocr\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|solutionrelative:cargocr\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|c:\\proyectos\\chicho\\cargocr\\cargocr\\views\\users\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|solutionrelative:cargocr\\views\\users\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|c:\\proyectos\\chicho\\cargocr\\cargocr\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|solutionrelative:cargocr\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|c:\\proyectos\\chicho\\cargocr\\cargocr\\controllers\\tarifascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|solutionrelative:cargocr\\controllers\\tarifascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|c:\\proyectos\\chicho\\cargocr\\cargocr\\views\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|solutionrelative:cargocr\\views\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|c:\\proyectos\\chicho\\cargocr\\cargocr\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|solutionrelative:cargocr\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|c:\\proyectos\\chicho\\cargocr\\cargocr\\views\\users\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|solutionrelative:cargocr\\views\\users\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|c:\\proyectos\\chicho\\cargocr\\cargocr\\views\\users\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|solutionrelative:cargocr\\views\\users\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|c:\\proyectos\\chicho\\cargocr\\cargocr\\models\\applicationuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|solutionrelative:cargocr\\models\\applicationuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|c:\\proyectos\\chicho\\cargocr\\cargocr\\views\\clientes\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|solutionrelative:cargocr\\views\\clientes\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|c:\\proyectos\\chicho\\cargocr\\cargocr\\views\\clientes\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|solutionrelative:cargocr\\views\\clientes\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|c:\\proyectos\\chicho\\cargocr\\cargocr\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|solutionrelative:cargocr\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Migrations\\20260531000622_IdentityInicial3.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:CarGoCR\\Migrations\\20260531000622_IdentityInicial3.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|c:\\proyectos\\chicho\\cargocr\\cargocr\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|solutionrelative:cargocr\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Migrations\\20260530233826_IdentityInicial2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:CarGoCR\\Migrations\\20260530233826_IdentityInicial2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Migrations\\20260530225320_IdentityInicial.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:CarGoCR\\Migrations\\20260530225320_IdentityInicial.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|c:\\proyectos\\chicho\\cargocr\\cargocr\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|solutionrelative:cargocr\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|c:\\proyectos\\chicho\\cargocr\\cargocr\\views\\empresa\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|solutionrelative:cargocr\\views\\empresa\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|c:\\proyectos\\chicho\\cargocr\\cargocr\\controllers\\empresacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -19,16 +87,8 @@
       "RelativeMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|solutionrelative:cargocr\\models\\empresa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Migrations\\20260530174933_ModuloEmpresa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:CarGoCR\\Migrations\\20260530174933_ModuloEmpresa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|c:\\proyectos\\chicho\\cargocr\\cargocr\\controllers\\clientescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|solutionrelative:cargocr\\controllers\\clientescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|c:\\proyectos\\chicho\\cargocr\\cargocr\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|solutionrelative:cargocr\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|c:\\proyectos\\chicho\\cargocr\\cargocr\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
@@ -41,14 +101,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|c:\\proyectos\\chicho\\cargocr\\cargocr\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
       "RelativeMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|solutionrelative:cargocr\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|c:\\proyectos\\chicho\\cargocr\\cargocr\\views\\clientes\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|solutionrelative:cargocr\\views\\clientes\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|c:\\proyectos\\chicho\\cargocr\\cargocr\\views\\clientes\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|solutionrelative:cargocr\\views\\clientes\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|c:\\proyectos\\chicho\\cargocr\\cargocr\\views\\ventas\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -83,14 +135,6 @@
       "RelativeMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|solutionrelative:cargocr\\views\\clientes\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|c:\\proyectos\\chicho\\cargocr\\cargocr\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|solutionrelative:cargocr\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|c:\\proyectos\\chicho\\cargocr\\cargocr\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|solutionrelative:cargocr\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|c:\\proyectos\\chicho\\cargocr\\cargocr\\models\\tarifa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|solutionrelative:cargocr\\models\\tarifa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -99,16 +143,8 @@
       "RelativeMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|solutionrelative:cargocr\\controllers\\ventascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|c:\\proyectos\\chicho\\cargocr\\cargocr\\controllers\\tarifascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|solutionrelative:cargocr\\controllers\\tarifascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|c:\\proyectos\\chicho\\cargocr\\cargocr\\migrations\\20260522015122_inicial.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|solutionrelative:cargocr\\migrations\\20260522015122_inicial.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|c:\\proyectos\\chicho\\cargocr\\cargocr\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|solutionrelative:cargocr\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|c:\\proyectos\\chicho\\cargocr\\cargocr\\cargocr.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
@@ -121,6 +157,14 @@
     {
       "AbsoluteMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|c:\\proyectos\\chicho\\cargocr\\cargocr\\migrations\\20260529024222_modulotarifas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|solutionrelative:cargocr\\migrations\\20260529024222_modulotarifas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|c:\\proyectos\\chicho\\cargocr\\cargocr\\migrations\\20260530175726_moduloempresa2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|solutionrelative:cargocr\\migrations\\20260530175726_moduloempresa2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|c:\\proyectos\\chicho\\cargocr\\cargocr\\migrations\\20260530174933_moduloempresa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64215145-766A-39EF-7FF4-CC58A8944820}|CarGoCR\\CarGoCR.csproj|solutionrelative:cargocr\\migrations\\20260530174933_moduloempresa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -130,37 +174,180 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Views\\Users\\Edit.cshtml",
+              "RelativeDocumentMoniker": "CarGoCR\\Views\\Users\\Edit.cshtml",
+              "ToolTip": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Views\\Users\\Edit.cshtml",
+              "RelativeToolTip": "CarGoCR\\Views\\Users\\Edit.cshtml",
+              "ViewState": "AgIAAIAAAAAAAAAAAAAAwJ4AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-31T03:51:17.315Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Views\\Users\\Details.cshtml",
+              "RelativeDocumentMoniker": "CarGoCR\\Views\\Users\\Details.cshtml",
+              "ToolTip": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Views\\Users\\Details.cshtml",
+              "RelativeToolTip": "CarGoCR\\Views\\Users\\Details.cshtml",
+              "ViewState": "AgIAAGsAAAAAAAAAAAAAwLwAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-31T03:32:45.884Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Login.cshtml",
+              "DocumentMoniker": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Views\\Account\\Login.cshtml",
+              "RelativeDocumentMoniker": "CarGoCR\\Views\\Account\\Login.cshtml",
+              "ToolTip": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Views\\Account\\Login.cshtml",
+              "RelativeToolTip": "CarGoCR\\Views\\Account\\Login.cshtml",
+              "ViewState": "AgIAAEQAAAAAAAAAAAAAwFQAAAA1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-31T02:48:28.132Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Views\\Clientes\\Index.cshtml",
+              "RelativeDocumentMoniker": "CarGoCR\\Views\\Clientes\\Index.cshtml",
+              "ToolTip": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Views\\Clientes\\Index.cshtml",
+              "RelativeToolTip": "CarGoCR\\Views\\Clientes\\Index.cshtml",
+              "ViewState": "AgIAAOIBAAAAAAAAAADwv/4BAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-22T01:34:20.063Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Views\\Clientes\\Create.cshtml",
+              "RelativeDocumentMoniker": "CarGoCR\\Views\\Clientes\\Create.cshtml",
+              "ToolTip": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Views\\Clientes\\Create.cshtml",
+              "RelativeToolTip": "CarGoCR\\Views\\Clientes\\Create.cshtml",
+              "ViewState": "AgIAAEgAAAAAAAAAAAAwwF0AAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-22T01:35:15.938Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "20260530175726_ModuloEmpresa2.cs",
-              "DocumentMoniker": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Migrations\\20260530175726_ModuloEmpresa2.cs",
-              "RelativeDocumentMoniker": "CarGoCR\\Migrations\\20260530175726_ModuloEmpresa2.cs",
-              "ToolTip": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Migrations\\20260530175726_ModuloEmpresa2.cs",
-              "RelativeToolTip": "CarGoCR\\Migrations\\20260530175726_ModuloEmpresa2.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Title": "UsersController.cs",
+              "DocumentMoniker": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Controllers\\UsersController.cs",
+              "RelativeDocumentMoniker": "CarGoCR\\Controllers\\UsersController.cs",
+              "ToolTip": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Controllers\\UsersController.cs",
+              "RelativeToolTip": "CarGoCR\\Controllers\\UsersController.cs",
+              "ViewState": "AgIAAHkAAAAAAAAAAAAAwJcAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T17:57:26.424Z",
+              "WhenOpened": "2026-05-30T23:32:03.283Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "ApplicationUser.cs",
+              "DocumentMoniker": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Models\\ApplicationUser.cs",
+              "RelativeDocumentMoniker": "CarGoCR\\Models\\ApplicationUser.cs",
+              "ToolTip": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Models\\ApplicationUser.cs",
+              "RelativeToolTip": "CarGoCR\\Models\\ApplicationUser.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAABCAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T22:37:43.476Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Views\\Users\\Index.cshtml",
+              "RelativeDocumentMoniker": "CarGoCR\\Views\\Users\\Index.cshtml",
+              "ToolTip": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Views\\Users\\Index.cshtml",
+              "RelativeToolTip": "CarGoCR\\Views\\Users\\Index.cshtml",
+              "ViewState": "AgIAAC0AAAAAAAAAAADwv0QAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-31T00:29:03.011Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "20260530174933_ModuloEmpresa.cs",
-              "DocumentMoniker": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Migrations\\20260530174933_ModuloEmpresa.cs",
-              "RelativeDocumentMoniker": "CarGoCR\\Migrations\\20260530174933_ModuloEmpresa.cs",
-              "ToolTip": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Migrations\\20260530174933_ModuloEmpresa.cs",
-              "RelativeToolTip": "CarGoCR\\Migrations\\20260530174933_ModuloEmpresa.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Title": "TarifasController.cs",
+              "DocumentMoniker": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Controllers\\TarifasController.cs",
+              "RelativeDocumentMoniker": "CarGoCR\\Controllers\\TarifasController.cs",
+              "ToolTip": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Controllers\\TarifasController.cs",
+              "RelativeToolTip": "CarGoCR\\Controllers\\TarifasController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T17:49:33.764Z",
+              "WhenOpened": "2026-05-29T02:32:36.314Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
+              "Title": "AccountController.cs",
+              "DocumentMoniker": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Controllers\\AccountController.cs",
+              "RelativeDocumentMoniker": "CarGoCR\\Controllers\\AccountController.cs",
+              "ToolTip": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Controllers\\AccountController.cs",
+              "RelativeToolTip": "CarGoCR\\Controllers\\AccountController.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAwwCsAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-31T02:53:35.114Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "CarGoCR\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "CarGoCR\\Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAADAAAAAAAAAAAAAAAEoAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-29T22:28:45.193Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "CarGoCR\\Views\\Home\\Index.cshtml",
+              "ToolTip": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "CarGoCR\\Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAAL8AAAAAAAAAAAAAADAAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-22T01:39:37.935Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Views\\Users\\Create.cshtml",
+              "RelativeDocumentMoniker": "CarGoCR\\Views\\Users\\Create.cshtml",
+              "ToolTip": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Views\\Users\\Create.cshtml",
+              "RelativeToolTip": "CarGoCR\\Views\\Users\\Create.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-31T01:03:14.616Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
               "Title": "Empresa.cs",
               "DocumentMoniker": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Models\\Empresa.cs",
               "RelativeDocumentMoniker": "CarGoCR\\Models\\Empresa.cs",
@@ -173,7 +360,59 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 40,
+              "Title": "20260530174933_ModuloEmpresa.cs",
+              "DocumentMoniker": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Migrations\\20260530174933_ModuloEmpresa.cs",
+              "RelativeDocumentMoniker": "CarGoCR\\Migrations\\20260530174933_ModuloEmpresa.cs",
+              "ToolTip": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Migrations\\20260530174933_ModuloEmpresa.cs",
+              "RelativeToolTip": "CarGoCR\\Migrations\\20260530174933_ModuloEmpresa.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T17:49:33.764Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "20260530233826_IdentityInicial2.cs",
+              "DocumentMoniker": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Migrations\\20260530233826_IdentityInicial2.cs",
+              "RelativeDocumentMoniker": "CarGoCR\\Migrations\\20260530233826_IdentityInicial2.cs",
+              "ToolTip": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Migrations\\20260530233826_IdentityInicial2.cs",
+              "RelativeToolTip": "CarGoCR\\Migrations\\20260530233826_IdentityInicial2.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T23:38:26.537Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "20260531000622_IdentityInicial3.cs",
+              "DocumentMoniker": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Migrations\\20260531000622_IdentityInicial3.cs",
+              "RelativeDocumentMoniker": "CarGoCR\\Migrations\\20260531000622_IdentityInicial3.cs",
+              "ToolTip": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Migrations\\20260531000622_IdentityInicial3.cs",
+              "RelativeToolTip": "CarGoCR\\Migrations\\20260531000622_IdentityInicial3.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-31T00:06:22.251Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "20260530225320_IdentityInicial.cs",
+              "DocumentMoniker": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Migrations\\20260530225320_IdentityInicial.cs",
+              "RelativeDocumentMoniker": "CarGoCR\\Migrations\\20260530225320_IdentityInicial.cs",
+              "ToolTip": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Migrations\\20260530225320_IdentityInicial.cs",
+              "RelativeToolTip": "CarGoCR\\Migrations\\20260530225320_IdentityInicial.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T22:53:20.453Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Views\\Empresa\\Index.cshtml",
               "RelativeDocumentMoniker": "CarGoCR\\Views\\Empresa\\Index.cshtml",
@@ -186,7 +425,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 24,
               "Title": "site.css",
               "DocumentMoniker": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\wwwroot\\css\\site.css",
               "RelativeDocumentMoniker": "CarGoCR\\wwwroot\\css\\site.css",
@@ -194,23 +433,38 @@
               "RelativeToolTip": "CarGoCR\\wwwroot\\css\\site.css",
               "ViewState": "AgIAAD0CAAAAAAAAAAAcwFsCAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2026-05-29T22:38:46.86Z"
+              "WhenOpened": "2026-05-29T22:38:46.86Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 14,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Program.cs",
+              "RelativeDocumentMoniker": "CarGoCR\\Program.cs",
+              "ToolTip": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Program.cs",
+              "RelativeToolTip": "CarGoCR\\Program.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAADwv0QAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-22T01:24:49.342Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
               "Title": "Delete.cshtml",
               "DocumentMoniker": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Views\\Clientes\\Delete.cshtml",
               "RelativeDocumentMoniker": "CarGoCR\\Views\\Clientes\\Delete.cshtml",
               "ToolTip": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Views\\Clientes\\Delete.cshtml",
               "RelativeToolTip": "CarGoCR\\Views\\Clientes\\Delete.cshtml",
-              "ViewState": "AgIAAJQAAAAAAAAAAAAAAIkAAAAQAAAAAAAAAA==",
+              "ViewState": "AgIAAJEAAAAAAAAAAIBJwIkAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-05-22T02:39:20.601Z"
+              "WhenOpened": "2026-05-22T02:39:20.601Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 22,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\appsettings.json",
               "RelativeDocumentMoniker": "CarGoCR\\appsettings.json",
@@ -223,57 +477,46 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 17,
               "Title": "AppDbContext.cs",
               "DocumentMoniker": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Data\\AppDbContext.cs",
               "RelativeDocumentMoniker": "CarGoCR\\Data\\AppDbContext.cs",
               "ToolTip": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Data\\AppDbContext.cs",
               "RelativeToolTip": "CarGoCR\\Data\\AppDbContext.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAqwA0AAAA0AAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-05-22T01:17:39.109Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 39,
+              "Title": "20260530175726_ModuloEmpresa2.cs",
+              "DocumentMoniker": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Migrations\\20260530175726_ModuloEmpresa2.cs",
+              "RelativeDocumentMoniker": "CarGoCR\\Migrations\\20260530175726_ModuloEmpresa2.cs",
+              "ToolTip": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Migrations\\20260530175726_ModuloEmpresa2.cs",
+              "RelativeToolTip": "CarGoCR\\Migrations\\20260530175726_ModuloEmpresa2.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T17:57:26.424Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
               "Title": "EmpresaController.cs",
               "DocumentMoniker": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Controllers\\EmpresaController.cs",
               "RelativeDocumentMoniker": "CarGoCR\\Controllers\\EmpresaController.cs",
               "ToolTip": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Controllers\\EmpresaController.cs",
               "RelativeToolTip": "CarGoCR\\Controllers\\EmpresaController.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAADwv3cAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAswHcAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-05-29T22:21:21.914Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Views\\Clientes\\Index.cshtml",
-              "RelativeDocumentMoniker": "CarGoCR\\Views\\Clientes\\Index.cshtml",
-              "ToolTip": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Views\\Clientes\\Index.cshtml",
-              "RelativeToolTip": "CarGoCR\\Views\\Clientes\\Index.cshtml",
-              "ViewState": "AgIAAOoAAAAAAAAAAAAAwLMCAAAYAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-05-22T01:34:20.063Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "Create.cshtml",
-              "DocumentMoniker": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Views\\Clientes\\Create.cshtml",
-              "RelativeDocumentMoniker": "CarGoCR\\Views\\Clientes\\Create.cshtml",
-              "ToolTip": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Views\\Clientes\\Create.cshtml",
-              "RelativeToolTip": "CarGoCR\\Views\\Clientes\\Create.cshtml",
-              "ViewState": "AgIAAE4AAAAAAAAAAAAwwFIAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-05-22T01:35:15.938Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 21,
               "Title": "ClientesController.cs",
               "DocumentMoniker": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Controllers\\ClientesController.cs",
               "RelativeDocumentMoniker": "CarGoCR\\Controllers\\ClientesController.cs",
@@ -286,7 +529,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 25,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Views\\Ventas\\Index.cshtml",
               "RelativeDocumentMoniker": "CarGoCR\\Views\\Ventas\\Index.cshtml",
@@ -294,35 +537,12 @@
               "RelativeToolTip": "CarGoCR\\Views\\Ventas\\Index.cshtml",
               "ViewState": "AgIAAOABAAAAAAAAAAAuwPUBAABNAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-05-29T22:22:01.959Z"
+              "WhenOpened": "2026-05-29T22:22:01.959Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Views\\Home\\Index.cshtml",
-              "RelativeDocumentMoniker": "CarGoCR\\Views\\Home\\Index.cshtml",
-              "ToolTip": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Views\\Home\\Index.cshtml",
-              "RelativeToolTip": "CarGoCR\\Views\\Home\\Index.cshtml",
-              "ViewState": "AgIAAJkAAAAAAAAAAAAAALwAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-05-22T01:39:37.935Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 20,
-              "Title": "_Layout.cshtml",
-              "DocumentMoniker": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Views\\Shared\\_Layout.cshtml",
-              "RelativeDocumentMoniker": "CarGoCR\\Views\\Shared\\_Layout.cshtml",
-              "ToolTip": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Views\\Shared\\_Layout.cshtml",
-              "RelativeToolTip": "CarGoCR\\Views\\Shared\\_Layout.cshtml",
-              "ViewState": "AgIAABgAAAAAAAAAAAAAAB4AAAA+AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-05-29T22:28:45.193Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 34,
               "Title": "VentasController.cs",
               "DocumentMoniker": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Controllers\\VentasController.cs",
               "RelativeDocumentMoniker": "CarGoCR\\Controllers\\VentasController.cs",
@@ -330,11 +550,12 @@
               "RelativeToolTip": "CarGoCR\\Controllers\\VentasController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-29T22:21:01.152Z"
+              "WhenOpened": "2026-05-29T22:21:01.152Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 31,
               "Title": "Edit.cshtml",
               "DocumentMoniker": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Views\\Clientes\\Edit.cshtml",
               "RelativeDocumentMoniker": "CarGoCR\\Views\\Clientes\\Edit.cshtml",
@@ -342,11 +563,12 @@
               "RelativeToolTip": "CarGoCR\\Views\\Clientes\\Edit.cshtml",
               "ViewState": "AgIAAGwAAAAAAAAAAAAcwH0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-05-22T02:30:27.217Z"
+              "WhenOpened": "2026-05-22T02:30:27.217Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 30,
               "Title": "Delete.cshtml",
               "DocumentMoniker": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Views\\Tarifas\\Delete.cshtml",
               "RelativeDocumentMoniker": "CarGoCR\\Views\\Tarifas\\Delete.cshtml",
@@ -354,35 +576,38 @@
               "RelativeToolTip": "CarGoCR\\Views\\Tarifas\\Delete.cshtml",
               "ViewState": "AgIAAGQAAAAAAAAAAAAcwIYAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-05-29T03:34:46.135Z"
+              "WhenOpened": "2026-05-29T03:34:46.135Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 29,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Views\\Tarifas\\Index.cshtml",
               "RelativeDocumentMoniker": "CarGoCR\\Views\\Tarifas\\Index.cshtml",
               "ToolTip": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Views\\Tarifas\\Index.cshtml",
               "RelativeToolTip": "CarGoCR\\Views\\Tarifas\\Index.cshtml",
-              "ViewState": "AgIAACgCAAAAAAAAAAAAAHMCAAAVAAAAAAAAAA==",
+              "ViewState": "AgIAACUCAAAAAAAAAIBJwHMCAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-05-29T02:44:30.333Z"
+              "WhenOpened": "2026-05-29T02:44:30.333Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 27,
               "Title": "Create.cshtml",
               "DocumentMoniker": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Views\\Tarifas\\Create.cshtml",
               "RelativeDocumentMoniker": "CarGoCR\\Views\\Tarifas\\Create.cshtml",
               "ToolTip": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Views\\Tarifas\\Create.cshtml",
               "RelativeToolTip": "CarGoCR\\Views\\Tarifas\\Create.cshtml",
-              "ViewState": "AgIAAI0AAAAAAAAAAAAAAKIAAAAFAAAAAAAAAA==",
+              "ViewState": "AgIAAIoAAAAAAAAAAIBJwKIAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-05-29T02:45:21.189Z"
+              "WhenOpened": "2026-05-29T02:45:21.189Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 26,
               "Title": "Edit.cshtml",
               "DocumentMoniker": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Views\\Tarifas\\Edit.cshtml",
               "RelativeDocumentMoniker": "CarGoCR\\Views\\Tarifas\\Edit.cshtml",
@@ -390,23 +615,25 @@
               "RelativeToolTip": "CarGoCR\\Views\\Tarifas\\Edit.cshtml",
               "ViewState": "AgIAAJMAAAAAAAAAAAAowKMAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-05-29T03:30:04.807Z"
+              "WhenOpened": "2026-05-29T03:30:04.807Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 28,
               "Title": "Details.cshtml",
               "DocumentMoniker": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Views\\Tarifas\\Details.cshtml",
               "RelativeDocumentMoniker": "CarGoCR\\Views\\Tarifas\\Details.cshtml",
               "ToolTip": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Views\\Tarifas\\Details.cshtml",
               "RelativeToolTip": "CarGoCR\\Views\\Tarifas\\Details.cshtml",
-              "ViewState": "AgIAAG8AAAAAAAAAAAAAAIEAAAAFAAAAAAAAAA==",
+              "ViewState": "AgIAAGwAAAAAAAAAAIBJwIEAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-05-29T03:32:56.026Z"
+              "WhenOpened": "2026-05-29T03:32:56.026Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 32,
               "Title": "Details.cshtml",
               "DocumentMoniker": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Views\\Clientes\\Details.cshtml",
               "RelativeDocumentMoniker": "CarGoCR\\Views\\Clientes\\Details.cshtml",
@@ -414,11 +641,12 @@
               "RelativeToolTip": "CarGoCR\\Views\\Clientes\\Details.cshtml",
               "ViewState": "AgIAAF4AAAAAAAAAAAAwwHsAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-05-22T02:35:42.515Z"
+              "WhenOpened": "2026-05-22T02:35:42.515Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 33,
               "Title": "Tarifa.cs",
               "DocumentMoniker": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Models\\Tarifa.cs",
               "RelativeDocumentMoniker": "CarGoCR\\Models\\Tarifa.cs",
@@ -426,23 +654,12 @@
               "RelativeToolTip": "CarGoCR\\Models\\Tarifa.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-29T01:57:26.672Z"
+              "WhenOpened": "2026-05-29T01:57:26.672Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
-              "Title": "TarifasController.cs",
-              "DocumentMoniker": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Controllers\\TarifasController.cs",
-              "RelativeDocumentMoniker": "CarGoCR\\Controllers\\TarifasController.cs",
-              "ToolTip": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Controllers\\TarifasController.cs",
-              "RelativeToolTip": "CarGoCR\\Controllers\\TarifasController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAfAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-29T02:32:36.314Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 38,
               "Title": "20260529024222_ModuloTarifas.cs",
               "DocumentMoniker": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Migrations\\20260529024222_ModuloTarifas.cs",
               "RelativeDocumentMoniker": "CarGoCR\\Migrations\\20260529024222_ModuloTarifas.cs",
@@ -450,11 +667,12 @@
               "RelativeToolTip": "CarGoCR\\Migrations\\20260529024222_ModuloTarifas.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-29T02:42:23.119Z"
+              "WhenOpened": "2026-05-29T02:42:23.119Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 35,
               "Title": "20260522015122_Inicial.cs",
               "DocumentMoniker": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Migrations\\20260522015122_Inicial.cs",
               "RelativeDocumentMoniker": "CarGoCR\\Migrations\\20260522015122_Inicial.cs",
@@ -462,23 +680,12 @@
               "RelativeToolTip": "CarGoCR\\Migrations\\20260522015122_Inicial.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-22T01:51:22.42Z"
+              "WhenOpened": "2026-05-22T01:51:22.42Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Program.cs",
-              "RelativeDocumentMoniker": "CarGoCR\\Program.cs",
-              "ToolTip": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Program.cs",
-              "RelativeToolTip": "CarGoCR\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAHAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-22T01:24:49.342Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 36,
               "Title": "CarGoCR.csproj",
               "DocumentMoniker": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\CarGoCR.csproj",
               "RelativeDocumentMoniker": "CarGoCR\\CarGoCR.csproj",
@@ -486,11 +693,12 @@
               "RelativeToolTip": "CarGoCR\\CarGoCR.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-05-22T00:16:11.786Z"
+              "WhenOpened": "2026-05-22T00:16:11.786Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 37,
               "Title": "Cliente.cs",
               "DocumentMoniker": "C:\\Proyectos\\Chicho\\CarGoCR\\CarGoCR\\Models\\Cliente.cs",
               "RelativeDocumentMoniker": "CarGoCR\\Models\\Cliente.cs",
@@ -498,7 +706,8 @@
               "RelativeToolTip": "CarGoCR\\Models\\Cliente.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-22T01:05:31.627Z"
+              "WhenOpened": "2026-05-22T01:05:31.627Z",
+              "EditorCaption": ""
             }
           ]
         }

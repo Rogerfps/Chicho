@@ -1,0 +1,289 @@
+﻿@model List<CarGoCR.Models.ApplicationUser>
+
+@{
+    ViewData["Title"] = "Usuarios";
+}
+
+<style>
+    .content {
+        width: 100%;
+        max-width: 100%;
+        padding: 2rem;
+        box-sizing: border-box;
+    }
+
+    .main {
+        flex: 1;
+        width: 100%;
+    }
+
+    .page-header-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.75rem;
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(220px, 1fr));
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+        width: 100%;
+    }
+
+    .table-card {
+        width: 100%;
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 14px;
+        overflow: hidden;
+    }
+
+    .table-toolbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        padding: 1.25rem 1.5rem;
+        border-bottom: 1px solid var(--card-border);
+    }
+
+    .table-search {
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .data-table {
+        width: 100%;
+        min-width: 100%;
+        border-collapse: collapse;
+        table-layout: auto;
+    }
+
+    .layout-content {
+        margin-left: 220px;
+        width: calc(100% - 220px);
+        min-height: 100vh;
+        padding: 2rem;
+    }
+
+</style>
+
+<div class="content">
+    <div class="page-header-row">
+        <div class="page-header">
+            <h1>Usuarios</h1>
+            <p>Gestiona los usuarios del sistema</p>
+        </div>
+
+        <a asp-action="Create"
+           class="btn-primary"
+           style="text-decoration:none;">
+
+            <svg width="14" height="14"
+                 fill="none"
+                 stroke="currentColor"
+                 stroke-width="2.5"
+                 viewBox="0 0 24 24">
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <line x1="5" y1="12" x2="19" y2="12" />
+            </svg>
+
+            Nuevo usuario
+        </a>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-mini">
+            <div class="stat-mini-label">
+                Total usuarios
+            </div>
+
+            <div class="stat-mini-val">
+                @Model.Count()
+            </div>
+        </div>
+
+        <div class="stat-mini">
+            <div class="stat-mini-label">
+                Con email
+            </div>
+
+            <div class="stat-mini-val blue">
+                @Model.Count(x => !string.IsNullOrEmpty(x.Email))
+            </div>
+        </div>
+
+        <div class="stat-mini">
+            <div class="stat-mini-label">
+                Con teléfono
+            </div>
+
+            <div class="stat-mini-val green">
+                @Model.Count(x => !string.IsNullOrEmpty(x.PhoneNumber))
+            </div>
+        </div>
+    </div>
+
+    <div class="table-card">
+        <div class="table-toolbar">
+            <div class="table-search">
+                <svg width="14"
+                     height="14"
+                     fill="none"
+                     stroke="currentColor"
+                     stroke-width="2"
+                     viewBox="0 0 24 24"
+                     style="color:var(--text-muted)">
+                    <circle cx="11" cy="11" r="8" />
+                    <line x1="21"
+                          y1="21"
+                          x2="16.65"
+                          y2="16.65" />
+                </svg>
+
+                <input type="text"
+                       placeholder="Buscar usuarios..." />
+            </div>
+        </div>
+
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Usuario</th>
+                    <th>Email</th>
+                    <th>Teléfono</th>
+                    <th>Estado</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @if (Model != null && Model.Any())
+                {
+                    @foreach (var usuario in Model)
+                    {
+                        <tr>
+                            <td>
+                                <div class="client-cell">
+
+                                    <div class="client-avatar"
+                                         style="background:linear-gradient(135deg,#4f7cff,#a78bfa)">
+                                        @(usuario.UserName?.Substring(0, 1).ToUpper())
+                                    </div>
+
+                                    <div>
+                                        <div class="client-name">
+                                            @usuario.UserName
+                                        </div>
+
+                                        <div class="client-code">
+                                            @usuario.Id
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </td>
+
+                            <td>
+                                @usuario.Email
+                            </td>
+
+                            <td>
+                                @usuario.PhoneNumber
+                            </td>
+
+                            <td>
+                                @if (usuario.EmailConfirmed)
+                                {
+                                    <span class="badge-active">
+                                        Activo
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="badge-inactive">
+                                        Pendiente
+                                    </span>
+                                }
+                            </td>
+
+                            <td>
+                                <div style="display:flex; gap:5px;">
+
+                                    <a asp-action="Details"
+                                       asp-route-id="@usuario.Id"
+                                       class="actions-btn"
+                                       title="Ver">
+
+                                        <svg width="16"
+                                             height="16"
+                                             fill="none"
+                                             stroke="currentColor"
+                                             stroke-width="2"
+                                             viewBox="0 0 24 24">
+                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"></path>
+                                            <circle cx="12"
+                                                    cy="12"
+                                                    r="3"></circle>
+                                        </svg>
+
+                                    </a>
+
+                                    <a asp-action="Edit"
+                                       asp-route-id="@usuario.Id"
+                                       class="actions-btn"
+                                       title="Editar">
+
+                                        <svg width="16"
+                                             height="16"
+                                             fill="none"
+                                             stroke="currentColor"
+                                             stroke-width="2"
+                                             viewBox="0 0 24 24">
+                                            <path d="M12 20h9"></path>
+                                            <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"></path>
+                                        </svg>
+
+                                    </a>
+
+                                    <a asp-action="Delete"
+                                       asp-route-id="@usuario.Id"
+                                       class="actions-btn"
+                                       title="Eliminar">
+
+                                        <svg width="16"
+                                             height="16"
+                                             fill="none"
+                                             stroke="currentColor"
+                                             stroke-width="2"
+                                             viewBox="0 0 24 24">
+                                            <polyline points="3 6 5 6 21 6"></polyline>
+                                            <path d="M19 6l-1 14H6L5 6"></path>
+                                            <path d="M10 11v6"></path>
+                                            <path d="M14 11v6"></path>
+                                            <path d="M9 6V4h6v2"></path>
+                                        </svg>
+
+                                    </a>
+
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="5" class="empty-message">
+                            No hay usuarios registrados
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>

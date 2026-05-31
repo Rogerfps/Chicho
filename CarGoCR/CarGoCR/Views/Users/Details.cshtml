@@ -1,0 +1,189 @@
+﻿@model CarGoCR.Models.ApplicationUser
+
+@{
+    ViewData["Title"] = "Detalle Usuario";
+}
+
+<style>
+    .layout-content {
+        margin-left: 220px;
+        width: calc(100% - 220px);
+        min-height: 100vh;
+        padding: 2rem;
+    }
+
+    .details-card {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 14px;
+        padding: 2rem;
+        margin-top: 1rem;
+    }
+
+    .details-grid {
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        gap: 1.5rem;
+    }
+
+    .detail-item {
+        display: flex;
+        flex-direction: column;
+        gap: .4rem;
+    }
+
+    .detail-label {
+        color: var(--text-secondary);
+        font-size: .8rem;
+        font-weight: 600;
+    }
+
+    .detail-value {
+        color: var(--text-primary);
+        font-size: .95rem;
+    }
+
+    .user-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .user-avatar {
+        width: 60px;
+        height: 60px;
+        border-radius: 12px;
+        background: linear-gradient(135deg,#4f7cff,#a78bfa);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.3rem;
+        font-weight: 700;
+    }
+
+    .badge-active {
+        background: rgba(52,211,153,.12);
+        color: #34d399;
+        padding: .3rem .8rem;
+        border-radius: 6px;
+        font-size: .75rem;
+        font-weight: 600;
+    }
+
+    .badge-inactive {
+        background: rgba(248,113,113,.12);
+        color: #f87171;
+        padding: .3rem .8rem;
+        border-radius: 6px;
+        font-size: .75rem;
+        font-weight: 600;
+    }
+
+    .actions {
+        margin-top: 2rem;
+        display: flex;
+        gap: .75rem;
+    }
+</style>
+
+<div class="content">
+
+    <div class="page-header-row">
+        <div class="page-header">
+            <h1>Detalle de Usuario</h1>
+            <p>Información completa del usuario</p>
+        </div>
+
+        <a asp-action="Index"
+           class="btn-primary"
+           style="text-decoration:none;">
+            Volver
+        </a>
+    </div>
+
+    <div class="details-card">
+
+        <div class="user-header">
+
+            <div class="user-avatar">
+                @(Model.UserName?.Substring(0, 1).ToUpper())
+            </div>
+
+            <div>
+                <h2>@Model.NombreCompleto</h2>
+
+                @if (Model.EmailConfirmed)
+                {
+                    <span class="badge-active">
+                        Activo
+                    </span>
+                }
+                else
+                {
+                    <span class="badge-inactive">
+                        Pendiente
+                    </span>
+                }
+            </div>
+
+        </div>
+
+        <div class="details-grid">
+
+            <div class="detail-item">
+                <span class="detail-label">ID</span>
+                <span class="detail-value">@Model.Id</span>
+            </div>
+
+            <div class="detail-item">
+                <span class="detail-label">Usuario</span>
+                <span class="detail-value">@Model.UserName</span>
+            </div>
+
+            <div class="detail-item">
+                <span class="detail-label">Nombre completo</span>
+                <span class="detail-value">@Model.NombreCompleto</span>
+            </div>
+
+            <div class="detail-item">
+                <span class="detail-label">Correo</span>
+                <span class="detail-value">@Model.Email</span>
+            </div>
+
+            <div class="detail-item">
+                <span class="detail-label">Teléfono</span>
+                <span class="detail-value">@Model.PhoneNumber</span>
+            </div>
+
+            <div class="detail-item">
+                <span class="detail-label">Correo confirmado</span>
+                <span class="detail-value">
+                    @(Model.EmailConfirmed ? "Sí" : "No")
+                </span>
+            </div>
+
+            <div class="detail-item">
+                <span class="detail-label">Activo</span>
+                <span class="detail-value">
+                    @(Model.Activo ? "Sí" : "No")
+                </span>
+            </div>
+
+        </div>
+
+        <div class="actions">
+
+            <a asp-action="Edit"
+               asp-route-id="@Model.Id"
+               class="btn-primary"
+               style="text-decoration:none;">
+                Editar
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
