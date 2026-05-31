@@ -1,0 +1,192 @@
+﻿@model CarGoCR.Models.Paquete
+
+@{
+    ViewData["Title"] = "Nuevo Paquete";
+}
+
+<style>
+    .layout-content {
+        margin-left: 220px;
+        width: calc(100% - 220px);
+        min-height: 100vh;
+        padding: 2rem;
+    }
+</style>
+
+<div class="content">
+
+    <div class="page-header-row">
+        <div class="page-header">
+            <h1>Nuevo Paquete</h1>
+            <p>Registrar paquete recibido</p>
+        </div>
+
+        <a asp-action="Index"
+           class="btn-secondary"
+           style="text-decoration:none;">
+            Volver
+        </a>
+    </div>
+
+    <div class="form-card">
+
+        <form asp-action="Create" method="post">
+
+            <div asp-validation-summary="ModelOnly"
+                 class="text-danger mb-3">
+            </div>
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label asp-for="Tracking"
+                           class="form-label">
+                        Tracking
+                    </label>
+
+                    <input asp-for="Tracking"
+                           class="form-input" />
+
+                    <span asp-validation-for="Tracking"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="ClienteId"
+                           class="form-label">
+                        Cliente
+                    </label>
+
+                    <select asp-for="ClienteId"
+                            asp-items="ViewBag.Clientes"
+                            class="form-input">
+                        <option value="">
+                            Seleccione un cliente
+                        </option>
+                    </select>
+
+                    <span asp-validation-for="ClienteId"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Descripcion"
+                           class="form-label">
+                        Descripción
+                    </label>
+
+                    <input asp-for="Descripcion"
+                           class="form-input" />
+
+                    <span asp-validation-for="Descripcion"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Peso"
+                           class="form-label">
+                        Peso (kg)
+                    </label>
+
+                    <input asp-for="Peso"
+                           type="number"
+                           step="0.01"
+                           class="form-input" />
+
+                    <span asp-validation-for="Peso"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="ValorDeclarado"
+                           class="form-label">
+                        Valor declarado
+                    </label>
+
+                    <input asp-for="ValorDeclarado"
+                           type="number"
+                           step="0.01"
+                           class="form-input" />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Estado"
+                           class="form-label">
+                        Estado
+                    </label>
+
+                    <select asp-for="Estado"
+                            class="form-input">
+
+                        <option value="Prealertado">
+                            Prealertado
+                        </option>
+
+                        <option value="Recibido en bodega USA">
+                            Recibido en bodega USA
+                        </option>
+
+                        <option value="En tránsito">
+                            En tránsito
+                        </option>
+
+                        <option value="En aduanas">
+                            En aduanas
+                        </option>
+
+                        <option value="Disponible para retiro">
+                            Disponible para retiro
+                        </option>
+
+                        <option value="Entregado">
+                            Entregado
+                        </option>
+
+                    </select>
+                </div>
+
+                <div class="form-group" style="grid-column: span 2;">
+                    <label asp-for="Observaciones"
+                           class="form-label">
+                        Observaciones
+                    </label>
+
+                    <textarea asp-for="Observaciones"
+                              class="form-input"
+                              rows="4"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        Pagado
+                    </label>
+
+                    <input asp-for="Pagado"
+                           type="checkbox"
+                           style="width:auto;" />
+                </div>
+
+            </div>
+
+            <div class="form-actions">
+
+                <button type="submit"
+                        class="btn-primary">
+
+                    Guardar paquete
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,259 @@
+﻿@model List<CarGoCR.Models.Paquete>
+
+@{
+    ViewData["Title"] = "Paquetes";
+}
+
+<style>
+    .layout-content {
+        margin-left: 220px;
+        width: calc(100% - 220px);
+        min-height: 100vh;
+        padding: 2rem;
+
+</style>
+
+
+<div class="content">
+
+    <div class="page-header-row">
+        <div class="page-header">
+            <h1>Paquetes</h1>
+            <p>Gestión de paquetes y envíos</p>
+        </div>
+
+        <a asp-action="Create"
+           class="btn-primary"
+           style="text-decoration:none;">
+
+            <svg width="14" height="14"
+                 fill="none"
+                 stroke="currentColor"
+                 stroke-width="2.5"
+                 viewBox="0 0 24 24">
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <line x1="5" y1="12" x2="19" y2="12" />
+            </svg>
+
+            Nuevo paquete
+        </a>
+    </div>
+
+    <div class="stats-grid">
+
+        <div class="stat-mini">
+            <div class="stat-mini-label">
+                Total paquetes
+            </div>
+
+            <div class="stat-mini-val">
+                @Model.Count()
+            </div>
+        </div>
+
+        <div class="stat-mini">
+            <div class="stat-mini-label">
+                Entregados
+            </div>
+
+            <div class="stat-mini-val green">
+                @Model.Count(x => x.Estado == "Entregado")
+            </div>
+        </div>
+
+        <div class="stat-mini">
+            <div class="stat-mini-label">
+                Pendientes
+            </div>
+
+            <div class="stat-mini-val blue">
+                @Model.Count(x => x.Estado != "Entregado")
+            </div>
+        </div>
+
+    </div>
+
+    <div class="table-card">
+
+        <div class="table-toolbar">
+
+            <div class="table-search">
+
+                <svg width="14"
+                     height="14"
+                     fill="none"
+                     stroke="currentColor"
+                     stroke-width="2"
+                     viewBox="0 0 24 24"
+                     style="color:var(--text-muted)">
+                    <circle cx="11" cy="11" r="8" />
+                    <line x1="21"
+                          y1="21"
+                          x2="16.65"
+                          y2="16.65" />
+                </svg>
+
+                <input type="text"
+                       placeholder="Buscar tracking..." />
+
+            </div>
+
+        </div>
+
+        <table class="data-table">
+
+            <thead>
+                <tr>
+                    <th>Tracking</th>
+                    <th>Cliente</th>
+                    <th>Peso</th>
+                    <th>Costo</th>
+                    <th>Estado</th>
+                    <th>Pagado</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @if (Model.Any())
+                {
+                    @foreach (var paquete in Model)
+                    {
+                        <tr>
+
+                            <td>
+                                <strong>
+                                    @paquete.Tracking
+                                </strong>
+                            </td>
+
+                            <td>
+                                @paquete.Cliente?.NombreCompleto
+                            </td>
+
+                            <td>
+                                @paquete.Peso Kg
+                            </td>
+
+                            <td>
+                                ₡@paquete.CostoEnvio.ToString("N2")
+                            </td>
+
+                            <td>
+
+                                @if (paquete.Estado == "Entregado")
+                                {
+                                    <span class="badge-active">
+                                        @paquete.Estado
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="badge-inactive">
+                                        @paquete.Estado
+                                    </span>
+                                }
+
+                            </td>
+
+                            <td>
+
+                                @if (paquete.Pagado)
+                                {
+                                    <span class="badge-active">
+                                        Sí
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="badge-inactive">
+                                        No
+                                    </span>
+                                }
+
+                            </td>
+
+                            <td>
+
+                                <div style="display:flex; gap:5px;">
+
+                                    <a asp-action="Details"
+                                       asp-route-id="@paquete.Id"
+                                       class="actions-btn">
+
+                                        <svg width="16"
+                                             height="16"
+                                             fill="none"
+                                             stroke="currentColor"
+                                             stroke-width="2"
+                                             viewBox="0 0 24 24">
+                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"></path>
+                                            <circle cx="12"
+                                                    cy="12"
+                                                    r="3"></circle>
+                                        </svg>
+
+                                    </a>
+
+                                    <a asp-action="Edit"
+                                       asp-route-id="@paquete.Id"
+                                       class="actions-btn">
+
+                                        <svg width="16"
+                                             height="16"
+                                             fill="none"
+                                             stroke="currentColor"
+                                             stroke-width="2"
+                                             viewBox="0 0 24 24">
+                                            <path d="M12 20h9"></path>
+                                            <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"></path>
+                                        </svg>
+
+                                    </a>
+
+                                    <a asp-action="Delete"
+                                       asp-route-id="@paquete.Id"
+                                       class="actions-btn">
+
+                                        <svg width="16"
+                                             height="16"
+                                             fill="none"
+                                             stroke="currentColor"
+                                             stroke-width="2"
+                                             viewBox="0 0 24 24">
+                                            <polyline points="3 6 5 6 21 6"></polyline>
+                                            <path d="M19 6l-1 14H6L5 6"></path>
+                                            <path d="M10 11v6"></path>
+                                            <path d="M14 11v6"></path>
+                                            <path d="M9 6V4h6v2"></path>
+                                        </svg>
+
+                                    </a>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="7"
+                            class="empty-message">
+
+                            No hay paquetes registrados
+
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>

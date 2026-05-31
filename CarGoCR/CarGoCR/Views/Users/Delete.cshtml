@@ -1,0 +1,152 @@
+﻿@model CarGoCR.Models.ApplicationUser
+
+@{
+    ViewData["Title"] = "Eliminar Usuario";
+}
+
+<style>
+    .layout-content {
+        margin-left: 220px;
+        width: calc(100% - 220px);
+        min-height: 100vh;
+        padding: 2rem;
+    }
+
+    .delete-card {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 14px;
+        padding: 2rem;
+    }
+
+    .warning-box {
+        background: rgba(248,113,113,.08);
+        border: 1px solid rgba(248,113,113,.25);
+        border-radius: 10px;
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+        color: #f87171;
+    }
+
+    .details-grid {
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        gap: 1rem;
+    }
+
+    .detail-item {
+        display: flex;
+        flex-direction: column;
+        gap: .35rem;
+    }
+
+    .detail-label {
+        color: var(--text-secondary);
+        font-size: .8rem;
+        font-weight: 600;
+    }
+
+    .detail-value {
+        color: var(--text-primary);
+    }
+
+    .form-actions {
+        margin-top: 2rem;
+        display: flex;
+        gap: .75rem;
+    }
+
+    .btn-danger {
+        background: #f87171;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: .75rem 1.2rem;
+        cursor: pointer;
+        font-weight: 600;
+    }
+
+        .btn-danger:hover {
+            opacity: .9;
+        }
+</style>
+
+<div class="content">
+
+    <div class="page-header-row">
+        <div class="page-header">
+            <h1>Eliminar Usuario</h1>
+            <p>Confirmar eliminación del usuario</p>
+        </div>
+
+        <a asp-action="Index"
+           class="btn-primary"
+           style="text-decoration:none;">
+            Volver
+        </a>
+    </div>
+
+    <div class="delete-card">
+
+        <div class="warning-box">
+            ¿Estás seguro de que deseas eliminar este usuario?
+            Esta acción no se puede deshacer.
+        </div>
+
+        <div class="details-grid">
+
+            <div class="detail-item">
+                <span class="detail-label">Nombre Completo</span>
+                <span class="detail-value">
+                    @Model.NombreCompleto
+                </span>
+            </div>
+
+            <div class="detail-item">
+                <span class="detail-label">Usuario</span>
+                <span class="detail-value">
+                    @Model.UserName
+                </span>
+            </div>
+
+            <div class="detail-item">
+                <span class="detail-label">Correo</span>
+                <span class="detail-value">
+                    @Model.Email
+                </span>
+            </div>
+
+            <div class="detail-item">
+                <span class="detail-label">Teléfono</span>
+                <span class="detail-value">
+                    @Model.PhoneNumber
+                </span>
+            </div>
+
+        </div>
+
+        <form asp-action="Delete" method="post">
+
+            <input type="hidden"
+                   asp-for="Id" />
+
+            <div class="form-actions">
+
+                <button type="submit"
+                        class="btn-danger">
+                    Eliminar Usuario
+                </button>
+
+                <a asp-action="Index"
+                   class="btn-primary"
+                   style="text-decoration:none;">
+                    Cancelar
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>

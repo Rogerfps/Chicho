@@ -1,0 +1,145 @@
+﻿@model CarGoCR.Models.Paquete
+
+@{
+    ViewData["Title"] = "Editar Paquete";
+}
+
+<style>
+
+    .layout-content {
+        margin-left: 220px;
+        width: calc(100% - 220px);
+        min-height: 100vh;
+        padding: 2rem;
+</style>
+
+<div class="content">
+
+    <div class="page-header-row">
+        <div class="page-header">
+            <h1>Editar Paquete</h1>
+            <p>Modificar información del paquete</p>
+        </div>
+
+        <a asp-action="Index"
+           class="btn-primary"
+           style="text-decoration:none;">
+            Volver
+        </a>
+    </div>
+
+    <div class="table-card" style="padding:25px;">
+
+        <form asp-action="Edit">
+
+            <input type="hidden" asp-for="Id" />
+
+            <div asp-validation-summary="ModelOnly"
+                 class="text-danger mb-3">
+            </div>
+
+            <div class="mb-3">
+                <label>Tracking</label>
+                <input asp-for="Tracking"
+                       class="form-control"
+                       readonly />
+            </div>
+
+            <div class="mb-3">
+                <label>Descripción</label>
+                <input asp-for="Descripcion"
+                       class="form-control" />
+            </div>
+
+            <div class="mb-3">
+                <label>Peso (kg)</label>
+                <input asp-for="Peso"
+                       class="form-control" />
+            </div>
+
+            <div class="mb-3">
+                <label>Valor declarado</label>
+                <input asp-for="ValorDeclarado"
+                       class="form-control" />
+            </div>
+
+            <div class="mb-3">
+                <label>Cliente</label>
+
+                <select asp-for="ClienteId"
+                        class="form-control">
+
+                    @foreach (var cliente in ViewBag.Clientes)
+                    {
+                        <option value="@cliente.Id">
+                            @cliente.NombreCompleto
+                        </option>
+                    }
+
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label>Tarifa</label>
+
+                <select asp-for="TarifaId"
+                        class="form-control">
+
+                    <option value="">
+                        Seleccione una tarifa
+                    </option>
+
+                    @foreach (var tarifa in ViewBag.Tarifas)
+                    {
+                        <option value="@tarifa.Id">
+                            @tarifa.Categoria
+                        </option>
+                    }
+
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label>Estado</label>
+
+                <select asp-for="Estado"
+                        class="form-control">
+
+                    <option>Prealertado</option>
+                    <option>Recibido</option>
+                    <option>En Bodega</option>
+                    <option>En Tránsito</option>
+                    <option>Listo para Entrega</option>
+                    <option>Entregado</option>
+
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label>Observaciones</label>
+
+                <textarea asp-for="Observaciones"
+                          class="form-control"
+                          rows="4">
+                </textarea>
+            </div>
+
+            <div class="mb-3">
+                <label>
+                    <input asp-for="Pagado" />
+                    Pagado
+                </label>
+            </div>
+
+            <button type="submit"
+                    class="btn-primary">
+
+                Guardar cambios
+
+            </button>
+
+        </form>
+
+    </div>
+
+</div>

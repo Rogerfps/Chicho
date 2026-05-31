@@ -1,0 +1,77 @@
+﻿@model CarGoCR.Models.Paquete
+
+@{
+    ViewData["Title"] = "Eliminar Paquete";
+}
+
+<style>
+
+    .layout-content {
+        margin-left: 220px;
+        width: calc(100% - 220px);
+        min-height: 100vh;
+        padding: 2rem;
+</style>
+
+<div class="content">
+
+    <div class="page-header-row">
+        <div class="page-header">
+            <h1>Eliminar Paquete</h1>
+            <p>Esta acción no se puede deshacer</p>
+        </div>
+    </div>
+
+    <div class="table-card" style="padding:25px;">
+
+        <h4 style="margin-bottom:20px;">
+            ¿Desea eliminar este paquete?
+        </h4>
+
+        <dl>
+
+            <dt>Tracking</dt>
+            <dd>@Model.Tracking</dd>
+
+            <dt>Descripción</dt>
+            <dd>@Model.Descripcion</dd>
+
+            <dt>Peso</dt>
+            <dd>@Model.Peso Kg</dd>
+
+            <dt>Cliente</dt>
+            <dd>@Model.Cliente?.NombreCompleto</dd>
+
+            <dt>Estado</dt>
+            <dd>@Model.Estado</dd>
+
+            <dt>Costo de envío</dt>
+            <dd>₡ @Model.CostoEnvio.ToString("N2")</dd>
+
+        </dl>
+
+        <form asp-action="Delete">
+
+            <input type="hidden" asp-for="Id" />
+
+            <div style="display:flex; gap:10px; margin-top:20px;">
+
+                <button type="submit"
+                        class="btn-primary"
+                        style="background:#dc3545;">
+                    Eliminar
+                </button>
+
+                <a asp-action="Index"
+                   class="btn-primary"
+                   style="text-decoration:none;">
+                    Cancelar
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>

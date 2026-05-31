@@ -1,0 +1,129 @@
+﻿@model CarGoCR.Models.Paquete
+
+@{
+    ViewData["Title"] = "Detalle del Paquete";
+}
+
+<style>
+
+    .layout-content {
+        margin-left: 220px;
+        width: calc(100% - 220px);
+        min-height: 100vh;
+        padding: 2rem;
+</style>
+
+<div class="content">
+
+    <div class="page-header-row">
+        <div class="page-header">
+            <h1>Detalle del Paquete</h1>
+            <p>Información completa del paquete</p>
+        </div>
+
+        <a asp-action="Index"
+           class="btn-primary"
+           style="text-decoration:none;">
+            Volver
+        </a>
+    </div>
+
+    <div class="table-card" style="padding:25px;">
+
+        <div class="mb-3">
+            <strong>Tracking:</strong>
+            <div>@Model.Tracking</div>
+        </div>
+
+        <div class="mb-3">
+            <strong>Descripción:</strong>
+            <div>@Model.Descripcion</div>
+        </div>
+
+        <div class="mb-3">
+            <strong>Peso:</strong>
+            <div>@Model.Peso Kg</div>
+        </div>
+
+        <div class="mb-3">
+            <strong>Valor declarado:</strong>
+            <div>₡ @Model.ValorDeclarado.ToString("N2")</div>
+        </div>
+
+        <div class="mb-3">
+            <strong>Costo de envío:</strong>
+            <div>₡ @Model.CostoEnvio.ToString("N2")</div>
+        </div>
+
+        <div class="mb-3">
+            <strong>Cliente:</strong>
+            <div>@Model.Cliente?.NombreCompleto</div>
+        </div>
+
+        <div class="mb-3">
+            <strong>Tarifa:</strong>
+            <div>@Model.Tarifa?.Categoria</div>
+        </div>
+
+        <div class="mb-3">
+            <strong>Estado:</strong>
+
+            @if (Model.Estado == "Entregado")
+            {
+                <span class="badge-active">
+                    Entregado
+                </span>
+            }
+            else
+            {
+                <span class="badge-inactive">
+                    @Model.Estado
+                </span>
+            }
+        </div>
+
+        <div class="mb-3">
+            <strong>Pagado:</strong>
+
+            @if (Model.Pagado)
+            {
+                <span class="badge-active">
+                    Sí
+                </span>
+            }
+            else
+            {
+                <span class="badge-inactive">
+                    No
+                </span>
+            }
+        </div>
+
+        <div class="mb-3">
+            <strong>Fecha recepción:</strong>
+            <div>
+                @Model.FechaRecepcion.ToLocalTime().ToString("dd/MM/yyyy HH:mm")
+            </div>
+        </div>
+
+        @if (Model.FechaEntrega.HasValue)
+        {
+            <div class="mb-3">
+                <strong>Fecha entrega:</strong>
+                <div>
+                    @Model.FechaEntrega.Value.ToLocalTime().ToString("dd/MM/yyyy HH:mm")
+                </div>
+            </div>
+        }
+
+        @if (!string.IsNullOrWhiteSpace(Model.Observaciones))
+        {
+            <div class="mb-3">
+                <strong>Observaciones:</strong>
+                <div>@Model.Observaciones</div>
+            </div>
+        }
+
+    </div>
+
+</div>
