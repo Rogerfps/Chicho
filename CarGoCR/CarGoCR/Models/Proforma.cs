@@ -6,29 +6,20 @@ namespace CarGoCR.Models
     {
         public int Id { get; set; }
 
-        [Required]
         public int ClienteId { get; set; }
-
         public Cliente? Cliente { get; set; }
 
-        [Required]
-        public string Descripcion { get; set; } = string.Empty;
-
-        [Required]
-        public decimal PesoEstimado { get; set; }
-
-        public decimal ValorDeclarado { get; set; }
-
-        public decimal CostoEstimado { get; set; }
-
         public DateTime FechaCreacion { get; set; } = DateTime.UtcNow;
+
+        public decimal Total { get; set; }
+
+        public bool Pagada { get; set; }
 
         public string Estado { get; set; } = "Pendiente";
 
         public string? Observaciones { get; set; }
 
-        public int? TarifaId { get; set; }
-
-        public Tarifa? Tarifa { get; set; }
+        public ICollection<ProformaDetalle> Detalles { get; set; }
+            = new List<ProformaDetalle>();
     }
 }

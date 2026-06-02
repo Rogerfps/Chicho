@@ -1,0 +1,230 @@
+﻿@{
+    ViewData["Title"] = "Nueva Proforma";
+}
+
+<style>
+    .layout-content {
+        margin-left: 220px;
+        width: calc(100% - 220px);
+        min-height: 100vh;
+        padding: 2rem;
+    }
+
+    .paquetes-box {
+        margin-top: 1rem;
+        border: 1px solid #252836;
+        border-radius: 10px;
+        padding: 1rem;
+        min-height: 120px;
+        max-height: 350px;
+        overflow-y: auto;
+    }
+
+    .paquete-item {
+        display: flex;
+        align-items: center;
+        gap: .75rem;
+        padding: .75rem 0;
+        border-bottom: 1px solid rgba(255,255,255,.05);
+    }
+
+        .paquete-item:last-child {
+            border-bottom: none;
+        }
+
+    .paquete-info {
+        flex: 1;
+    }
+
+    .paquete-tracking {
+        font-weight: 600;
+    }
+
+    .paquete-detalle {
+        font-size: .8rem;
+        color: #7b8099;
+    }
+
+    .sin-paquetes {
+        color: #7b8099;
+        text-align: center;
+        padding: 1rem;
+    }
+</style>
+
+<div class="content">
+
+    <div class="page-header-row">
+
+        <div class="page-header">
+            <h1>Nueva Proforma</h1>
+            <p>Seleccione los paquetes que desea facturar</p>
+        </div>
+
+        <a asp-action="Index"
+           class="btn-secondary"
+           style="text-decoration:none;">
+            Volver
+        </a>
+
+    </div>
+
+    <div class="form-card">
+
+        <form asp-action="Create" method="post">
+
+            <div asp-validation-summary="ModelOnly"
+                 class="text-danger mb-3">
+            </div>
+
+            <div class="form-group">
+
+                <label class="form-label">
+                    Cliente
+                </label>
+
+                <select name="clienteId"
+                        id="clienteId"
+                        class="form-input"
+                        required>
+
+                    <option value="">
+                        Seleccione un cliente
+                    </option>
+
+                    @foreach (var cliente in ViewBag.Clientes)
+                    {
+                        <option value="@cliente.Id">
+                            @cliente.NombreCompleto
+                        </option>
+                    }
+
+                </select>
+
+            </div>
+
+            <div class="form-group">
+
+                <label class="form-label">
+                    Paquetes pendientes
+                </label>
+
+                <div id="paquetesContainer" class="paquetes-box">
+
+                    <div class="sin-paquetes">
+                        Seleccione un cliente para visualizar sus paquetes.
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="form-group">
+
+                <label class="form-label">
+                    Observaciones
+                </label>
+
+                <textarea name="observaciones"
+                          class="form-input"
+                          rows="4"></textarea>
+
+            </div>
+
+            <div class="form-actions">
+
+                <button type="submit"
+                        class="btn-primary">
+
+                    Generar Proforma
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+@section Scripts {
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+
+        document.getElementById("clienteId")
+            .addEventListener("change", function () {
+
+                let clienteId = this.value;
+
+                const container =
+                    document.getElementById("paquetesContainer");
+
+                if (!clienteId) {
+
+                    container.innerHTML =
+                        '<div class="sin-paquetes">Seleccione un cliente para visualizar sus paquetes.</div>';
+
+                    return;
+                }
+
+                fetch('/Proformas/ObtenerPaquetes?clienteId=' + clienteId)
+                    .then(response => response.json())
+                    .then(data => {
+
+                        if (data.length === 0) {
+
+                            container.innerHTML =
+                                '<div class="sin-paquetes">Este cliente no tiene paquetes pendientes.</div>';
+
+                            return;
+                        }
+
+                        let html = '';
+
+                        data.forEach(paquete => {
+
+                            html += `
+                                <div class="paquete-item">
+
+                                    <input type="checkbox"
+                                           name="paquetesSeleccionados"
+                                           value="${paquete.id}" />
+
+                                    <div class="paquete-info">
+
+                                        <div class="paquete-tracking">
+                                            ${paquete.tracking}
+                                        </div>
+
+                                        <div class="paquete-detalle">
+                                            ${paquete.descripcion}
+                                            |
+                                            Peso: ${paquete.peso} kg
+                                            |
+                                            ₡${paquete.costoEnvio}
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            `;
+                        });
+
+                        container.innerHTML = html;
+                    })
+                    .catch(error => {
+
+                        console.error(error);
+
+                        container.innerHTML =
+                            '<div class="sin-paquetes">Error al cargar los paquetes.</div>';
+                    });
+            });
+
+    </script>
+}

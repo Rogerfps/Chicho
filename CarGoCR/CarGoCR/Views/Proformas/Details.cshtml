@@ -1,0 +1,245 @@
+﻿@model CarGoCR.Models.Proforma
+
+@{
+    ViewData["Title"] = "Detalle de Proforma";
+}
+
+<style>
+    .layout-content {
+        margin-left: 220px;
+        width: calc(100% - 220px);
+        min-height: 100vh;
+        padding: 2rem;
+    }
+
+    .info-grid {
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .info-card {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 12px;
+        padding: 1rem;
+    }
+
+    .info-label {
+        color: var(--text-secondary);
+        font-size: .8rem;
+        margin-bottom: .35rem;
+    }
+
+    .info-value {
+        color: var(--text-primary);
+        font-weight: 600;
+    }
+
+    .table-card {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 14px;
+        overflow: hidden;
+    }
+
+    .data-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+        .data-table th {
+            text-align: left;
+            padding: .85rem 1rem;
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .data-table td {
+            padding: .85rem 1rem;
+            border-bottom: 1px solid rgba(255,255,255,.05);
+        }
+
+    .badge-active {
+        background: rgba(52,211,153,.12);
+        color: #34d399;
+        padding: .25rem .75rem;
+        border-radius: 6px;
+        font-size: .75rem;
+        font-weight: 600;
+    }
+
+    .badge-inactive {
+        background: rgba(248,113,113,.12);
+        color: #f87171;
+        padding: .25rem .75rem;
+        border-radius: 6px;
+        font-size: .75rem;
+        font-weight: 600;
+    }
+
+    .total-box {
+        margin-top: 1rem;
+        text-align: right;
+        font-size: 1.2rem;
+        font-weight: 700;
+    }
+</style>
+
+<div class="content">
+
+    <div class="page-header-row">
+
+        <div class="page-header">
+            <h1>Proforma #@Model.Id</h1>
+            <p>Detalle completo de la proforma</p>
+        </div>
+
+        <div style="display:flex;gap:.75rem;">
+
+            @if (!Model.Pagada)
+            {
+                <a asp-action="Aprobar"
+                   asp-route-id="@Model.Id"
+                   class="btn-primary"
+                   style="text-decoration:none;">
+                    Confirmar Pago
+                </a>
+            }
+
+            <a asp-action="Index"
+               class="btn-secondary"
+               style="text-decoration:none;">
+                Volver
+            </a>
+
+            <a asp-action="Imprimir"
+               asp-route-id="@Model.Id"
+               class="btn-primary"
+               style="text-decoration:none;">
+                Descargar PDF
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="info-grid">
+
+        <div class="info-card">
+            <div class="info-label">
+                Cliente
+            </div>
+
+            <div class="info-value">
+                @Model.Cliente?.NombreCompleto
+            </div>
+        </div>
+
+        <div class="info-card">
+            <div class="info-label">
+                Fecha
+            </div>
+
+            <div class="info-value">
+                @Model.FechaCreacion.ToLocalTime().ToString("dd/MM/yyyy HH:mm")
+            </div>
+        </div>
+
+        <div class="info-card">
+            <div class="info-label">
+                Estado
+            </div>
+
+            <div class="info-value">
+
+                @if (Model.Pagada)
+                {
+                    <span class="badge-active">
+                        Aprobada
+                    </span>
+                }
+                else
+                {
+                    <span class="badge-inactive">
+                        Pendiente
+                    </span>
+                }
+
+            </div>
+        </div>
+
+        <div class="info-card">
+            <div class="info-label">
+                Total
+            </div>
+
+            <div class="info-value">
+                ₡@Model.Total.ToString("N2")
+            </div>
+        </div>
+
+    </div>
+
+    @if (!string.IsNullOrWhiteSpace(Model.Observaciones))
+    {
+        <div class="info-card" style="margin-bottom:1rem;">
+            <div class="info-label">
+                Observaciones
+            </div>
+
+            <div class="info-value">
+                @Model.Observaciones
+            </div>
+        </div>
+    }
+
+    <div class="table-card">
+
+        <table class="data-table">
+
+            <thead>
+                <tr>
+                    <th>Tracking</th>
+                    <th>Descripción</th>
+                    <th>Peso</th>
+                    <th>Costo</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @foreach (var detalle in Model.Detalles)
+                {
+                    <tr>
+
+                        <td>
+                            @detalle.Paquete?.Tracking
+                        </td>
+
+                        <td>
+                            @detalle.Paquete?.Descripcion
+                        </td>
+
+                        <td>
+                            @detalle.Paquete?.Peso kg
+                        </td>
+
+                        <td>
+                            ₡@detalle.Precio.ToString("N2")
+                        </td>
+
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <div class="total-box">
+        Total Facturado: ₡@Model.Total.ToString("N2")
+    </div>
+
+</div>

@@ -3,6 +3,7 @@ using System;
 using CarGoCR.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CarGoCR.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260602011147_AgregarProformas")]
+    partial class AgregarProformas
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -267,6 +270,13 @@ namespace CarGoCR.Migrations
                     b.Property<int>("ClienteId")
                         .HasColumnType("integer");
 
+                    b.Property<decimal>("CostoEstimado")
+                        .HasColumnType("numeric");
+
+                    b.Property<string>("Descripcion")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("Estado")
                         .IsRequired()
                         .HasColumnType("text");
@@ -277,43 +287,22 @@ namespace CarGoCR.Migrations
                     b.Property<string>("Observaciones")
                         .HasColumnType("text");
 
-                    b.Property<bool>("Pagada")
-                        .HasColumnType("boolean");
+                    b.Property<decimal>("PesoEstimado")
+                        .HasColumnType("numeric");
 
-                    b.Property<decimal>("Total")
+                    b.Property<int?>("TarifaId")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal>("ValorDeclarado")
                         .HasColumnType("numeric");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ClienteId");
 
+                    b.HasIndex("TarifaId");
+
                     b.ToTable("Proformas");
-                });
-
-            modelBuilder.Entity("CarGoCR.Models.ProformaDetalle", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("PaqueteId")
-                        .HasColumnType("integer");
-
-                    b.Property<decimal>("Precio")
-                        .HasColumnType("numeric");
-
-                    b.Property<int>("ProformaId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PaqueteId");
-
-                    b.HasIndex("ProformaId");
-
-                    b.ToTable("ProformaDetalle");
                 });
 
             modelBuilder.Entity("CarGoCR.Models.Tarifa", b =>
@@ -508,26 +497,13 @@ namespace CarGoCR.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Cliente");
-                });
-
-            modelBuilder.Entity("CarGoCR.Models.ProformaDetalle", b =>
-                {
-                    b.HasOne("CarGoCR.Models.Paquete", "Paquete")
+                    b.HasOne("CarGoCR.Models.Tarifa", "Tarifa")
                         .WithMany()
-                        .HasForeignKey("PaqueteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TarifaId");
 
-                    b.HasOne("CarGoCR.Models.Proforma", "Proforma")
-                        .WithMany("Detalles")
-                        .HasForeignKey("ProformaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Cliente");
 
-                    b.Navigation("Paquete");
-
-                    b.Navigation("Proforma");
+                    b.Navigation("Tarifa");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -579,11 +555,6 @@ namespace CarGoCR.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("CarGoCR.Models.Proforma", b =>
-                {
-                    b.Navigation("Detalles");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,0 +1,240 @@
+﻿@model CarGoCR.Models.Proforma
+
+@{
+    ViewData["Title"] = "Editar Proforma";
+}
+
+<style>
+    .layout-content {
+        margin-left: 220px;
+        width: calc(100% - 220px);
+        min-height: 100vh;
+        padding: 2rem;
+    }
+
+    .paquetes-box {
+        margin-top: 1rem;
+        border: 1px solid #252836;
+        border-radius: 10px;
+        padding: 1rem;
+        max-height: 350px;
+        overflow-y: auto;
+    }
+
+    .paquete-item {
+        display: flex;
+        gap: .75rem;
+        align-items: center;
+        padding: .75rem 0;
+        border-bottom: 1px solid rgba(255,255,255,.05);
+    }
+
+        .paquete-item:last-child {
+            border-bottom: none;
+        }
+
+    .paquete-info {
+        flex: 1;
+    }
+
+    .paquete-tracking {
+        font-weight: 600;
+    }
+
+    .paquete-detalle {
+        color: #7b8099;
+        font-size: .8rem;
+    }
+
+    .alert-warning {
+        background: rgba(251,191,36,.10);
+        color: #fbbf24;
+        padding: 1rem;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+    }
+</style>
+
+<div class="content">
+
+    <div class="page-header-row">
+
+        <div class="page-header">
+            <h1>Editar Proforma #@Model.Id</h1>
+            <p>Modificar datos de la proforma</p>
+        </div>
+
+        <a asp-action="Index"
+           class="btn-secondary"
+           style="text-decoration:none;">
+            Volver
+        </a>
+
+    </div>
+
+    @if (Model.Pagada)
+    {
+        <div class="alert-warning">
+            Esta proforma ya fue pagada y no puede modificarse.
+        </div>
+    }
+
+    <div class="form-card">
+
+        <form asp-action="Edit" method="post">
+
+            <input asp-for="Id" type="hidden" />
+
+            <div asp-validation-summary="ModelOnly"
+                 class="text-danger mb-3">
+            </div>
+
+            <div class="form-group">
+
+                <label class="form-label">
+                    Cliente
+                </label>
+
+                @if (Model.Pagada)
+                {
+                    <select name="clienteId"
+                            id="clienteId"
+                            class="form-input"
+                            disabled>
+
+                        @foreach (var cliente in ViewBag.Clientes)
+                        {
+                            if (cliente.Id == Model.ClienteId)
+                            {
+                                <option value="@cliente.Id" selected>
+                                    @cliente.NombreCompleto
+                                </option>
+                            }
+                        }
+
+                    </select>
+                }
+                else
+                {
+                    <select name="clienteId"
+                            id="clienteId"
+                            class="form-input">
+
+                        @foreach (var cliente in ViewBag.Clientes)
+                        {
+                            if (cliente.Id == Model.ClienteId)
+                            {
+                                <option value="@cliente.Id" selected>
+                                    @cliente.NombreCompleto
+                                </option>
+                            }
+                            else
+                            {
+                                <option value="@cliente.Id">
+                                    @cliente.NombreCompleto
+                                </option>
+                            }
+                        }
+
+                    </select>
+                }
+
+            </div>
+
+            <div class="form-group">
+
+                <label class="form-label">
+                    Paquetes
+                </label>
+
+                <div class="paquetes-box">
+
+                    @foreach (var paquete in ViewBag.Paquetes)
+                    {
+                        bool seleccionado =
+                        Model.Detalles.Any(x => x.PaqueteId == paquete.Id);
+
+                        <div class="paquete-item">
+
+                            @if (Model.Pagada)
+                            {
+                                <input type="checkbox"
+                                       checked="@seleccionado"
+                                       disabled />
+                            }
+                            else
+                            {
+                                <input type="checkbox"
+                                       name="paquetesSeleccionados"
+                                       value="@paquete.Id"
+                                       checked="@seleccionado" />
+                            }
+
+                            <div class="paquete-info">
+
+                                <div class="paquete-tracking">
+                                    @paquete.Tracking
+                                </div>
+
+                                <div class="paquete-detalle">
+                                    @paquete.Descripcion |
+                                    Peso: @paquete.Peso kg |
+                                    ₡@paquete.CostoEnvio.ToString("N2")
+                                </div>
+
+                            </div>
+
+                        </div>
+                    }
+
+                </div>
+
+            </div>
+
+            <div class="form-group">
+
+                <label class="form-label">
+                    Observaciones
+                </label>
+
+                @if (Model.Pagada)
+                {
+                    <textarea asp-for="Observaciones"
+                              class="form-input"
+                              rows="4"
+                              readonly>
+                    </textarea>
+                }
+                else
+                {
+                    <textarea asp-for="Observaciones"
+                              class="form-input"
+                              rows="4">
+                    </textarea>
+                }
+
+            </div>
+
+            @if (!Model.Pagada)
+            {
+                <div class="form-actions">
+
+                    <button type="submit"
+                            class="btn-primary">
+                        Guardar Cambios
+                    </button>
+
+                </div>
+            }
+
+        </form>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
