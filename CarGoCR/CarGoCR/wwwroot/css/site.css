@@ -601,3 +601,67 @@ body {
     width: 40px;
     text-align: right;
 }
+.sidebar-user {
+    margin-top: auto;
+    padding: 18px;
+    border-top: 1px solid var(--card-border);
+    background: rgba(255,255,255,.02);
+}
+
+.sidebar-user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+
+
+.sidebar-user-name {
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: .88rem;
+}
+
+.sidebar-user-role {
+    color: var(--text-secondary);
+    font-size: .75rem;
+}
+
+.logout-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: .82rem;
+    font-weight: 600;
+    color: var(--accent-red);
+    background: rgba(248,113,113,.08);
+    border: 1px solid rgba(248,113,113,.15);
+    transition: .25s;
+}
+
+    .logout-btn:hover {
+        background: rgba(248,113,113,.15);
+        color: #fca5a5;
+    }
+.brand-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    overflow: hidden;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.brand-logo {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}

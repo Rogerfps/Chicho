@@ -1,4 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@using CarGoCR.Data
+@using Microsoft.EntityFrameworkCore
+@inject AppDbContext Context
+
+@{
+    var empresa = Context.Empresas.FirstOrDefault();
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -12,9 +19,24 @@
     <!-- SIDEBAR -->
     <aside class="sidebar">
         <div class="sidebar-brand">
-            <div class="brand-avatar">C</div>
+            <div class="brand-avatar">
+
+                @if (!string.IsNullOrEmpty(empresa?.Logo))
+                {
+                    <img src="@empresa.Logo"
+                         alt="Logo"
+                         class="brand-logo" />
+                }
+                else
+                {
+                    <span>C</span>
+                }
+
+            </div>
             <div>
-                <div class="brand-name">CarGoCR</div>
+                <div class="brand-name">
+                    @(empresa?.NombreEmpresa ?? "CarGoCR")
+                </div>
                 <div class="brand-sub">Sistema empresarial</div>
             </div>
         </div>
@@ -83,21 +105,95 @@
 
         <div class="nav-section-label">Sistema</div>
         <a class="nav-item" asp-area="" asp-controller="Empresa" asp-action="Index">
-            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><polyline points="9 22 9 12 15 12 15 22" /></svg>
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                <polyline points="9 22 9 12 15 12 15 22" />
+            </svg>
             Empresa
         </a>
-        <a asp-controller="Users" asp-action="Index" class="nav-item">
-            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+
+        <a asp-controller="Users"
+           asp-action="Index"
+           class="nav-item">
+
+            <svg fill="none"
+                 stroke="currentColor"
+                 stroke-width="2"
+                 viewBox="0 0 24 24">
+
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                 <circle cx="12" cy="7" r="4" />
+
             </svg>
+
             Usuarios
+
+        </a>
+        <a href="/"
+           target="_blank"
+           class="nav-item">
+
+            <svg fill="none"
+                 stroke="currentColor"
+                 stroke-width="2"
+                 viewBox="0 0 24 24">
+
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+
+            </svg>
+
+            Sitio Público
+
         </a>
 
-        <div class="sidebar-footer">
-            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" /><path d="M19.07 4.93A10 10 0 1 0 4.93 19.07 10 10 0 0 0 19.07 4.93z" /></svg>
-            Sitio público
+        <!-- USUARIO LOGUEADO -->
+
+        <div class="sidebar-user">
+
+            <div class="sidebar-user-info">
+
+                <div>
+
+                    <div class="sidebar-user-name">
+                        @User.Identity?.Name
+                    </div>
+
+                    <div class="sidebar-user-role">
+                        Administrador
+                    </div>
+
+                </div>
+
+            </div>
+
+            <a asp-controller="Account"
+               asp-action="Logout"
+               class="logout-btn">
+
+                <svg width="15"
+                     height="15"
+                     fill="none"
+                     stroke="currentColor"
+                     stroke-width="2"
+                     viewBox="0 0 24 24">
+
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                    <polyline points="16 17 21 12 16 7"></polyline>
+                    <line x1="21"
+                          y1="12"
+                          x2="9"
+                          y2="12"></line>
+
+                </svg>
+
+                Cerrar sesión
+
+            </a>
+
         </div>
+
     </aside>
     <div class="layout-content">
         @RenderBody()

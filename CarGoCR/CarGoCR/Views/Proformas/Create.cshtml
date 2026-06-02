@@ -10,26 +10,114 @@
         padding: 2rem;
     }
 
+    .layout-content {
+        margin-left: 220px;
+        width: calc(100% - 220px);
+        min-height: 100vh;
+        padding: 2rem;
+    }
+
+    .form-card {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 24px;
+        padding: 2rem;
+        box-shadow: 0 20px 40px rgba(0,0,0,.25);
+    }
+
+    .page-header-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+    }
+
+    .page-header h1 {
+        color: white;
+        font-size: 2rem;
+        font-weight: 800;
+        margin-bottom: .3rem;
+    }
+
+    .page-header p {
+        color: #94a3b8;
+        margin: 0;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+        display: block;
+        color: #cbd5e1;
+        font-weight: 600;
+        margin-bottom: .7rem;
+    }
+
+    .form-input {
+        width: 100%;
+        background: #0f172a;
+        border: 1px solid #334155;
+        color: white;
+        padding: .9rem 1rem;
+        border-radius: 14px;
+        transition: .3s;
+    }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 4px rgba(59,130,246,.15);
+        }
+
     .paquetes-box {
-        margin-top: 1rem;
+        margin-top: .5rem;
         border: 1px solid #252836;
-        border-radius: 10px;
+        border-radius: 18px;
+        background: rgba(15,23,42,.5);
         padding: 1rem;
-        min-height: 120px;
-        max-height: 350px;
+        min-height: 180px;
+        max-height: 420px;
         overflow-y: auto;
     }
+
+        .paquetes-box::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .paquetes-box::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 20px;
+        }
 
     .paquete-item {
         display: flex;
         align-items: center;
-        gap: .75rem;
-        padding: .75rem 0;
-        border-bottom: 1px solid rgba(255,255,255,.05);
+        gap: 1rem;
+        padding: 1rem;
+        margin-bottom: .8rem;
+        border-radius: 16px;
+        background: rgba(255,255,255,.02);
+        border: 1px solid rgba(255,255,255,.04);
+        transition: all .25s ease;
     }
 
         .paquete-item:last-child {
-            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .paquete-item:hover {
+            transform: translateY(-2px);
+            border-color: rgba(79,124,255,.35);
+            background: rgba(79,124,255,.06);
+        }
+
+        .paquete-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: #4f7cff;
+            cursor: pointer;
         }
 
     .paquete-info {
@@ -37,19 +125,71 @@
     }
 
     .paquete-tracking {
-        font-weight: 600;
+        color: white;
+        font-weight: 700;
+        font-size: .95rem;
+        margin-bottom: .3rem;
     }
 
     .paquete-detalle {
-        font-size: .8rem;
-        color: #7b8099;
+        color: #94a3b8;
+        font-size: .85rem;
+        line-height: 1.5;
     }
 
     .sin-paquetes {
         color: #7b8099;
         text-align: center;
-        padding: 1rem;
+        padding: 3rem 1rem;
     }
+
+    textarea.form-input {
+        resize: vertical;
+        min-height: 130px;
+    }
+
+    .form-actions {
+        margin-top: 2rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid rgba(255,255,255,.08);
+        display: flex;
+        gap: 1rem;
+    }
+
+    .btn-primary {
+        background: linear-gradient( 135deg, #4f7cff, #2563eb );
+        border: none;
+        color: white;
+        padding: 14px 28px;
+        border-radius: 14px;
+        font-weight: 700;
+        transition: .3s;
+    }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(79,124,255,.25);
+        }
+
+    .btn-secondary {
+        background: #1e293b;
+        border: 1px solid #334155;
+        color: white;
+        padding: 12px 22px;
+        border-radius: 14px;
+        transition: .3s;
+    }
+
+        .btn-secondary:hover {
+            background: #334155;
+            color: white;
+        }
+
+    .text-danger {
+        font-size: .85rem;
+        margin-top: .4rem;
+    }
+
 </style>
 
 <div class="content">

@@ -6,12 +6,225 @@
 
 <style>
 
+
     .layout-content {
         margin-left: 220px;
         width: calc(100% - 220px);
         min-height: 100vh;
         padding: 2rem;
+    }
+
+    .page-header-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+
+    .page-header h1 {
+        font-size: 2rem;
+        font-weight: 800;
+        margin-bottom: 6px;
+        color: #fff;
+    }
+
+    .page-header p {
+        color: #94a3b8;
+        margin: 0;
+    }
+
+    .form-card {
+        background: var(--card-bg);
+        border: 1px solid rgba(148,163,184,.15);
+        border-radius: 24px;
+        padding: 35px;
+        box-shadow: 0 20px 50px rgba(0,0,0,.35);
+    }
+
+    .card-section-title {
+        color: white;
+        font-size: 1.15rem;
+        font-weight: 700;
+        margin-bottom: 25px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid rgba(148,163,184,.15);
+    }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+        gap: 22px;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+    }
+
+        .form-group.full-width {
+            grid-column: 1/-1;
+        }
+
+    .form-label {
+        color: #cbd5e1;
+        font-weight: 600;
+        margin-bottom: 8px;
+        font-size: .92rem;
+    }
+
+    .form-input {
+        width: 100%;
+        background: rgba(15,23,42,.8);
+        border: 1px solid #334155;
+        color: white;
+        padding: 14px 16px;
+        border-radius: 14px;
+        transition: .3s;
+        font-size: .95rem;
+    }
+
+        .form-input:hover {
+            border-color: #475569;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 4px rgba(59,130,246,.15);
+        }
+
+        .form-input::placeholder {
+            color: #64748b;
+        }
+
+    textarea.form-input {
+        resize: none;
+    }
+
+    select.form-input {
+        cursor: pointer;
+    }
+
+    .text-danger {
+        font-size: .85rem;
+        margin-top: 5px;
+    }
+
+    .checkbox-card {
+        grid-column: 1/-1;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: rgba(15,23,42,.7);
+        border: 1px solid #1e293b;
+        border-radius: 18px;
+        padding: 18px;
+        margin-top: 5px;
+    }
+
+        .checkbox-card input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .checkbox-card label {
+            color: #e2e8f0;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 0;
+        }
+
+    .form-actions {
+        margin-top: 35px;
+        padding-top: 25px;
+        border-top: 1px solid rgba(148,163,184,.15);
+        display: flex;
+        gap: 15px;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg,#2563eb,#1d4ed8);
+        border: none;
+        color: white;
+        padding: 14px 26px;
+        border-radius: 14px;
+        font-weight: 700;
+        text-decoration: none;
+        transition: .3s;
+        min-width: 170px;
+        text-align: center;
+    }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg,#3b82f6,#2563eb);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+    .btn-secondary {
+        background: #1e293b;
+        color: white;
+        border: 1px solid #334155;
+        padding: 14px 26px;
+        border-radius: 14px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: .3s;
+        min-width: 170px;
+        text-align: center;
+    }
+
+        .btn-secondary:hover {
+            background: #334155;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+    input[readonly] {
+        opacity: .85;
+        cursor: not-allowed;
+        background: #0b1324;
+    }
+
+    @@media (max-width:768px) {
+
+        .layout-content {
+            margin-left: 0;
+            width: 100%;
+            padding: 1rem;
+        }
+
+        .page-header-row {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .form-card {
+            padding: 25px;
+        }
+
+        .form-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .checkbox-card {
+            grid-column: span 1;
+        }
+
+        .form-actions {
+            flex-direction: column;
+        }
+
+        .btn-primary,
+        .btn-secondary {
+            width: 100%;
+        }
+    }
+
 </style>
+
 
 <div class="content">
 
@@ -28,7 +241,7 @@
         </a>
     </div>
 
-    <div class="table-card" style="padding:25px;">
+    <div class="form-card">
 
         <form asp-action="Edit">
 
@@ -38,105 +251,149 @@
                  class="text-danger mb-3">
             </div>
 
-            <div class="mb-3">
-                <label>Tracking</label>
-                <input asp-for="Tracking"
-                       class="form-control"
-                       readonly />
+            <div class="card-section-title">
+                Información del Paquete
             </div>
 
-            <div class="mb-3">
-                <label>Descripción</label>
-                <input asp-for="Descripcion"
-                       class="form-control" />
-            </div>
+            <div class="form-grid">
 
-            <div class="mb-3">
-                <label>Peso (kg)</label>
-                <input asp-for="Peso"
-                       class="form-control" />
-            </div>
+                <div class="form-group">
+                    <label class="form-label">
+                        Tracking
+                    </label>
 
-            <div class="mb-3">
-                <label>Valor declarado</label>
-                <input asp-for="ValorDeclarado"
-                       class="form-control" />
-            </div>
+                    <input asp-for="Tracking"
+                           class="form-input"
+                           readonly />
+                </div>
 
-            <div class="mb-3">
-                <label>Cliente</label>
+                <div class="form-group">
+                    <label class="form-label">
+                        Descripción
+                    </label>
 
-                <select asp-for="ClienteId"
-                        class="form-control">
+                    <input asp-for="Descripcion"
+                           class="form-input" />
 
-                    @foreach (var cliente in ViewBag.Clientes)
-                    {
-                        <option value="@cliente.Id">
-                            @cliente.NombreCompleto
+                    <span asp-validation-for="Descripcion"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">
+                        Peso (kg)
+                    </label>
+
+                    <input asp-for="Peso"
+                           class="form-input" />
+
+                    <span asp-validation-for="Peso"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">
+                        Valor declarado
+                    </label>
+
+                    <input asp-for="ValorDeclarado"
+                           class="form-input" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">
+                        Cliente
+                    </label>
+
+                    <select asp-for="ClienteId"
+                            class="form-input">
+
+                        @foreach (var cliente in ViewBag.Clientes)
+                        {
+                            <option value="@cliente.Id">
+                                @cliente.NombreCompleto
+                            </option>
+                        }
+
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">
+                        Tarifa
+                    </label>
+
+                    <select asp-for="TarifaId"
+                            class="form-input">
+
+                        <option value="">
+                            Seleccione una tarifa
                         </option>
-                    }
 
-                </select>
-            </div>
+                        @foreach (var tarifa in ViewBag.Tarifas)
+                        {
+                            <option value="@tarifa.Id">
+                                @tarifa.Categoria
+                            </option>
+                        }
 
-            <div class="mb-3">
-                <label>Tarifa</label>
+                    </select>
+                </div>
 
-                <select asp-for="TarifaId"
-                        class="form-control">
+                <div class="form-group">
+                    <label class="form-label">
+                        Estado
+                    </label>
 
-                    <option value="">
-                        Seleccione una tarifa
-                    </option>
+                    <select asp-for="Estado"
+                            class="form-input">
 
-                    @foreach (var tarifa in ViewBag.Tarifas)
-                    {
-                        <option value="@tarifa.Id">
-                            @tarifa.Categoria
-                        </option>
-                    }
+                        <option>Prealertado</option>
+                        <option>Recibido</option>
+                        <option>En Bodega</option>
+                        <option>En Tránsito</option>
+                        <option>Listo para Entrega</option>
+                        <option>Entregado</option>
 
-                </select>
-            </div>
+                    </select>
+                </div>
 
-            <div class="mb-3">
-                <label>Estado</label>
+                <div class="form-group full-width">
+                    <label class="form-label">
+                        Observaciones
+                    </label>
 
-                <select asp-for="Estado"
-                        class="form-control">
+                    <textarea asp-for="Observaciones"
+                              class="form-input"
+                              rows="5"></textarea>
+                </div>
 
-                    <option>Prealertado</option>
-                    <option>Recibido</option>
-                    <option>En Bodega</option>
-                    <option>En Tránsito</option>
-                    <option>Listo para Entrega</option>
-                    <option>Entregado</option>
+                <div class="checkbox-card">
 
-                </select>
-            </div>
-
-            <div class="mb-3">
-                <label>Observaciones</label>
-
-                <textarea asp-for="Observaciones"
-                          class="form-control"
-                          rows="4">
-                </textarea>
-            </div>
-
-            <div class="mb-3">
-                <label>
                     <input asp-for="Pagado" />
-                    Pagado
-                </label>
+
+                    <label asp-for="Pagado">
+                        El paquete ya fue pagado
+                    </label>
+
+                </div>
+
             </div>
 
-            <button type="submit"
-                    class="btn-primary">
+            <div class="form-actions">
 
-                Guardar cambios
+                <button type="submit"
+                        class="btn-primary">
+                    Guardar Cambios
+                </button>
 
-            </button>
+                <a asp-action="Index"
+                   class="btn-secondary"
+                   style="text-decoration:none;">
+                    Cancelar
+                </a>
+
+            </div>
 
         </form>
 
