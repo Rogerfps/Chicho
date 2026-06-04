@@ -12,10 +12,12 @@ namespace CarGoCR.Controllers
     public class ProformasController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly IWebHostEnvironment _env;
 
-        public ProformasController(AppDbContext context)
+        public ProformasController(AppDbContext context, IWebHostEnvironment env)
         {
             _context = context;
+            _env = env;
         }
 
         // INDEX
@@ -178,13 +180,21 @@ namespace CarGoCR.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var proforma = await _context.Proformas
-                .FindAsync(id);
+                .Include(x => x.Detalles)
+                .FirstOrDefaultAsync(x => x.Id == id);
 
-            if (proforma != null)
+            if (proforma == null)
+                return RedirectToAction(nameof(Index));
+
+            if (proforma.Detalles.Any())
             {
-                _context.Proformas.Remove(proforma);
-                await _context.SaveChangesAsync();
+                _context.ProformaDetalles.RemoveRange(
+                    proforma.Detalles);
             }
+
+            _context.Proformas.Remove(proforma);
+
+            await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
         }
@@ -218,26 +228,107 @@ namespace CarGoCR.Controllers
             if (proforma == null)
                 return NotFound();
 
+            var logoPath = Path.Combine(
+                _env.WebRootPath,
+                "img",
+                "Logo.jpeg");
+
+            var primaryColor = "#0f172a";
+            var accentColor = "#2563eb";
+            var lightGray = "#f8fafc";
+
             var pdf = Document.Create(container =>
             {
                 container.Page(page =>
                 {
-                    page.Margin(30);
+                    page.Size(PageSizes.A4);
+                    page.Margin(25);
 
-                    page.Header()
-                        .Text($"PROFORMA #{proforma.Id}")
-                        .FontSize(20)
-                        .Bold();
-
-                    page.Content().Column(col =>
+                    page.Header().Column(header =>
                     {
-                        col.Item().Text($"Cliente: {proforma.Cliente?.NombreCompleto}");
-                        col.Item().Text($"Fecha: {proforma.FechaCreacion:dd/MM/yyyy}");
-                        col.Item().Text($"Estado: {proforma.Estado}");
+                        header.Item().Background(accentColor)
+                            .Height(10);
 
-                        col.Item().PaddingTop(20);
+                        header.Item().PaddingTop(15);
 
-                        col.Item().Table(table =>
+                        header.Item().Row(row =>
+                        {
+                            row.ConstantItem(140)
+                                .Height(70)
+                                .Image(logoPath);
+
+                            row.RelativeItem()
+                                .AlignRight()
+                                .Column(col =>
+                                {
+                                    col.Item()
+                                        .Text("PROFORMA")
+                                        .FontSize(26)
+                                        .Bold()
+                                        .FontColor(primaryColor);
+
+                                    col.Item()
+                                        .Text($"# {proforma.Id}")
+                                        .FontSize(18);
+
+                                    col.Item()
+                                        .Text(proforma.FechaCreacion
+                                            .ToLocalTime()
+                                            .ToString("dd/MM/yyyy"));
+                                });
+                        });
+                    });
+
+                    page.Content().PaddingVertical(15).Column(content =>
+                    {
+                        content.Spacing(15);
+
+                        content.Item().Row(row =>
+                        {
+                            row.RelativeItem()
+                                .Border(1)
+                                .BorderColor("#e5e7eb")
+                                .Padding(12)
+                                .Column(c =>
+                                {
+                                    c.Item()
+                                        .Text("CLIENTE")
+                                        .Bold()
+                                        .FontColor("#6b7280");
+
+                                    c.Item()
+                                        .Text(proforma.Cliente?.NombreCompleto ?? "")
+                                        .Bold()
+                                        .FontSize(13);
+
+                                    c.Item()
+                                        .Text($"ID Cliente: {proforma.ClienteId}");
+                                });
+
+                            row.ConstantItem(15);
+
+                            row.RelativeItem()
+                                .Border(1)
+                                .BorderColor("#e5e7eb")
+                                .Padding(12)
+                                .Column(c =>
+                                {
+                                    c.Item()
+                                        .Text("INFORMACIÓN")
+                                        .Bold()
+                                        .FontColor("#6b7280");
+
+                                    c.Item()
+                                        .Text($"Estado: {proforma.Estado}");
+
+                                    c.Item()
+                                        .Text($"Pagada: {(proforma.Pagada ? "Sí" : "No")}");
+                                });
+                        });
+
+                        content.Item().PaddingTop(10);
+
+                        content.Item().Table(table =>
                         {
                             table.ColumnsDefinition(columns =>
                             {
@@ -249,35 +340,123 @@ namespace CarGoCR.Controllers
 
                             table.Header(header =>
                             {
-                                header.Cell().Text("Tracking").Bold();
-                                header.Cell().Text("Descripción").Bold();
-                                header.Cell().Text("Peso").Bold();
-                                header.Cell().Text("Costo").Bold();
+                                header.Cell()
+                                    .Background(accentColor)
+                                    .Padding(8)
+                                    .Text("Tracking")
+                                    .FontColor(Colors.White)
+                                    .Bold();
+
+                                header.Cell()
+                                    .Background(accentColor)
+                                    .Padding(8)
+                                    .Text("Descripción")
+                                    .FontColor(Colors.White)
+                                    .Bold();
+
+                                header.Cell()
+                                    .Background(accentColor)
+                                    .Padding(8)
+                                    .AlignRight()
+                                    .Text("Peso")
+                                    .FontColor(Colors.White)
+                                    .Bold();
+
+                                header.Cell()
+                                    .Background(accentColor)
+                                    .Padding(8)
+                                    .AlignRight()
+                                    .Text("Costo")
+                                    .FontColor(Colors.White)
+                                    .Bold();
                             });
 
                             foreach (var item in proforma.Detalles)
                             {
-                                table.Cell().Text(item.Paquete?.Tracking);
-                                table.Cell().Text(item.Paquete?.Descripcion);
-                                table.Cell().Text($"{item.Paquete?.Peso} kg");
-                                table.Cell().Text($"₡{item.Precio:N2}");
+                                table.Cell()
+                                    .BorderBottom(1)
+                                    .BorderColor("#e5e7eb")
+                                    .Padding(6)
+                                    .Text(item.Paquete?.Tracking ?? "");
+
+                                table.Cell()
+                                    .BorderBottom(1)
+                                    .BorderColor("#e5e7eb")
+                                    .Padding(6)
+                                    .Text(item.Paquete?.Descripcion ?? "");
+
+                                table.Cell()
+                                    .BorderBottom(1)
+                                    .BorderColor("#e5e7eb")
+                                    .Padding(6)
+                                    .AlignRight()
+                                    .Text($"{item.Paquete?.Peso:N2} kg");
+
+                                table.Cell()
+                                    .BorderBottom(1)
+                                    .BorderColor("#e5e7eb")
+                                    .Padding(6)
+                                    .AlignRight()
+                                    .Text($"₡ {item.Precio:N2}");
                             }
                         });
 
-                        col.Item().PaddingTop(20);
+                        content.Item().PaddingTop(20);
 
-                        col.Item()
+                        content.Item()
                             .AlignRight()
-                            .Text($"TOTAL: ₡{proforma.Total:N2}")
-                            .Bold()
-                            .FontSize(16);
+                            .Width(250)
+                            .Column(total =>
+                            {
+                                total.Item()
+                                    .BorderTop(2)
+                                    .BorderColor(accentColor);
+
+                                total.Item()
+                                    .PaddingTop(10);
+
+                                total.Item()
+                                    .Row(row =>
+                                    {
+                                        row.RelativeItem()
+                                            .Text("TOTAL")
+                                            .Bold()
+                                            .FontSize(14);
+
+                                        row.RelativeItem()
+                                            .AlignRight()
+                                            .Text($"₡ {proforma.Total:N2}")
+                                            .Bold()
+                                            .FontSize(20)
+                                            .FontColor(primaryColor);
+                                    });
+                            });
 
                         if (!string.IsNullOrWhiteSpace(proforma.Observaciones))
                         {
-                            col.Item().PaddingTop(15);
-                            col.Item().Text($"Observaciones: {proforma.Observaciones}");
+                            content.Item().PaddingTop(15);
+
+                            content.Item()
+                                .Text("OBSERVACIONES")
+                                .Bold()
+                                .FontColor("#6b7280");
+
+                            content.Item()
+                                .Background(lightGray)
+                                .Border(1)
+                                .BorderColor("#e5e7eb")
+                                .Padding(10)
+                                .Text(proforma.Observaciones);
                         }
                     });
+
+                    page.Footer()
+                        .AlignCenter()
+                        .Text(text =>
+                        {
+                            text.Span("CarGo CR - ");
+                            text.Span("Documento generado automáticamente");
+                        });
                 });
             });
 

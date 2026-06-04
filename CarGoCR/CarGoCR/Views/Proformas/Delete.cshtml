@@ -1,0 +1,174 @@
+﻿@model CarGoCR.Models.Proforma
+
+@{
+    ViewData["Title"] = "Eliminar Proforma";
+}
+
+<style>
+    .layout-content {
+        margin-left: 220px;
+        width: calc(100% - 220px);
+        min-height: 100vh;
+        padding: 2rem;
+    }
+
+    .warning-card {
+        background: rgba(248,113,113,.08);
+        border: 1px solid rgba(248,113,113,.25);
+        border-radius: 12px;
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .warning-title {
+        color: #f87171;
+        font-weight: 700;
+        margin-bottom: .5rem;
+    }
+
+    .details-card {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 14px;
+        overflow: hidden;
+    }
+
+    .details-row {
+        display: flex;
+        border-bottom: 1px solid rgba(255,255,255,.05);
+    }
+
+        .details-row:last-child {
+            border-bottom: none;
+        }
+
+    .details-label {
+        width: 220px;
+        padding: 1rem;
+        color: var(--text-secondary);
+        font-weight: 600;
+        background: rgba(255,255,255,.02);
+    }
+
+    .details-value {
+        flex: 1;
+        padding: 1rem;
+        color: var(--text-primary);
+    }
+
+    .danger-btn {
+        background: #ef4444;
+        color: white;
+        border: none;
+        padding: .75rem 1.25rem;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+    }
+
+        .danger-btn:hover {
+            background: #dc2626;
+        }
+</style>
+
+<div class="content">
+
+    <div class="page-header-row">
+
+        <div class="page-header">
+            <h1>Eliminar Proforma</h1>
+            <p>Confirmar eliminación de la proforma</p>
+        </div>
+
+        <a asp-action="Index"
+           class="btn-secondary"
+           style="text-decoration:none;">
+            Volver
+        </a>
+
+    </div>
+
+    <div class="warning-card">
+
+        <div class="warning-title">
+            ⚠ Esta acción no se puede deshacer
+        </div>
+
+        <div>
+            Se eliminará la proforma y todos sus detalles asociados.
+        </div>
+
+    </div>
+
+    <div class="details-card">
+
+        <div class="details-row">
+            <div class="details-label">Proforma</div>
+            <div class="details-value">
+                #@Model.Id
+            </div>
+        </div>
+
+        <div class="details-row">
+            <div class="details-label">Cliente</div>
+            <div class="details-value">
+                @Model.Cliente?.NombreCompleto
+            </div>
+        </div>
+
+        <div class="details-row">
+            <div class="details-label">Fecha</div>
+            <div class="details-value">
+                @Model.FechaCreacion.ToLocalTime().ToString("dd/MM/yyyy HH:mm")
+            </div>
+        </div>
+
+        <div class="details-row">
+            <div class="details-label">Estado</div>
+            <div class="details-value">
+                @Model.Estado
+            </div>
+        </div>
+
+        <div class="details-row">
+            <div class="details-label">Pagada</div>
+            <div class="details-value">
+                @(Model.Pagada ? "Sí" : "No")
+            </div>
+        </div>
+
+        <div class="details-row">
+            <div class="details-label">Total</div>
+            <div class="details-value">
+                ₡@Model.Total.ToString("N2")
+            </div>
+        </div>
+
+    </div>
+
+    <form asp-action="Delete"
+          method="post"
+          style="margin-top:1.5rem;">
+
+        <input type="hidden"
+               asp-for="Id" />
+
+        <div style="display:flex; gap:10px;">
+
+            <button type="submit"
+                    class="danger-btn">
+                Eliminar Proforma
+            </button>
+
+            <a asp-action="Details"
+               asp-route-id="@Model.Id"
+               class="btn-secondary"
+               style="text-decoration:none;">
+                Cancelar
+            </a>
+
+        </div>
+
+    </form>
+
+</div>

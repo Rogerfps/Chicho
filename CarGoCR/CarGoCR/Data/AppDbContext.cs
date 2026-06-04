@@ -16,5 +16,6 @@ namespace CarGoCR.Data
         public DbSet<Empresa> Empresas { get; set; }
         public DbSet<Paquete> Paquetes { get; set; }
         public DbSet<Proforma> Proformas { get; set; }
+        public DbSet<ProformaDetalle> ProformaDetalles { get; set; }
     }
 }
