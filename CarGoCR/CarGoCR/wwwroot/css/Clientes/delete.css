@@ -1,0 +1,103 @@
+.warning-box {
+    background: rgba(248,113,113,.08);
+    border: 1px solid rgba(248,113,113,.25);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.warning-box h3 {
+    color: white;
+    margin-bottom: .8rem;
+}
+
+.warning-box p {
+    color: var(--text-secondary);
+    margin-bottom: .4rem;
+}
+
+.btn-delete {
+    background: var(--accent-red);
+    color: white;
+    border: none;
+    padding: .8rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+    .btn-delete:hover {
+        opacity: .9;
+    }
+
+.action-buttons {
+    margin-top: 2rem;
+    display: flex;
+    gap: .75rem;
+}
+
+/* Botón Editar */
+.btn-edit {
+    background: var(--accent-blue);
+    color: #fff;
+    padding: .85rem 1.4rem;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    border: none;
+    transition: .25s;
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+}
+
+    .btn-edit:hover {
+        background: #3a66e8;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 18px rgba(79,124,255,.25);
+    }
+
+/* Botón Volver / Cancelar */
+.btn-secondary-modern {
+    background: transparent;
+    border: 1px solid var(--card-border);
+    color: var(--text-primary);
+    padding: .85rem 1.4rem;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: .25s;
+    display: inline-flex;
+    align-items: center;
+}
+
+    .btn-secondary-modern:hover {
+        background: var(--hover-bg);
+        border-color: var(--accent-blue);
+    }
+
+/* Botón Eliminar */
+.btn-delete {
+    background: var(--accent-red);
+    color: white;
+    border: none;
+    padding: .85rem 1.4rem;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .25s;
+}
+
+    .btn-delete:hover {
+        background: #dc2626;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 18px rgba(248,113,113,.25);
+    }
+
+.layout-content {
+    margin-left: 220px;
+    width: calc(100% - 220px);
+    min-height: 100vh;
+    padding: 2rem;
+}
+

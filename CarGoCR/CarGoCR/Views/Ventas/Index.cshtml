@@ -1,534 +1,355 @@
-﻿
-    <style>
-        :root {
-        --bg: #0f1117;
-        --sidebar-bg: #13151e;
-        --card-bg: #1a1d27;
-        --card-border: #252836;
-        --text-primary: #f0f2f8;
-        --text-secondary: #7b8099;
-        --text-muted: #4a5068;
-        --accent-blue: #4f7cff;
-        --accent-green: #34d399;
-        --accent-red: #f87171;
-        --accent-purple: #a78bfa;
-        --accent-orange: #fb923c;
-        --hover-bg: #1f2235;
-        --active-bg: #252a3d;
-        }
+﻿@model List<CarGoCR.Models.Proforma>
 
-        * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        }
+@{
+    ViewData["Title"] = "Ventas";
 
-        body {
-        font-family: 'DM Sans',sans-serif;
-        background: var(--bg);
-        color: var(--text-primary);
-        display: flex;
-        min-height: 100vh;
-        }
+    // ── Estadísticas ──────────────────────────────────────────────────────────
+    int totalProformas = Model.Count;
+    int pagadas        = Model.Count(x => x.Pagada);
+    int pendientes     = Model.Count(x => !x.Pagada);
 
-        .sidebar {
-        width: 220px;
-        min-width: 220px;
-        background: var(--sidebar-bg);
-        border-right: 1px solid var(--card-border);
-        display: flex;
-        flex-direction: column;
-        padding: 1.25rem 0;
-        position: fixed;
-        height: 100vh;
-        z-index: 100;
-        }
+    decimal ingresosTotales = Model.Where(x => x.Pagada).Sum(x => x.Total);
 
-        .sidebar-brand {
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-        padding: 0 1.25rem 1.5rem;
-        border-bottom: 1px solid var(--card-border);
-        margin-bottom: 1rem;
-        }
+    var hoy        = DateTime.UtcNow;
+    decimal ingresosMes = Model
+        .Where(x => x.Pagada && x.FechaCreacion.Year == hoy.Year && x.FechaCreacion.Month == hoy.Month)
+        .Sum(x => x.Total);
 
-        .brand-avatar {
-        width: 38px;
-        height: 38px;
-        border-radius: 10px;
-        background: linear-gradient(135deg,#4f7cff,#a78bfa);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 700;
-        font-size: 1rem;
-        color: white;
-        }
+    // ── Top 5 paquetes por peso ────────────────────────────────────────────────
+    var topPeso = Model
+        .SelectMany(p => p.Detalles)
+        .Where(d => d.Paquete != null)
+        .GroupBy(d => d.Paquete!.Descripcion ?? $"Paquete #{d.PaqueteId}")
+        .Select(g => new { Nombre = g.Key, PesoTotal = g.Sum(d => d.Paquete!.Peso) })
+        .OrderByDescending(x => x.PesoTotal)
+        .Take(5)
+        .ToList();
 
-        .brand-name {
-        font-weight: 700;
-        font-size: 0.95rem;
-        color: var(--text-primary);
-        }
+    decimal maxPeso = topPeso.Any() ? topPeso.Max(x => x.PesoTotal) : 1;
 
-        .brand-sub {
-        font-size: 0.7rem;
-        color: var(--text-secondary);
-        }
+    // ── Tendencia mensual (últimos 6 meses) ────────────────────────────────────
+    var tendencia = Enumerable.Range(0, 6)
+        .Select(i => {
+            var fecha = hoy.AddMonths(-5 + i);
+            return new {
+                Mes   = fecha.ToString("MMM"),
+                Total = Model
+                    .Where(x => x.Pagada
+                             && x.FechaCreacion.Year  == fecha.Year
+                             && x.FechaCreacion.Month == fecha.Month)
+                    .Sum(x => x.Total)
+            };
+        })
+        .ToList();
 
-        .nav-section-label {
-        font-size: 0.65rem;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        color: var(--text-muted);
-        padding: 0.75rem 1.25rem 0.4rem;
-        }
+    string mesesJson = System.Text.Json.JsonSerializer.Serialize(tendencia.Select(x => x.Mes));
+    string valoresJson = System.Text.Json.JsonSerializer.Serialize(tendencia.Select(x => x.Total));
+}
 
-        .nav-item {
-        display: flex;
-        align-items: center;
-        gap: 0.65rem;
-        padding: 0.55rem 1.25rem;
-        margin: 0.1rem 0.5rem;
-        border-radius: 8px;
-        color: var(--text-secondary);
-        text-decoration: none;
-        font-size: 0.85rem;
-        font-weight: 500;
-        transition: all 0.18s;
-        }
+<link rel="stylesheet" href="~/css/Ventas/Index.css" asp-append-version="true" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
 
-        .nav-item:hover {
-        background: var(--hover-bg);
-        color: var(--text-primary);
-        }
+<div class="ventas-wrap">
 
-        .nav-item.active {
-        background: var(--active-bg);
-        color: var(--accent-blue);
-        }
-
-        .nav-item svg {
-        width: 16px;
-        height: 16px;
-        flex-shrink: 0;
-        }
-
-        .sidebar-footer {
-        margin-top: auto;
-        padding: 1rem 1.25rem;
-        border-top: 1px solid var(--card-border);
-        font-size: 0.78rem;
-        color: var(--text-muted);
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        cursor: pointer;
-        }
-
-        .main {
-        margin-left: 220px;
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        }
-
-        .topbar {
-        height: 60px;
-        background: var(--sidebar-bg);
-        border-bottom: 1px solid var(--card-border);
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0 2rem;
-        position: sticky;
-        top: 0;
-        z-index: 50;
-        }
-
-        .search-box {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        background: var(--card-bg);
-        border: 1px solid var(--card-border);
-        border-radius: 8px;
-        padding: 0.45rem 0.9rem;
-        width: 320px;
-        }
-
-        .search-box input {
-        background: none;
-        border: none;
-        outline: none;
-        color: var(--text-primary);
-        font-size: 0.82rem;
-        width: 100%;
-        font-family: inherit;
-        }
-
-        .search-box input::placeholder {
-        color: var(--text-muted);
-        }
-
-        .topbar-right {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        }
-
-        .topbar-btn {
-        width: 36px;
-        height: 36px;
-        border-radius: 8px;
-        background: var(--card-bg);
-        border: 1px solid var(--card-border);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        color: var(--text-secondary);
-        transition: all 0.18s;
-        position: relative;
-        }
-
-        .notif-dot {
-        width: 7px;
-        height: 7px;
-        background: var(--accent-red);
-        border-radius: 50%;
-        position: absolute;
-        top: 6px;
-        right: 6px;
-        border: 1px solid var(--sidebar-bg);
-        }
-
-        .user-chip {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        background: var(--card-bg);
-        border: 1px solid var(--card-border);
-        border-radius: 8px;
-        padding: 0.35rem 0.75rem;
-        cursor: pointer;
-        }
-
-        .user-avatar {
-        width: 26px;
-        height: 26px;
-        border-radius: 6px;
-        background: linear-gradient(135deg,#4f7cff,#a78bfa);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 0.7rem;
-        font-weight: 700;
-        color: white;
-        }
-
-        .user-name {
-        font-size: 0.8rem;
-        font-weight: 600;
-        color: var(--text-primary);
-        }
-
-        .content {
-        padding: 2rem;
-        flex: 1;
-        }
-
-        .page-header-row {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        margin-bottom: 1.75rem;
-        }
-
-        .page-header h1 {
-        font-size: 1.5rem;
-        font-weight: 700;
-        }
-
-        .page-header p {
-        font-size: 0.82rem;
-        color: var(--text-secondary);
-        margin-top: 0.2rem;
-        }
-
-        .btn-outline {
-        background: transparent;
-        color: var(--text-secondary);
-        border: 1px solid var(--card-border);
-        padding: 0.5rem 1.1rem;
-        border-radius: 8px;
-        font-size: 0.82rem;
-        font-weight: 500;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        gap: 0.4rem;
-        transition: all 0.18s;
-        font-family: inherit;
-        }
-
-        .btn-outline:hover {
-        background: var(--hover-bg);
-        color: var(--text-primary);
-        }
-
-        .stats-grid {
-        display: grid;
-        grid-template-columns: repeat(4,1fr);
-        gap: 1rem;
-        margin-bottom: 1.5rem;
-        }
-
-        .stat-card {
-        background: var(--card-bg);
-        border: 1px solid var(--card-border);
-        border-radius: 14px;
-        padding: 1.25rem 1.5rem;
-        display: flex;
-        flex-direction: column;
-        gap: 0.75rem;
-        }
-
-        .stat-top {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        }
-
-        .stat-icon {
-        width: 38px;
-        height: 38px;
-        border-radius: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        }
-
-        .stat-icon.blue {
-        background: rgba(79,124,255,0.12);
-        color: var(--accent-blue);
-        }
-
-        .stat-icon.green {
-        background: rgba(52,211,153,0.12);
-        color: var(--accent-green);
-        }
-
-        .stat-icon.purple {
-        background: rgba(167,139,250,0.12);
-        color: var(--accent-purple);
-        }
-
-        .stat-icon.orange {
-        background: rgba(251,146,60,0.12);
-        color: var(--accent-orange);
-        }
-
-        .stat-value {
-        font-size: 1.65rem;
-        font-weight: 700;
-        }
-
-        .stat-label {
-        font-size: 0.78rem;
-        color: var(--text-secondary);
-        }
-
-        .charts-row {
-        display: grid;
-        grid-template-columns: 1fr 320px;
-        gap: 1rem;
-        margin-bottom: 1.5rem;
-        }
-
-        .chart-card {
-        background: var(--card-bg);
-        border: 1px solid var(--card-border);
-        border-radius: 14px;
-        padding: 1.5rem;
-        }
-
-        .chart-title {
-        font-size: 1rem;
-        font-weight: 600;
-        margin-bottom: 1.25rem;
-        }
-
-        .chart-wrap {
-        position: relative;
-        height: 240px;
-        }
-
-        .bar-list {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        padding-top: 0.5rem;
-        }
-
-        .bar-item {
-        }
-
-        .bar-item-label {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 0.35rem;
-        }
-
-        .bar-item-name {
-        font-size: 0.8rem;
-        color: var(--text-secondary);
-        }
-
-        .bar-item-val {
-        font-size: 0.8rem;
-        font-weight: 600;
-        }
-
-        .bar-bg {
-        height: 7px;
-        background: rgba(255,255,255,0.06);
-        border-radius: 99px;
-        overflow: hidden;
-        }
-
-        .bar-fill {
-        height: 100%;
-        border-radius: 99px;
-        background: var(--accent-blue);
-        }
-
-        .table-card {
-        background: var(--card-bg);
-        border: 1px solid var(--card-border);
-        border-radius: 14px;
-        overflow: hidden;
-        }
-
-        .table-header-row {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 1.25rem 1.5rem;
-        border-bottom: 1px solid var(--card-border);
-        }
-
-        .table-title {
-        font-size: 1rem;
-        font-weight: 600;
-        }
-
-        .data-table {
-        width: 100%;
-        border-collapse: collapse;
-        }
-
-        .data-table th {
-        text-align: left;
-        padding: 0.75rem 1.5rem;
-        font-size: 0.7rem;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        color: var(--text-muted);
-        background: rgba(255,255,255,0.02);
-        border-bottom: 1px solid var(--card-border);
-        }
-
-        .data-table td {
-        padding: 0.9rem 1.5rem;
-        font-size: 0.83rem;
-        border-bottom: 1px solid rgba(255,255,255,0.04);
-        }
-
-        .data-table tbody tr:last-child td {
-        border-bottom: none;
-        }
-
-        .data-table tbody tr:hover td {
-        background: rgba(255,255,255,0.02);
-        }
-
-        .trend-up {
-        background: rgba(52,211,153,0.12);
-        color: var(--accent-green);
-        font-size: 0.7rem;
-        font-weight: 600;
-        padding: 0.2rem 0.5rem;
-        border-radius: 5px;
-        }
-
-        .trend-down {
-        background: rgba(248,113,113,0.12);
-        color: var(--accent-red);
-        font-size: 0.7rem;
-        font-weight: 600;
-        padding: 0.2rem 0.5rem;
-        border-radius: 5px;
-        }
-    </style>
-
-
-    <div class="main">
-        <div class="topbar">
-            <div class="search-box"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="color:var(--text-muted)"><circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" /></svg><input type="text" placeholder="Buscar clientes, paquetes, facturas..."></div>
-            <div class="topbar-right">
-                <div class="topbar-btn"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" /><path d="M13.73 21a2 2 0 0 1-3.46 0" /></svg><span class="notif-dot"></span></div>
-                <div class="topbar-btn"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" /><path d="M19.07 4.93A10 10 0 1 0 4.93 19.07 10 10 0 0 0 19.07 4.93z" /></svg></div>
-                <div class="user-chip"><div class="user-avatar">AP</div><span class="user-name">Admin</span></div>
-            </div>
+    <div class="page-header-row">
+        <div class="page-header">
+            <h1>Ventas</h1>
+            <p>Análisis de proformas en tiempo real</p>
         </div>
-        <div class="content">
-            <div class="page-header-row">
-                <div class="page-header"><h1>Ventas</h1><p>Análisis y estadísticas de ventas en tiempo real</p></div>
-                <button class="btn-outline"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="7 10 12 15 17 10" /><line x1="12" y1="15" x2="12" y2="3" /></svg>Exportar</button>
-            </div>
-            <div class="stats-grid">
-                <div class="stat-card"><div class="stat-top"><div class="stat-icon blue"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23" /><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" /></svg></div></div><div class="stat-value">$48,250</div><div class="stat-label">Ingresos del mes</div></div>
-                <div class="stat-card"><div class="stat-top"><div class="stat-icon green"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1" /><circle cx="20" cy="21" r="1" /><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" /></svg></div></div><div class="stat-value">1,284</div><div class="stat-label">Ventas totales</div></div>
-                <div class="stat-card"><div class="stat-top"><div class="stat-icon purple"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17" /></svg></div></div><div class="stat-value">$37.58</div><div class="stat-label">Ticket promedio</div></div>
-                <div class="stat-card"><div class="stat-top"><div class="stat-icon orange"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /></svg></div></div><div class="stat-value">428</div><div class="stat-label">Clientes únicos</div></div>
-            </div>
-            <div class="charts-row">
-                <div class="chart-card">
-                    <div class="chart-title">Tendencia de ventas</div>
-                    <div class="chart-wrap"><canvas id="ventas-chart"></canvas></div>
-                </div>
-                <div class="chart-card">
-                    <div class="chart-title">Categorías</div>
-                    <div class="bar-list">
-                        <div class="bar-item"><div class="bar-item-label"><span class="bar-item-name">Electrónica</span><span class="bar-item-val">35%</span></div><div class="bar-bg"><div class="bar-fill" style="width:100%;background:var(--accent-blue)"></div></div></div>
-                        <div class="bar-item"><div class="bar-item-label"><span class="bar-item-name">Ropa</span><span class="bar-item-val">25%</span></div><div class="bar-bg"><div class="bar-fill" style="width:71%;background:var(--accent-blue)"></div></div></div>
-                        <div class="bar-item"><div class="bar-item-label"><span class="bar-item-name">Hogar</span><span class="bar-item-val">20%</span></div><div class="bar-bg"><div class="bar-fill" style="width:57%;background:var(--accent-blue)"></div></div></div>
-                        <div class="bar-item"><div class="bar-item-label"><span class="bar-item-name">Otros</span><span class="bar-item-val">20%</span></div><div class="bar-bg"><div class="bar-fill" style="width:57%;background:var(--accent-blue)"></div></div></div>
-                    </div>
-                </div>
-            </div>
-            <div class="table-card">
-                <div class="table-header-row"><span class="table-title">Productos más vendidos</span></div>
-                <table class="data-table">
-                    <thead><tr><th>Producto</th><th>Vendidos</th><th>Ingresos</th><th>Tendencia</th></tr></thead>
-                    <tbody>
-                        <tr><td>Envío express USA-CR</td><td>482</td><td>$21,690</td><td><span class="trend-up">↑ +10%</span></td></tr>
-                        <tr><td>Paquete estándar</td><td>367</td><td>$11,010</td><td><span class="trend-up">↑ +12%</span></td></tr>
-                        <tr><td>Carga pesada</td><td>124</td><td>$9,920</td><td><span class="trend-up">↑ +5%</span></td></tr>
-                        <tr><td>Documentos</td><td>311</td><td>$5,630</td><td><span class="trend-down">↓ -2%</span></td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+
     </div>
-    <script>
+
+    <div class="stats-grid">
+
+        <div class="stat-card">
+            <div class="stat-label">
+                <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <line x1="12" y1="1" x2="12" y2="23" />
+                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                </svg>
+                Ingresos totales
+            </div>
+            <div class="stat-value">₡@ingresosTotales.ToString("N0")</div>
+            <div class="stat-sub">Solo proformas pagadas</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-label">
+                <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <rect x="3" y="4" width="18" height="18" rx="2" /><line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" />
+                </svg>
+                Ingresos del mes
+            </div>
+            <div class="stat-value">₡@ingresosMes.ToString("N0")</div>
+            <div class="stat-sub">@hoy.ToString("MMMM yyyy")</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-label">
+                <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                    <polyline points="14 2 14 8 20 8" />
+                </svg>
+                Total proformas
+            </div>
+            <div class="stat-value">@totalProformas</div>
+            <div class="stat-sub">
+                <span class="up">@pagadas pagadas</span> · @pendientes pendientes
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-label">
+                <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <polyline points="20 6 9 17 4 12" />
+                </svg>
+                Pagadas
+            </div>
+            <div class="stat-value">@pagadas</div>
+            <div class="stat-sub">
+                @(totalProformas > 0 ? ((decimal)pagadas / totalProformas * 100).ToString("N0") : "0")% del total
+            </div>
+        </div>
+
+    </div>
+
+    <div class="charts-row">
+
+        <div class="chart-card">
+            <div class="chart-title">Tendencia de ingresos (últimos 6 meses)</div>
+            <div class="chart-wrap">
+                <canvas id="ventas-chart"></canvas>
+            </div>
+        </div>
+
+        <div class="chart-card">
+            <div class="chart-title">Top paquetes por peso (kg)</div>
+            <div class="bar-list">
+                @if (topPeso.Any())
+                {
+                    @foreach (var item in topPeso)
+                    {
+                        decimal pct = maxPeso > 0 ? item.PesoTotal / maxPeso * 100 : 0;
+                        <div class="bar-item">
+                            <div class="bar-item-label">
+                                <span class="bar-item-name" title="@item.Nombre">@item.Nombre</span>
+                                <span class="bar-item-val">@item.PesoTotal.ToString("N2") kg</span>
+                            </div>
+                            <div class="bar-bg">
+                                <div class="bar-fill" style="width:@pct.ToString("N0")%"></div>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p style="font-size:0.8125rem;color:var(--text-muted);text-align:center;padding:2rem 0;">
+                        Sin datos de paquetes aún
+                    </p>
+                }
+            </div>
+        </div>
+
+    </div>
+
+    <div class="table-card">
+        <div class="table-header-row">
+            <span class="table-title">Proformas</span>
+            <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+
+
+                <div class="table-search">
+                    <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
+                    </svg>
+                    <input type="text" id="buscar" placeholder="Buscar..." oninput="buscar(this.value)" />
+                </div>
+
+            </div>
+        </div>
+
+        <table class="data-table" id="tabla-proformas">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Cliente</th>
+                    <th>Fecha</th>
+                    <th>Paquetes</th>
+                    <th>Total</th>
+                    <th>Estado</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Any())
+                {
+                    @foreach (var item in Model.OrderByDescending(x => x.FechaCreacion))
+                    {
+                        <tr data-estado="@(item.Pagada ? "pagada" : "pendiente")"
+                            data-buscar="@((item.Cliente?.NombreCompleto ?? "") + " " + item.Id)">
+
+                            <td><span class="proforma-id">#@item.Id</span></td>
+
+                            <td>@(item.Cliente?.NombreCompleto ?? "—")</td>
+
+                            <td style="color:var(--text-secondary);">
+                                @item.FechaCreacion.ToLocalTime().ToString("dd/MM/yyyy")
+                            </td>
+
+                            <td style="color:var(--text-secondary);">
+                                @item.Detalles.Count
+                            </td>
+
+                            <td style="font-variant-numeric:tabular-nums;">
+                                ₡@item.Total.ToString("N2")
+                            </td>
+
+                            <td>
+                                @if (item.Pagada)
+                                {
+                                    <span class="badge badge-paid">Pagada</span>
+                                }
+                                else
+                                {
+                                    <span class="badge badge-pending">Pendiente</span>
+                                }
+                            </td>
+
+                            <td>
+                                <div class="action-buttons">
+
+                                    <a asp-controller="Proformas" asp-action="Details"
+                                       asp-route-id="@item.Id"
+                                       class="action-btn" title="Ver detalle">
+                                        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z" />
+                                            <circle cx="12" cy="12" r="3" />
+                                        </svg>
+                                    </a>
+
+                                    <a asp-controller="Proformas" asp-action="Imprimir"
+                                       asp-route-id="@item.Id"
+                                       class="action-btn" title="Imprimir PDF" target="_blank">
+                                        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <polyline points="6 9 6 2 18 2 18 9" />
+                                            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
+                                            <rect x="6" y="14" width="12" height="8" />
+                                        </svg>
+                                    </a>
+
+                                    @if (!item.Pagada)
+                                    {
+                                        <a asp-controller="Proformas" asp-action="Aprobar"
+                                           asp-route-id="@item.Id"
+                                           class="action-btn approve-btn" title="Confirmar pago">
+                                            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                                <polyline points="20 6 9 17 4 12" />
+                                            </svg>
+                                        </a>
+                                    }
+
+                                    <a asp-controller="Proformas" asp-action="Delete"
+                                       asp-route-id="@item.Id"
+                                       class="action-btn delete-btn" title="Eliminar">
+                                        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <polyline points="3 6 5 6 21 6" />
+                                            <path d="M19 6l-1 14H6L5 6" />
+                                            <path d="M10 11v6" /><path d="M14 11v6" />
+                                            <path d="M9 6V4h6v2" />
+                                        </svg>
+                                    </a>
+
+                                </div>
+                            </td>
+
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="7" class="empty-state">No hay proformas registradas</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<script>
+    // Gráfico de tendencia
+    (function () {
+        const meses   = @Html.Raw(mesesJson);
+        const valores = @Html.Raw(valoresJson);
+
         const ctx = document.getElementById('ventas-chart').getContext('2d');
-        const g = ctx.createLinearGradient(0,0,0,240);
-        g.addColorStop(0,'rgba(79,124,255,0.3)');
-        g.addColorStop(1,'rgba(79,124,255,0)');
-        new Chart(ctx,{type:'line',data:{labels:['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],datasets:[{data:[3200,3800,4100,4400,5100,5600,6300,7200,8000,10200,11800,13500],borderColor:'#4f7cff',backgroundColor:g,borderWidth:2.5,pointBackgroundColor:'#4f7cff',pointRadius:4,tension:0.4,fill:true}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>`ventas: ${ctx.parsed.y}`}}},scales:{x:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#7b8099',font:{size:11}}},y:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#7b8099',font:{size:11}},min:0}}}});
-    </script>
+        const grad = ctx.createLinearGradient(0, 0, 0, 220);
+        grad.addColorStop(0, 'rgba(37,99,235,0.18)');
+        grad.addColorStop(1, 'rgba(37,99,235,0)');
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: meses,
+                datasets: [{
+                    data: valores,
+                    borderColor: '#2563eb',
+                    backgroundColor: grad,
+                    borderWidth: 2,
+                    pointBackgroundColor: '#2563eb',
+                    pointRadius: 4,
+                    pointHoverRadius: 6,
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: ctx => `₡ ${ctx.parsed.y.toLocaleString('es-CR', { minimumFractionDigits: 2 })}`
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { color: 'rgba(0,0,0,0.04)' },
+                        ticks: { color: '#94a3b8', font: { size: 11, family: 'DM Sans' } }
+                    },
+                    y: {
+                        grid: { color: 'rgba(0,0,0,0.04)' },
+                        ticks: {
+                            color: '#94a3b8',
+                            font: { size: 11, family: 'DM Sans' },
+                            callback: v => '₡' + v.toLocaleString('es-CR')
+                        },
+                        min: 0
+                    }
+                }
+            }
+        });
+    })();
+
+
+
+    // Búsqueda
+    function buscar(val) {
+        aplicarFiltros(val.toLowerCase());
+    }
+
+    function aplicarFiltros(texto) {
+        const q = texto ?? document.getElementById('buscar').value.toLowerCase();
+        document.querySelectorAll('#tabla-proformas tbody tr[data-estado]').forEach(tr => {
+            const estadoOk = filtroActivo === 'todas' || tr.dataset.estado === filtroActivo;
+            const buscarOk = !q || tr.dataset.buscar.toLowerCase().includes(q);
+            tr.style.display = estadoOk && buscarOk ? '' : 'none';
+        });
+    }
+</script>

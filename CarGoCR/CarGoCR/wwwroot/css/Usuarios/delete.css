@@ -1,0 +1,92 @@
+.delete-card {
+    background: linear-gradient(180deg,#1a1d27 0%, #161925 100%);
+    border: 1px solid var(--card-border);
+    border-radius: 18px;
+    padding: 2.5rem;
+    box-shadow: 0 15px 40px rgba(0,0,0,.25);
+}
+
+.warning-box {
+    background: rgba(248,113,113,.12);
+    border: 1px solid rgba(248,113,113,.25);
+    border-left: 5px solid #f87171;
+    border-radius: 12px;
+    padding: 1.25rem;
+    margin-bottom: 2rem;
+    color: #fca5a5;
+    font-weight: 600;
+}
+
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.detail-item {
+    background: var(--bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 1rem;
+}
+
+.detail-label {
+    color: var(--text-secondary);
+    font-size: .75rem;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+}
+
+.detail-value {
+    color: var(--text-primary);
+    font-size: 1rem;
+    font-weight: 600;
+    margin-top: .3rem;
+}
+
+.form-actions {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--card-border);
+    display: flex;
+    gap: 12px;
+}
+
+.btn-danger {
+    background: linear-gradient(135deg,#ef4444,#dc2626);
+    border: none;
+    color: white;
+    padding: .9rem 1.5rem;
+    border-radius: 10px;
+    font-weight: 700;
+    transition: .25s;
+}
+
+    .btn-danger:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(239,68,68,.25);
+    }
+
+.btn-cancel {
+    background: #252836;
+    color: white;
+    border: 1px solid var(--card-border);
+    padding: .9rem 1.5rem;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+    .btn-cancel:hover {
+        background: #313548;
+        color: white;
+    }
+
+.layout-content {
+    margin-left: 220px;
+    width: calc(100% - 220px);
+    min-height: 100vh;
+    padding: 2rem;
+}
+

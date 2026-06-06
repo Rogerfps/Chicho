@@ -3,73 +3,8 @@
 @{
     ViewData["Title"] = "Eliminar Proforma";
 }
+<link rel="stylesheet" href="~/css/Proformas/delete.css" asp-append-version="true" />
 
-<style>
-    .layout-content {
-        margin-left: 220px;
-        width: calc(100% - 220px);
-        min-height: 100vh;
-        padding: 2rem;
-    }
-
-    .warning-card {
-        background: rgba(248,113,113,.08);
-        border: 1px solid rgba(248,113,113,.25);
-        border-radius: 12px;
-        padding: 1rem;
-        margin-bottom: 1.5rem;
-    }
-
-    .warning-title {
-        color: #f87171;
-        font-weight: 700;
-        margin-bottom: .5rem;
-    }
-
-    .details-card {
-        background: var(--card-bg);
-        border: 1px solid var(--card-border);
-        border-radius: 14px;
-        overflow: hidden;
-    }
-
-    .details-row {
-        display: flex;
-        border-bottom: 1px solid rgba(255,255,255,.05);
-    }
-
-        .details-row:last-child {
-            border-bottom: none;
-        }
-
-    .details-label {
-        width: 220px;
-        padding: 1rem;
-        color: var(--text-secondary);
-        font-weight: 600;
-        background: rgba(255,255,255,.02);
-    }
-
-    .details-value {
-        flex: 1;
-        padding: 1rem;
-        color: var(--text-primary);
-    }
-
-    .danger-btn {
-        background: #ef4444;
-        color: white;
-        border: none;
-        padding: .75rem 1.25rem;
-        border-radius: 8px;
-        cursor: pointer;
-        font-weight: 600;
-    }
-
-        .danger-btn:hover {
-            background: #dc2626;
-        }
-</style>
 
 <div class="content">
 

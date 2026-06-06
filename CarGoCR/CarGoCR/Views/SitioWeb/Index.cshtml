@@ -1,0 +1,401 @@
+﻿@{
+    Layout = null;
+}
+<link rel="stylesheet" href="~/css/SitioWeb/Index.css" asp-append-version="true" />
+
+<nav>
+    <a href="#" class="nav-logo">
+        <div class="nav-logo-icon">🚚</div>
+        <div class="nav-logo-text">Courier <span>CarGo</span></div>
+    </a>
+    <ul class="nav-links">
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#rastrear">Rastrear</a></li>
+        <li><a href="#nosotros">Nosotros</a></li>
+        <li><a href="#cobertura">Cobertura</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+    </ul>
+    <div class="nav-cta">
+        <a asp-area="" asp-controller="Home" asp-action="Index" class="btn-nav-primary">Panel admin →</a>
+    </div>
+</nav>
+
+<section class="hero">
+    <div class="hero-grid"></div>
+    <div class="hero-content">
+        <div class="hero-left">
+            <div class="hero-badge">
+                <div class="hero-badge-dot"></div>
+                Nueva versión 3.0 disponible
+            </div>
+            <h1 class="hero-title">
+                Logística<br>
+                que <span class="accent">vuela</span><br>
+                <span class="outline">sin parar</span>
+            </h1>
+            <p class="hero-desc">Gestiona envíos, facturación, clientes y pagos desde una sola plataforma diseñada para empresas que no se detienen.</p>
+            <div class="hero-buttons">
+                <a href="#" class="btn-hero-primary">Empezar ahora →</a>
+                <a href="#rastrear" class="btn-hero-secondary">📦 Rastrear paquete</a>
+            </div>
+            <div class="hero-stats">
+                <div>
+                    <span class="hero-stat-num">150K+</span>
+                    <span class="hero-stat-label">Paquetes entregados</span>
+                </div>
+                <div>
+                    <span class="hero-stat-num">892</span>
+                    <span class="hero-stat-label">Empresas activas</span>
+                </div>
+                <div>
+                    <span class="hero-stat-num">99.8%</span>
+                    <span class="hero-stat-label">Uptime plataforma</span>
+                </div>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="hero-card">
+                <div class="tracking-label">Número de rastreo</div>
+                <div class="tracking-id">CCG-2025-88472</div>
+                <div class="tracking-steps">
+                    <div class="tracking-step">
+                        <div class="step-icon done">✓</div>
+                        <div class="step-label done">Recibido</div>
+                    </div>
+                    <div class="tracking-step">
+                        <div class="step-icon done">✓</div>
+                        <div class="step-label done">En bodega</div>
+                    </div>
+                    <div class="tracking-step">
+                        <div class="step-icon active">🚚</div>
+                        <div class="step-label active">En tránsito</div>
+                    </div>
+                    <div class="tracking-step">
+                        <div class="step-icon">🏠</div>
+                        <div class="step-label">Entregado</div>
+                    </div>
+                </div>
+                <div class="progress-bar"><div class="progress-fill"></div></div>
+                <div class="location-pill">
+                    <span class="location-emoji">📍</span>
+                    <div>
+                        <div class="location-label">Ubicación actual</div>
+                        <div class="location-value">San José, Costa Rica — Zona 3</div>
+                    </div>
+                    <div class="location-live">En vivo</div>
+                </div>
+                <div class="mini-stats">
+                    <div class="mini-card">
+                        <div class="mini-val">2<span class="mini-unit">h</span></div>
+                        <div class="mini-label">Tiempo estimado</div>
+                    </div>
+                    <div class="mini-card">
+                        <div class="mini-val">98<span class="mini-unit">%</span></div>
+                        <div class="mini-label">Prob. entrega</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="ticker">
+    <div class="ticker-track">
+        <div class="ticker-item"><span>Envíos nacionales</span><div class="ticker-dot"></div></div>
+        <div class="ticker-item"><span>Cobertura en toda Costa Rica</span><div class="ticker-dot"></div></div>
+        <div class="ticker-item"><span>Tracking en tiempo real</span><div class="ticker-dot"></div></div>
+        <div class="ticker-item"><span>Facturación electrónica</span><div class="ticker-dot"></div></div>
+        <div class="ticker-item"><span>Pagos seguros</span><div class="ticker-dot"></div></div>
+        <div class="ticker-item"><span>Soporte 24/7</span><div class="ticker-dot"></div></div>
+        <div class="ticker-item"><span>Importaciones USA, Europa y Asia</span><div class="ticker-dot"></div></div>
+        <div class="ticker-item"><span>Setup en 5 minutos</span><div class="ticker-dot"></div></div>
+        <div class="ticker-item"><span>Envíos nacionales</span><div class="ticker-dot"></div></div>
+        <div class="ticker-item"><span>Cobertura en toda Costa Rica</span><div class="ticker-dot"></div></div>
+        <div class="ticker-item"><span>Tracking en tiempo real</span><div class="ticker-dot"></div></div>
+        <div class="ticker-item"><span>Facturación electrónica</span><div class="ticker-dot"></div></div>
+        <div class="ticker-item"><span>Pagos seguros</span><div class="ticker-dot"></div></div>
+        <div class="ticker-item"><span>Soporte 24/7</span><div class="ticker-dot"></div></div>
+        <div class="ticker-item"><span>Importaciones USA, Europa y Asia</span><div class="ticker-dot"></div></div>
+        <div class="ticker-item"><span>Setup en 5 minutos</span><div class="ticker-dot"></div></div>
+    </div>
+</div>
+
+<div class="tracking-section" id="rastrear">
+    <div class="tracking-box">
+        <h2>Rastrea tu paquete</h2>
+        <p>Ingresa tu número de seguimiento para ver el estado en tiempo real</p>
+        <div class="tracking-form">
+            <input type="text" class="tracking-input" placeholder="CCG-XXXX-XXXXX" />
+            <button class="btn-track" id="trackBtn">Rastrear →</button>
+        </div>
+    </div>
+</div>
+
+<div class="services-section" id="servicios">
+    <div class="services-header">
+        <div>
+            <span class="section-tag">Servicios</span>
+            <h2 class="section-title">Todo lo que<br>necesitas</h2>
+        </div>
+        <p class="section-subtitle">Una sola plataforma. Todo conectado. Desde envíos locales hasta importaciones internacionales.</p>
+    </div>
+    <div class="services-grid">
+        <div class="service-card">
+            <div class="service-icon-wrap">🚛</div>
+            <div class="service-title">Envíos Nacionales</div>
+            <p class="service-desc">Cobertura completa en toda Costa Rica con entrega garantizada en 24-48 horas hábiles.</p>
+            <a href="#" class="service-link">Ver más →</a>
+        </div>
+        <div class="service-card featured">
+            <div class="service-icon-wrap">🌍</div>
+            <div class="service-title">Envíos Internacionales</div>
+            <p class="service-desc">Desde USA, Europa y Asia directamente a tu puerta. Consolidamos carga para reducir costos.</p>
+            <a href="#" class="service-link">Ver más →</a>
+        </div>
+        <div class="service-card">
+            <div class="service-icon-wrap">📦</div>
+            <div class="service-title">Gestión de Paquetes</div>
+            <p class="service-desc">Tracking visual en tiempo real con notificaciones automáticas por WhatsApp, email y SMS.</p>
+            <a href="#" class="service-link">Ver más →</a>
+        </div>
+        <div class="service-card">
+            <div class="service-icon-wrap">🔐</div>
+            <div class="service-title">Pagos Seguros</div>
+            <p class="service-desc">Stripe, PayPal, Sinpe Móvil y tarjetas. Todo cifrado con SSL. Sin sorpresas en tu cuenta.</p>
+            <a href="#" class="service-link">Ver más →</a>
+        </div>
+        <div class="service-card">
+            <div class="service-icon-wrap">⚡</div>
+            <div class="service-title">Facturación Electrónica</div>
+            <p class="service-desc">Genera y envía facturas electrónicas válidas ante Hacienda en segundos.</p>
+            <a href="#" class="service-link">Ver más →</a>
+        </div>
+        <div class="service-card">
+            <div class="service-icon-wrap">💬</div>
+            <div class="service-title">Soporte 24/7</div>
+            <p class="service-desc">Atención personalizada por chat en vivo, email o teléfono. Respuesta en menos de 3 minutos.</p>
+            <a href="#" class="service-link">Ver más →</a>
+        </div>
+    </div>
+</div>
+
+<div class="coverage-section" id="cobertura">
+    <div class="coverage-inner">
+        <div class="coverage-header">
+            <span class="section-tag">Cobertura</span>
+            <h2 class="section-title">Llegamos a todo el mundo</h2>
+            <p class="section-subtitle">Operamos con los principales hubs logísticos del mundo para traer tus paquetes de la manera más rápida y económica.</p>
+        </div>
+        <div class="coverage-grid">
+            <div class="coverage-card">
+                <span class="coverage-flag">🇨🇷</span>
+                <div class="coverage-country">Costa Rica</div>
+                <div class="coverage-route">Entrega nacional 24-48h</div>
+            </div>
+            <div class="coverage-card">
+                <span class="coverage-flag">🇺🇸</span>
+                <div class="coverage-country">Estados Unidos</div>
+                <div class="coverage-route">Miami · New York · Los Ángeles</div>
+            </div>
+            <div class="coverage-card">
+                <span class="coverage-flag">🇪🇺</span>
+                <div class="coverage-country">Europa</div>
+                <div class="coverage-route">España · Alemania · Francia</div>
+            </div>
+            <div class="coverage-card">
+                <span class="coverage-flag">🌏</span>
+                <div class="coverage-country">Asia</div>
+                <div class="coverage-route">China · Japón · Corea</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="about-section" id="nosotros">
+    <div class="about-inner">
+        <div>
+            <span class="section-tag">Sobre nosotros</span>
+            <h2 class="section-title">Construimos la<br>nueva generación<br>de logística</h2>
+            <p class="section-subtitle" style="margin-top:16px;">Courier CarGo nació para resolver los problemas que enfrentan las empresas al gestionar envíos, clientes y pagos con herramientas separadas.</p>
+            <ul class="about-list">
+                <li class="about-list-item">
+                    <div class="about-list-icon">⚡</div>
+                    <div class="about-list-text">
+                        <strong>Velocidad sin compromiso</strong>
+                        <span>Nuestro sistema procesa miles de envíos simultáneamente sin pérdida de rendimiento.</span>
+                    </div>
+                </li>
+                <li class="about-list-item">
+                    <div class="about-list-icon">🔒</div>
+                    <div class="about-list-text">
+                        <strong>Seguridad de nivel bancario</strong>
+                        <span>Encriptación SSL, autenticación de dos factores y respaldos automáticos cada hora.</span>
+                    </div>
+                </li>
+                <li class="about-list-item">
+                    <div class="about-list-icon">🤝</div>
+                    <div class="about-list-text">
+                        <strong>Soporte humano real</strong>
+                        <span>Sin bots ni respuestas automáticas. Un equipo real disponible las 24 horas.</span>
+                    </div>
+                </li>
+            </ul>
+            <a href="#" class="btn-outline-navy">Conoce el equipo →</a>
+        </div>
+        <div class="about-stats-grid">
+            <div class="about-stat-card">
+                <span class="about-stat-num">150K+</span>
+                <span class="about-stat-label">Paquetes entregados</span>
+            </div>
+            <div class="about-stat-card">
+                <span class="about-stat-num">892</span>
+                <span class="about-stat-label">Empresas activas</span>
+            </div>
+            <div class="about-stat-card">
+                <span class="about-stat-num">99.8%</span>
+                <span class="about-stat-label">Uptime plataforma</span>
+            </div>
+            <div class="about-stat-card">
+                <span class="about-stat-num">24/7</span>
+                <span class="about-stat-label">Soporte disponible</span>
+            </div>
+            <div class="about-stat-card big">
+                <div>
+                    <span class="about-stat-num">5 min</span>
+                    <span class="about-stat-label">Tiempo promedio de setup</span>
+                </div>
+                <span class="about-stat-icon">🚀</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="faq-section" id="faq">
+    <div>
+        <span class="section-tag">FAQ</span>
+        <h2 class="section-title">Preguntas<br>frecuentes</h2>
+        <p class="section-subtitle" style="margin-top:16px; max-width:280px; font-size:14px; color:var(--text-muted); line-height:1.6;">¿Tienes dudas? Aquí resolvemos las más comunes. Si necesitas más ayuda, estamos disponibles 24/7.</p>
+        <a href="#contacto" class="support-link">Hablar con soporte →</a>
+    </div>
+    <div class="faq-list">
+        <div class="faq-item open">
+            <button class="faq-question" onclick="toggleFaq(this)">¿Cuánto tarda en llegar mi paquete?<div class="faq-arrow">▾</div></button>
+            <div class="faq-answer"><div class="faq-answer-inner">Para envíos nacionales, el tiempo de entrega es de 24-48 horas hábiles en el Gran Área Metropolitana y 48-72 horas para el resto del país. Para importaciones desde USA, el tiempo aproximado es de 5-10 días hábiles.</div></div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">¿Qué métodos de pago aceptan?<div class="faq-arrow">▾</div></button>
+            <div class="faq-answer"><div class="faq-answer-inner">Aceptamos Sinpe Móvil, tarjetas de crédito y débito Visa/Mastercard, PayPal y transferencias bancarias. Todos los pagos están protegidos con cifrado SSL de nivel bancario.</div></div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">¿Puedo rastrear mi paquete en tiempo real?<div class="faq-arrow">▾</div></button>
+            <div class="faq-answer"><div class="faq-answer-inner">Sí. Cada paquete tiene un número de seguimiento único con actualizaciones en tiempo real. Recibirás notificaciones automáticas por WhatsApp y correo en cada cambio de estado.</div></div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">¿Cómo funciona la casillera en Miami?<div class="faq-arrow">▾</div></button>
+            <div class="faq-answer"><div class="faq-answer-inner">Al registrarte obtienes una dirección de casillero en Miami de forma gratuita. Puedes usarla para compras en tiendas de USA y nosotros consolidamos y enviamos tu carga a Costa Rica.</div></div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">¿Ofrecen seguro de carga?<div class="faq-arrow">▾</div></button>
+            <div class="faq-answer"><div class="faq-answer-inner">Sí, ofrecemos seguro de carga opcional para paquetes de alto valor. El costo es del 2% del valor declarado. Los paquetes sin seguro tienen cobertura básica por daños durante el transporte.</div></div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">¿Puedo usar la plataforma para mi empresa?<div class="faq-arrow">▾</div></button>
+            <div class="faq-answer"><div class="faq-answer-inner">¡Absolutamente! Tenemos planes especiales para empresas con volumen de envíos. Incluyen facturación electrónica automatizada, API para integración y reportes gerenciales.</div></div>
+        </div>
+    </div>
+</div>
+
+<div class="cta-section" id="contacto">
+    <div class="cta-inner">
+        <div>
+            <span class="cta-tag">¿Listo para empezar?</span>
+            <h2 class="cta-title">Moderniza tu<br>logística <span>hoy</span></h2>
+            <p class="cta-text">Únete a cientos de empresas costarricenses que ya simplificaron sus operaciones con Courier CarGo. Sin contratos. Sin letra pequeña.</p>
+        </div>
+        <div class="cta-buttons">
+            <a href="#" class="btn-cta-primary">Comenzar gratis →</a>
+            <a href="#" class="btn-cta-secondary">💬 Hablar con ventas</a>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-inner">
+        <div class="footer-top">
+            <div class="footer-brand">
+                <a href="#" class="nav-logo" style="text-decoration:none;">
+                    <div class="nav-logo-icon">🚚</div>
+                    <div class="nav-logo-text">Courier <span>CarGo</span></div>
+                </a>
+                <p>Plataforma logística moderna diseñada para empresas que valoran la velocidad, la confianza y la eficiencia.</p>
+                <div class="footer-contact">
+                    <div class="footer-contact-item"><span>✉️</span> info@couriercargo.cr</div>
+                    <div class="footer-contact-item"><span>📞</span> +506 2222-3333</div>
+                    <div class="footer-contact-item"><span>📍</span> San José, Costa Rica</div>
+                </div>
+            </div>
+            <div>
+                <div class="footer-col-title">Producto</div>
+                <ul class="footer-links">
+                    <li><a href="#servicios">Servicios</a></li>
+                    <li><a href="#rastrear">Rastreo</a></li>
+                    <li><a href="#cobertura">Cobertura</a></li>
+                    <li><a href="#">Panel admin</a></li>
+                    <li><a href="#">API</a></li>
+                </ul>
+            </div>
+            <div>
+                <div class="footer-col-title">Empresa</div>
+                <ul class="footer-links">
+                    <li><a href="#nosotros">Nosotros</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Trabaja con nosotros</a></li>
+                    <li><a href="#">Aliados</a></li>
+                </ul>
+            </div>
+            <div>
+                <div class="footer-col-title">Legal</div>
+                <ul class="footer-links">
+                    <li><a href="#">Términos de uso</a></li>
+                    <li><a href="#">Privacidad</a></li>
+                    <li><a href="#">Cookies</a></li>
+                    <li><a href="#">Tarifas</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-copy">© 2026 Courier CarGo. Todos los derechos reservados.</div>
+            <div class="footer-tagline">Hecho con ❤️ en Costa Rica 🇨🇷</div>
+        </div>
+    </div>
+</footer>
+
+<script>
+    function toggleFaq(btn){
+      const item=btn.closest('.faq-item');
+      const isOpen=item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
+      if(!isOpen) item.classList.add('open');
+    }
+    const trackBtn=document.getElementById('trackBtn');
+    const trackInput=document.querySelector('.tracking-input');
+    if(trackBtn&&trackInput){
+      trackBtn.addEventListener('click',()=>{
+        if(trackInput.value.trim()){
+          trackBtn.textContent='✓ Encontrado';
+          trackBtn.style.background='#1a6e3a';
+          setTimeout(()=>{trackBtn.textContent='Rastrear →';trackBtn.style.background='';},2500);
+        }
+      });
+    }
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click',function(e){
+        const h=this.getAttribute('href');
+        if(h==='#') return;
+        e.preventDefault();
+        const t=document.querySelector(h);
+        if(t) t.scrollIntoView({behavior:'smooth',block:'start'});
+      });
+    });
+</script>
