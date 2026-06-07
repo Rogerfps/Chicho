@@ -665,3 +665,241 @@ body {
     height: 100%;
     object-fit: contain;
 }
+/* Ocultar hamburger en desktop */
+.hamburger-btn {
+    display: none;
+}
+
+/* ── MOBILE ───────────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+
+    body {
+        flex-direction: column;
+    }
+
+    .hamburger-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 8px;
+        cursor: pointer;
+        color: var(--text-secondary);
+        flex-shrink: 0;
+        z-index: 201;
+    }
+
+    /* Sidebar colapsado = topbar de 60px */
+    .sidebar {
+        width: 100% !important;
+        min-width: unset !important;
+        height: 60px !important;
+        position: fixed !important;
+        top: 0;
+        left: 0;
+        right: 0;
+        flex-direction: row !important;
+        align-items: center !important;
+        padding: 0 1rem !important;
+        gap: 1rem;
+        border-right: none !important;
+        border-bottom: 1px solid var(--card-border);
+        overflow: hidden !important;
+        z-index: 200;
+        transition: height 0.25s ease;
+    }
+
+        /* Sidebar abierto = overlay fullscreen */
+        .sidebar.open {
+            height: 100dvh !important;
+            flex-direction: column !important;
+            align-items: stretch !important;
+            padding: 0 !important;
+            overflow-y: auto !important;
+            gap: 0 !important;
+        }
+
+    .sidebar-brand {
+        flex: 1;
+        padding: 0 !important;
+        border-bottom: none !important;
+        margin-bottom: 0 !important;
+    }
+
+    .sidebar.open .sidebar-brand {
+        flex: unset !important;
+        padding: 1rem 1.25rem !important;
+        border-bottom: 1px solid var(--card-border) !important;
+        margin-bottom: 0.5rem !important;
+    }
+
+    /* Ocultar nav cuando cerrado */
+    .nav-section-label,
+    .nav-item,
+    .sidebar-user {
+        display: none !important;
+    }
+
+    .sidebar.open .nav-section-label {
+        display: block !important;
+    }
+
+    .sidebar.open .nav-item,
+    .sidebar.open .sidebar-user {
+        display: flex !important;
+    }
+
+    /* Overlay oscuro detrás */
+    .sidebar.open::after {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.55);
+        z-index: -1;
+        pointer-events: none;
+    }
+
+    /* Main y layout-content: solo desplazar 60px del topbar */
+    .main {
+        margin-left: 0 !important;
+        width: 100% !important;
+        margin-top: 60px !important;
+    }
+
+    .layout-content {
+        margin-left: 0 !important;
+        width: 100% !important;
+        margin-top: 60px !important;
+        padding: 1.25rem 1rem !important;
+        min-height: calc(100vh - 60px);
+    }
+
+    .content {
+        padding: 1.25rem 1rem !important;
+    }
+
+    .page-header-row {
+        flex-direction: column;
+        gap: 1rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .charts-row,
+    .bottom-row {
+        grid-template-columns: 1fr;
+    }
+
+    .table-toolbar,
+    .table-header-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.75rem;
+        padding: 1rem;
+    }
+
+    .table-search {
+        max-width: 100%;
+        width: 100%;
+    }
+
+        .table-search input {
+            font-size: 16px;
+        }
+
+    .page-card {
+        margin: 1rem auto;
+        padding: 1.25rem 1rem;
+    }
+
+    .btn-save,
+    .btn-back {
+        width: 100%;
+        text-align: center;
+        display: block;
+        margin-left: 0;
+        margin-top: 0.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-input,
+    .table-search input,
+    .search-box input {
+        font-size: 16px;
+    }
+}
+@media (max-width: 768px) {
+
+    /* Charts row a 1 columna */
+    .charts-row {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Todos los chart-card ocupan ancho completo */
+    .chart-card {
+        grid-column: 1 !important;
+    }
+
+    /* Altura reducida para que no desborden */
+    .chart-wrap {
+        height: 200px !important;
+    }
+
+    .donut-wrap {
+        height: 160px !important;
+    }
+
+    /* Leyenda del donut en 2 columnas para ahorrar espacio */
+    .legend {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.4rem !important;
+        margin-top: 0.75rem !important;
+    }
+
+    .legend-item {
+        font-size: 0.72rem;
+    }
+
+    /* Chart card padding menor */
+    .chart-card {
+        padding: 1rem !important;
+    }
+
+    .chart-header {
+        margin-bottom: 0.75rem !important;
+    }
+
+    .chart-title {
+        font-size: 0.88rem !important;
+    }
+
+    .chart-sub {
+        font-size: 0.7rem !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .chart-wrap {
+        height: 160px !important;
+    }
+
+    .donut-wrap {
+        height: 140px !important;
+    }
+
+    .legend {
+        grid-template-columns: 1fr !important;
+    }
+}

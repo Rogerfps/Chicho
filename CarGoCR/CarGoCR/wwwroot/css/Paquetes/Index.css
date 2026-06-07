@@ -226,5 +226,77 @@
     padding: 2rem;
 }
 
+@media (max-width: 768px) {
+    .layout-content {
+        margin-left: 0 !important;
+        width: 100% !important;
+        margin-top: 60px !important;
+        padding: 1rem !important;
+    }
 
+    .content {
+        padding: 1rem !important;
+    }
+
+    .page-header-row {
+        flex-direction: column;
+        gap: 1rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.75rem;
+    }
+
+    .stat-mini-val {
+        font-size: 1.5rem;
+    }
+
+    .table-card {
+        border-radius: 14px;
+    }
+
+    .table-toolbar {
+        padding: 14px;
+    }
+
+    .table-search {
+        width: 100%;
+    }
+
+        .table-search input {
+            font-size: 16px;
+        }
+
+    #tablaClientes {
+        display: none;
+    }
+
+    .client-cards-mobile {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        padding: 1rem;
+    }
+
+    .data-table {
+        min-width: 580px;
+    }
+
+    .table-card {
+        overflow-x: auto;
+    }
+
+    .btn-primary {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+}
 

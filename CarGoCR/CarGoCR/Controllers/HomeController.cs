@@ -1,14 +1,29 @@
+using CarGoCR.Data;
 using CarGoCR.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace CarGoCR.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly AppDbContext _context;
+
+        public HomeController(AppDbContext context)
+        {
+            _context = context;
+        }
+
         public IActionResult Index()
         {
-            return View();
+            var proformas = _context.Proformas
+                .Include(p => p.Detalles)
+                    .ThenInclude(d => d.Paquete)
+                        .ThenInclude(p => p.Tarifa)
+                .ToList();
+
+            return View(proformas);
         }
 
         public IActionResult Privacy()
