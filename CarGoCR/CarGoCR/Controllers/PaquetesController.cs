@@ -1,5 +1,6 @@
 ﻿using CarGoCR.Data;
 using CarGoCR.Models;
+using CarGoCR.Servicios;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -10,10 +11,12 @@ namespace CarGoCR.Controllers
     public class PaquetesController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly IServicioEmail _servicioEmail;
 
-        public PaquetesController(AppDbContext context)
+        public PaquetesController(AppDbContext context, IServicioEmail servicioEmail)
         {
             _context = context;
+            _servicioEmail = servicioEmail;
         }
 
         // LISTADO
@@ -91,6 +94,159 @@ namespace CarGoCR.Controllers
 
                 await _context.SaveChangesAsync();
 
+                var cliente = await _context.Clientes
+    .FirstOrDefaultAsync(x => x.Id == paquete.ClienteId);
+
+                if (cliente != null && !string.IsNullOrWhiteSpace(cliente.Correo))
+                {
+                    var asunto = $"Nuevo paquete registrado - {paquete.Tracking}";
+
+                    var cuerpo = $@"
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+</head>
+
+<body style='margin:0;padding:0;background:#f4f6f9;font-family:Segoe UI,Arial,sans-serif;'>
+
+<table width='100%' cellpadding='0' cellspacing='0' style='background:#f4f6f9;padding:40px 0;'>
+
+<tr>
+<td align='center'>
+
+<table width='700' cellpadding='0' cellspacing='0'
+style='background:#ffffff;border-radius:12px;overflow:hidden;
+box-shadow:0 3px 12px rgba(0,0,0,.15);'>
+
+<tr>
+<td style='background:#0F4C81;padding:30px;text-align:center;'>
+
+<img src='https://TU-DOMINIO.com/img/Logo.jpeg'
+style='height:80px;' />
+
+<h1 style='color:white;margin-top:20px;font-size:28px;'>
+CarGo CR
+</h1>
+
+<p style='color:#dbeafe;font-size:15px;margin-top:8px;'>
+Nuevo paquete registrado
+</p>
+
+</td>
+</tr>
+
+<tr>
+
+<td style='padding:40px;'>
+
+<p style='font-size:17px;'>
+
+Hola <strong>{cliente.NombreCompleto}</strong>,
+
+</p>
+
+<p>
+Su paquete ha sido registrado exitosamente en CarGo CR.
+</p>
+
+<table width='100%'
+style='border-collapse:collapse;margin-top:30px;'>
+
+<tr style='background:#f8fafc;'>
+<td style='padding:12px;font-weight:bold;width:180px;'>Tracking</td>
+<td style='padding:12px;'>{paquete.Tracking}</td>
+</tr>
+
+<tr>
+<td style='padding:12px;font-weight:bold;'>Descripción</td>
+<td style='padding:12px;'>{paquete.Descripcion}</td>
+</tr>
+
+<tr style='background:#f8fafc;'>
+<td style='padding:12px;font-weight:bold;'>Estado</td>
+<td style='padding:12px;'>
+
+<span style='background:#2563eb;
+color:white;
+padding:6px 14px;
+border-radius:20px;
+font-size:13px;
+font-weight:bold;'>
+
+{paquete.Estado}
+
+</span>
+
+</td>
+</tr>
+
+<tr>
+<td style='padding:12px;font-weight:bold;'>Peso</td>
+<td style='padding:12px;'>{paquete.Peso} kg</td>
+</tr>
+
+<tr style='background:#f8fafc;'>
+<td style='padding:12px;font-weight:bold;'>Costo del envío</td>
+<td style='padding:12px;'>₡{paquete.CostoEnvio:N2}</td>
+</tr>
+
+<tr>
+<td style='padding:12px;font-weight:bold;'>Fecha de recepción</td>
+<td style='padding:12px;'>{paquete.FechaRecepcion:dd/MM/yyyy}</td>
+</tr>
+
+</table>
+
+<div style='margin-top:40px;text-align:center;'>
+
+</div>
+
+<hr style='margin:40px 0;border:none;border-top:1px solid #ddd;'>
+
+<p style='font-size:13px;color:#777;text-align:center;'>
+
+Este correo fue generado automáticamente por
+<strong>CarGo CR</strong>.
+
+<br><br>
+
+Gracias por confiar en nosotros.
+
+</p>
+
+</td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>";
+
+                    try
+                    {
+                        await _servicioEmail.EnviarEmail(
+                            cliente.Correo,
+                            asunto,
+                            cuerpo);
+                    }
+                    catch (Exception ex)
+                    {
+                        // Registrar el error
+                        Console.WriteLine(ex.Message);
+
+                        // No detener el proceso
+                    }
+                }
+
                 return RedirectToAction(nameof(Index));
             }
 
@@ -144,6 +300,149 @@ namespace CarGoCR.Controllers
                 _context.Update(paquete);
 
                 await _context.SaveChangesAsync();
+
+                var cliente = await _context.Clientes
+    .FirstOrDefaultAsync(x => x.Id == paquete.ClienteId);
+
+                if (cliente != null && !string.IsNullOrWhiteSpace(cliente.Correo))
+                {
+                    var asunto = $"Actualización de su paquete - {paquete.Tracking}";
+
+                    var cuerpo = $@"
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+</head>
+
+<body style='margin:0;padding:0;background:#f4f6f9;font-family:Segoe UI,Arial,sans-serif;'>
+
+<table width='100%' cellpadding='0' cellspacing='0' style='background:#f4f6f9;padding:40px 0;'>
+
+<tr>
+<td align='center'>
+
+<table width='700' cellpadding='0' cellspacing='0'
+style='background:#ffffff;border-radius:12px;overflow:hidden;
+box-shadow:0 3px 12px rgba(0,0,0,.15);'>
+
+<tr>
+<td style='background:#0F4C81;padding:30px;text-align:center;'>
+
+<img src='https://TU-DOMINIO.com/img/Logo.jpeg'
+style='height:80px;' />
+
+<h1 style='color:white;margin-top:20px;font-size:28px;'>
+CarGo CR
+</h1>
+
+<p style='color:#dbeafe;font-size:15px;margin-top:8px;'>
+Actualización de su paquete
+</p>
+
+</td>
+</tr>
+
+<tr>
+
+<td style='padding:40px;'>
+
+<p style='font-size:17px;'>
+
+Hola <strong>{cliente.NombreCompleto}</strong>,
+
+</p>
+
+<p>
+Queremos informarle que su paquete ha sido actualizado.
+</p>
+
+<table width='100%'
+style='border-collapse:collapse;margin-top:30px;'>
+
+<tr style='background:#f8fafc;'>
+<td style='padding:12px;font-weight:bold;width:180px;'>Tracking</td>
+<td style='padding:12px;'>{paquete.Tracking}</td>
+</tr>
+
+<tr>
+<td style='padding:12px;font-weight:bold;'>Descripción</td>
+<td style='padding:12px;'>{paquete.Descripcion}</td>
+</tr>
+
+<tr style='background:#f8fafc;'>
+<td style='padding:12px;font-weight:bold;'>Estado</td>
+<td style='padding:12px;'>
+
+<span style='background:#2563eb;
+color:white;
+padding:6px 14px;
+border-radius:20px;
+font-size:13px;
+font-weight:bold;'>
+
+{paquete.Estado}
+
+</span>
+
+</td>
+</tr>
+
+<tr>
+<td style='padding:12px;font-weight:bold;'>Peso</td>
+<td style='padding:12px;'>{paquete.Peso} kg</td>
+</tr>
+
+<tr style='background:#f8fafc;'>
+<td style='padding:12px;font-weight:bold;'>Costo del envío</td>
+<td style='padding:12px;'>₡{paquete.CostoEnvio:N2}</td>
+</tr>
+
+<tr>
+<td style='padding:12px;font-weight:bold;'>Fecha de recepción</td>
+<td style='padding:12px;'>{paquete.FechaRecepcion:dd/MM/yyyy}</td>
+</tr>
+
+</table>
+
+<div style='margin-top:40px;text-align:center;'>
+
+</div>
+
+<hr style='margin:40px 0;border:none;border-top:1px solid #ddd;'>
+
+<p style='font-size:13px;color:#777;text-align:center;'>
+
+Este correo fue generado automáticamente por
+<strong>CarGo CR</strong>.
+
+<br><br>
+
+Gracias por confiar en nosotros.
+
+</p>
+
+</td>
+
+</tr>
+
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>";
+
+                    await _servicioEmail.EnviarEmail(
+                        cliente.Correo,
+                        asunto,
+                        cuerpo);
+                }
 
                 return RedirectToAction(nameof(Index));
             }

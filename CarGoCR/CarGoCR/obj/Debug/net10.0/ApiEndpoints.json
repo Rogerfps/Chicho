@@ -1,1 +1,28 @@
-[]
+[
+  {
+    "ContainingType": "CarGoCR.Controllers.EmailsController",
+    "Method": "Enviar",
+    "RelativePath": "api/emails",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "tema",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "cuerpo",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

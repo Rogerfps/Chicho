@@ -1,5 +1,6 @@
 using CarGoCR.Data;
 using CarGoCR.Models;
+using CarGoCR.Servicios;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using QuestPDF.Infrastructure;
@@ -21,6 +22,8 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddDefaultTokenProviders();
 
 QuestPDF.Settings.License = LicenseType.Community;
+
+builder.Services.AddTransient<IServicioEmail, ServicioEmail>();
 
 var app = builder.Build();
 

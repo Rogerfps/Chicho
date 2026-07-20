@@ -11,10 +11,11 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("572aa902-a169-451d-bbac-14d0d9830c05")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("CarGoCR")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8afd2345382f128a6d27787bb997fee839b7dc7e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d43e43497e50773366c442b15b60c2fff700bcc8")]
 [assembly: System.Reflection.AssemblyProductAttribute("CarGoCR")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CarGoCR")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
