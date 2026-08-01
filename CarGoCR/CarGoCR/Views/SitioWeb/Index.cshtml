@@ -5,19 +5,17 @@
 
 <nav>
     <a href="#" class="nav-logo">
-        <div class="nav-logo-icon">🚚</div>
+        <img src="~/img/Logo.jpeg" alt="Courier CarGo" class="nav-logo-icon" style="width:36px;height:36px;object-fit:contain;border-radius:6px;" />
         <div class="nav-logo-text">Courier <span>CarGo</span></div>
     </a>
     <ul class="nav-links">
         <li><a href="#servicios">Servicios</a></li>
         <li><a href="#rastrear">Rastrear</a></li>
-        <li><a href="#nosotros">Nosotros</a></li>
         <li><a href="#cobertura">Cobertura</a></li>
         <li><a href="#faq">FAQ</a></li>
-        <li><a href="#contacto">Contacto</a></li>
     </ul>
     <div class="nav-cta">
-        <a asp-area="" asp-controller="Home" asp-action="Index" class="btn-nav-primary">Panel admin →</a>
+        <a asp-area="" asp-controller="Home" asp-action="Index" class="btn-nav-primary" style="opacity:0;" aria-hidden="true" title="">Panel admin</a>
     </div>
 </nav>
 
@@ -25,10 +23,6 @@
     <div class="hero-grid"></div>
     <div class="hero-content">
         <div class="hero-left">
-            <div class="hero-badge">
-                <div class="hero-badge-dot"></div>
-                Nueva versión 3.0 disponible
-            </div>
             <h1 class="hero-title">
                 Logística<br>
                 que <span class="accent">vuela</span><br>
@@ -129,6 +123,7 @@
             <input type="text" class="tracking-input" placeholder="CCG-XXXX-XXXXX" />
             <button class="btn-track" id="trackBtn">Rastrear →</button>
         </div>
+        <div id="trackResult"></div>
     </div>
 </div>
 
@@ -212,71 +207,11 @@
     </div>
 </div>
 
-<div class="about-section" id="nosotros">
-    <div class="about-inner">
-        <div>
-            <span class="section-tag">Sobre nosotros</span>
-            <h2 class="section-title">Construimos la<br>nueva generación<br>de logística</h2>
-            <p class="section-subtitle" style="margin-top:16px;">Courier CarGo nació para resolver los problemas que enfrentan las empresas al gestionar envíos, clientes y pagos con herramientas separadas.</p>
-            <ul class="about-list">
-                <li class="about-list-item">
-                    <div class="about-list-icon">⚡</div>
-                    <div class="about-list-text">
-                        <strong>Velocidad sin compromiso</strong>
-                        <span>Nuestro sistema procesa miles de envíos simultáneamente sin pérdida de rendimiento.</span>
-                    </div>
-                </li>
-                <li class="about-list-item">
-                    <div class="about-list-icon">🔒</div>
-                    <div class="about-list-text">
-                        <strong>Seguridad de nivel bancario</strong>
-                        <span>Encriptación SSL, autenticación de dos factores y respaldos automáticos cada hora.</span>
-                    </div>
-                </li>
-                <li class="about-list-item">
-                    <div class="about-list-icon">🤝</div>
-                    <div class="about-list-text">
-                        <strong>Soporte humano real</strong>
-                        <span>Sin bots ni respuestas automáticas. Un equipo real disponible las 24 horas.</span>
-                    </div>
-                </li>
-            </ul>
-            <a href="#" class="btn-outline-navy">Conoce el equipo →</a>
-        </div>
-        <div class="about-stats-grid">
-            <div class="about-stat-card">
-                <span class="about-stat-num">150K+</span>
-                <span class="about-stat-label">Paquetes entregados</span>
-            </div>
-            <div class="about-stat-card">
-                <span class="about-stat-num">892</span>
-                <span class="about-stat-label">Empresas activas</span>
-            </div>
-            <div class="about-stat-card">
-                <span class="about-stat-num">99.8%</span>
-                <span class="about-stat-label">Uptime plataforma</span>
-            </div>
-            <div class="about-stat-card">
-                <span class="about-stat-num">24/7</span>
-                <span class="about-stat-label">Soporte disponible</span>
-            </div>
-            <div class="about-stat-card big">
-                <div>
-                    <span class="about-stat-num">5 min</span>
-                    <span class="about-stat-label">Tiempo promedio de setup</span>
-                </div>
-                <span class="about-stat-icon">🚀</span>
-            </div>
-        </div>
-    </div>
-</div>
-
 <div class="faq-section" id="faq">
     <div>
         <span class="section-tag">FAQ</span>
         <h2 class="section-title">Preguntas<br>frecuentes</h2>
-        <p class="section-subtitle" style="margin-top:16px; max-width:280px; font-size:14px; color:var(--text-muted); line-height:1.6;">¿Tienes dudas? Aquí resolvemos las más comunes. Si necesitas más ayuda, estamos disponibles 24/7.</p>
-        <a href="#contacto" class="support-link">Hablar con soporte →</a>
+        <p class="section-subtitle" style="margin-top:16px; max-width:280px; font-size:14px; color:var(--text-muted); line-height:1.6;">¿Tienes dudas? Aquí resolvemos las más comunes. Si necesitas más ayuda, contáctanos por correo o teléfono.</p>
     </div>
     <div class="faq-list">
         <div class="faq-item open">
@@ -306,33 +241,19 @@
     </div>
 </div>
 
-<div class="cta-section" id="contacto">
-    <div class="cta-inner">
-        <div>
-            <span class="cta-tag">¿Listo para empezar?</span>
-            <h2 class="cta-title">Moderniza tu<br>logística <span>hoy</span></h2>
-            <p class="cta-text">Únete a cientos de empresas costarricenses que ya simplificaron sus operaciones con Courier CarGo. Sin contratos. Sin letra pequeña.</p>
-        </div>
-        <div class="cta-buttons">
-            <a href="#" class="btn-cta-primary">Comenzar gratis →</a>
-            <a href="#" class="btn-cta-secondary">💬 Hablar con ventas</a>
-        </div>
-    </div>
-</div>
-
 <footer>
     <div class="footer-inner">
         <div class="footer-top">
             <div class="footer-brand">
                 <a href="#" class="nav-logo" style="text-decoration:none;">
-                    <div class="nav-logo-icon">🚚</div>
+                    <img src="~/img/Logo.jpeg" alt="Courier CarGo" class="nav-logo-icon" style="width:36px;height:36px;object-fit:contain;border-radius:6px;" />
                     <div class="nav-logo-text">Courier <span>CarGo</span></div>
                 </a>
                 <p>Plataforma logística moderna diseñada para empresas que valoran la velocidad, la confianza y la eficiencia.</p>
                 <div class="footer-contact">
-                    <div class="footer-contact-item"><span>✉️</span> info@couriercargo.cr</div>
-                    <div class="footer-contact-item"><span>📞</span> +506 2222-3333</div>
-                    <div class="footer-contact-item"><span>📍</span> San José, Costa Rica</div>
+                    <div class="footer-contact-item">info@couriercargo.cr</div>
+                    <div class="footer-contact-item">+506 2222-3333</div>
+                    <div class="footer-contact-item">San José, Costa Rica</div>
                 </div>
             </div>
             <div>
@@ -341,32 +262,12 @@
                     <li><a href="#servicios">Servicios</a></li>
                     <li><a href="#rastrear">Rastreo</a></li>
                     <li><a href="#cobertura">Cobertura</a></li>
-                    <li><a href="#">Panel admin</a></li>
-                    <li><a href="#">API</a></li>
-                </ul>
-            </div>
-            <div>
-                <div class="footer-col-title">Empresa</div>
-                <ul class="footer-links">
-                    <li><a href="#nosotros">Nosotros</a></li>
-                    <li><a href="#">Blog</a></li>
-                    <li><a href="#">Trabaja con nosotros</a></li>
-                    <li><a href="#">Aliados</a></li>
-                </ul>
-            </div>
-            <div>
-                <div class="footer-col-title">Legal</div>
-                <ul class="footer-links">
-                    <li><a href="#">Términos de uso</a></li>
-                    <li><a href="#">Privacidad</a></li>
-                    <li><a href="#">Cookies</a></li>
-                    <li><a href="#">Tarifas</a></li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
             <div class="footer-copy">© 2026 Courier CarGo. Todos los derechos reservados.</div>
-            <div class="footer-tagline">Hecho con ❤️ en Costa Rica 🇨🇷</div>
+            <div class="footer-tagline">Hecho por InsideNetworks</div>
         </div>
     </div>
 </footer>
@@ -378,17 +279,60 @@
       document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
       if(!isOpen) item.classList.add('open');
     }
+
     const trackBtn=document.getElementById('trackBtn');
     const trackInput=document.querySelector('.tracking-input');
+    const trackResult=document.getElementById('trackResult');
+
     if(trackBtn&&trackInput){
-      trackBtn.addEventListener('click',()=>{
-        if(trackInput.value.trim()){
-          trackBtn.textContent='✓ Encontrado';
-          trackBtn.style.background='#1a6e3a';
-          setTimeout(()=>{trackBtn.textContent='Rastrear →';trackBtn.style.background='';},2500);
+      trackBtn.addEventListener('click', async () => {
+        const codigo = trackInput.value.trim();
+        if(!codigo) return;
+
+        trackBtn.disabled = true;
+        const textoOriginal = trackBtn.textContent;
+        trackBtn.textContent = 'Buscando...';
+        if (trackResult) trackResult.innerHTML = '';
+
+        try {
+          const resp = await fetch('/Paquetes/Rastrear?tracking=' + encodeURIComponent(codigo));
+          const data = await resp.json();
+
+          if (data.encontrado) {
+            trackBtn.textContent = '✓ Encontrado';
+            trackBtn.style.background = '#1a6e3a';
+
+            if (trackResult) {
+              trackResult.innerHTML = `
+                <div style="margin-top:16px;padding:16px 20px;background:#f4f6f9;border-radius:10px;text-align:left;max-width:480px;">
+                  <div style="font-size:13px;color:#777;">Tracking</div>
+                  <div style="font-weight:bold;margin-bottom:8px;">${data.tracking}</div>
+                  <div style="font-size:13px;color:#777;">Estado</div>
+                  <div style="font-weight:bold;color:#0F4C81;margin-bottom:8px;">${data.estado}</div>
+                  <div style="font-size:13px;color:#777;">Fecha de recepción</div>
+                  <div style="font-weight:bold;">${data.fechaRecepcion}</div>
+                </div>`;
+            }
+          } else {
+            trackBtn.textContent = '✗ No encontrado';
+            trackBtn.style.background = '#b91c1c';
+            if (trackResult) {
+              trackResult.innerHTML = `<div style="margin-top:16px;color:#b91c1c;">No se encontró ningún paquete con ese número de tracking.</div>`;
+            }
+          }
+        } catch (err) {
+          trackBtn.textContent = '✗ Error';
+          trackBtn.style.background = '#b91c1c';
         }
+
+        setTimeout(() => {
+          trackBtn.textContent = textoOriginal;
+          trackBtn.style.background = '';
+          trackBtn.disabled = false;
+        }, 2500);
       });
     }
+
     document.querySelectorAll('a[href^="#"]').forEach(a=>{
       a.addEventListener('click',function(e){
         const h=this.getAttribute('href');

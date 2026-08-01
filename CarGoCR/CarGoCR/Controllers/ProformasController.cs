@@ -1,5 +1,6 @@
 ﻿using CarGoCR.Data;
 using CarGoCR.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,7 @@ using QuestPDF.Infrastructure;
 
 namespace CarGoCR.Controllers
 {
+    [Authorize]
     public class ProformasController : Controller
     {
         private readonly AppDbContext _context;

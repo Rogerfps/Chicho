@@ -1,6 +1,7 @@
 ﻿using CarGoCR.Data;
 using CarGoCR.Models;
 using CarGoCR.Servicios;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -8,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CarGoCR.Controllers
 {
+    [Authorize]
     public class PaquetesController : Controller
     {
         private readonly AppDbContext _context;
@@ -19,18 +21,44 @@ namespace CarGoCR.Controllers
             _servicioEmail = servicioEmail;
         }
 
+        // RASTREO PÚBLICO (usado por el sitio web público, sin login)
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> Rastrear(string tracking)
+        {
+            if (string.IsNullOrWhiteSpace(tracking))
+                return Json(new { encontrado = false });
+
+            var codigo = tracking.Trim().ToLower();
+
+            var paquete = await _context.Paquetes
+                .FirstOrDefaultAsync(p => p.Tracking.ToLower() == codigo);
+
+            if (paquete == null)
+                return Json(new { encontrado = false });
+
+            return Json(new
+            {
+                encontrado = true,
+                tracking = paquete.Tracking,
+                estado = paquete.Estado,
+                descripcion = paquete.Descripcion,
+                fechaRecepcion = paquete.FechaRecepcion.ToString("dd/MM/yyyy")
+            });
+        }
+
         // LISTADO
         public async Task<IActionResult> Index()
         {
             var paquetes = await _context.Paquetes
                 .Include(p => p.Cliente)
                 .Include(p => p.Tarifa)
+                .OrderByDescending(p => p.Id) 
                 .ToListAsync();
 
             return View(paquetes);
         }
 
-        // DETAILS
         // DETAILS
         public async Task<IActionResult> Details(int? id)
         {
@@ -95,7 +123,7 @@ namespace CarGoCR.Controllers
                 await _context.SaveChangesAsync();
 
                 var cliente = await _context.Clientes
-    .FirstOrDefaultAsync(x => x.Id == paquete.ClienteId);
+                    .FirstOrDefaultAsync(x => x.Id == paquete.ClienteId);
 
                 if (cliente != null && !string.IsNullOrWhiteSpace(cliente.Correo))
                 {
@@ -281,8 +309,8 @@ Gracias por confiar en nosotros.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(
-    int id,
-    Paquete paquete)
+            int id,
+            Paquete paquete)
         {
             if (id != paquete.Id)
                 return NotFound();
@@ -302,7 +330,7 @@ Gracias por confiar en nosotros.
                 await _context.SaveChangesAsync();
 
                 var cliente = await _context.Clientes
-    .FirstOrDefaultAsync(x => x.Id == paquete.ClienteId);
+                    .FirstOrDefaultAsync(x => x.Id == paquete.ClienteId);
 
                 if (cliente != null && !string.IsNullOrWhiteSpace(cliente.Correo))
                 {
@@ -489,4 +517,3 @@ Gracias por confiar en nosotros.
         }
     }
 }
-

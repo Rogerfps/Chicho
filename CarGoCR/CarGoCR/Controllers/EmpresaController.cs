@@ -1,9 +1,11 @@
 ﻿using CarGoCR.Data;
 using CarGoCR.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarGoCR.Controllers
 {
+    [Authorize]
     public class EmpresaController : Controller
     {
         private readonly AppDbContext _context;

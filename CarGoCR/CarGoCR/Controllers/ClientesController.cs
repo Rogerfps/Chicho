@@ -1,13 +1,15 @@
-﻿using CarGoCR.Models;
+﻿using CarGoCR.Data;
+using CarGoCR.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using CarGoCR.Data;
 
 
 
 namespace CarGoCR.Controllers
 {
+    [Authorize]
     public class ClientesController : Controller
     {
         private readonly AppDbContext _context;

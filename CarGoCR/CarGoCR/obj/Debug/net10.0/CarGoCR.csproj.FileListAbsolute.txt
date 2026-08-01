@@ -477,7 +477,6 @@ C:\Users\kevin\OneDrive\Escritorio\Proyectos\Chicho\CarGoCR\CarGoCR\obj\Debug\ne
 C:\Users\kevin\OneDrive\Escritorio\Proyectos\Chicho\CarGoCR\CarGoCR\obj\Debug\net10.0\compressed\bj7r94wq4a-{0}-ub2dc91q3l-ub2dc91q3l.gz
 C:\Users\kevin\OneDrive\Escritorio\Proyectos\Chicho\CarGoCR\CarGoCR\obj\Debug\net10.0\compressed\xl8kvfp5bw-{0}-62745ogpf3-62745ogpf3.gz
 C:\Users\kevin\OneDrive\Escritorio\Proyectos\Chicho\CarGoCR\CarGoCR\obj\Debug\net10.0\compressed\m0mh8et5yu-{0}-ofllrjraqy-ofllrjraqy.gz
-C:\Users\kevin\OneDrive\Escritorio\Proyectos\Chicho\CarGoCR\CarGoCR\obj\Debug\net10.0\compressed\ar1l4wpm81-{0}-7e8opbmicz-7e8opbmicz.gz
 C:\Users\kevin\OneDrive\Escritorio\Proyectos\Chicho\CarGoCR\CarGoCR\obj\Debug\net10.0\compressed\ude1gjr443-{0}-pkvduur3te-pkvduur3te.gz
 C:\Users\kevin\OneDrive\Escritorio\Proyectos\Chicho\CarGoCR\CarGoCR\obj\Debug\net10.0\compressed\9nx08xa00g-{0}-1byd8r6mir-1byd8r6mir.gz
 C:\Users\kevin\OneDrive\Escritorio\Proyectos\Chicho\CarGoCR\CarGoCR\obj\Debug\net10.0\compressed\f3kzt7qp1j-{0}-ppxbpkwnb4-ppxbpkwnb4.gz
@@ -520,3 +519,4 @@ C:\Proyectos\Chicho\CarGoCR\CarGoCR\obj\Debug\net10.0\compressed\m0mh8et5yu-{0}-
 C:\Proyectos\Chicho\CarGoCR\CarGoCR\obj\Debug\net10.0\compressed\ude1gjr443-{0}-pkvduur3te-pkvduur3te.gz
 C:\Proyectos\Chicho\CarGoCR\CarGoCR\obj\Debug\net10.0\compressed\o11lvt3oka-{0}-uhqp3f24zd-uhqp3f24zd.gz
 C:\Proyectos\Chicho\CarGoCR\CarGoCR\obj\Debug\net10.0\compressed\jo9ul7vshv-{0}-48enoe43ac-48enoe43ac.gz
+C:\Users\kevin\OneDrive\Escritorio\Proyectos\Chicho\CarGoCR\CarGoCR\obj\Debug\net10.0\compressed\ar1l4wpm81-{0}-0vz72wntr6-0vz72wntr6.gz
