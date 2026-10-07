@@ -19,13 +19,22 @@ namespace CarGoCR.Controllers
         {
             return View();
         }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(
-    string userName,
-    string password)
+            string userName,
+            string password)
         {
+            if (string.IsNullOrWhiteSpace(userName) ||
+                string.IsNullOrWhiteSpace(password))
+            {
+                ModelState.AddModelError(
+                    "",
+                    "Debe ingresar el usuario y la contraseña.");
+
+                return View();
+            }
+
             var result = await _signInManager.PasswordSignInAsync(
                 userName,
                 password,
@@ -39,7 +48,10 @@ namespace CarGoCR.Controllers
                     "Home");
             }
 
-            ModelState.AddModelError("", "Usuario o contraseña incorrectos");
+            ModelState.AddModelError(
+                "",
+                "Usuario o contraseña incorrectos");
+
             return View();
         }
 
