@@ -27,6 +27,8 @@ namespace CarGoCR.Models
 
         public bool Pagado { get; set; }
 
+        public string TipoEnvio { get; set; } = "Nacional";
+
         public string? Observaciones { get; set; }
 
         public int ClienteId { get; set; }

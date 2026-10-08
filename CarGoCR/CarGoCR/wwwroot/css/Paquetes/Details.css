@@ -158,3 +158,42 @@
     min-height: 100vh;
     padding: 2rem;
 }
+
+/* =========================
+   TARIFA
+   ========================= */
+
+.tarifa-card {
+    min-width: 0;
+}
+
+.tarifa-precios {
+    display: flex;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.tarifa-precio {
+    flex: 1;
+    background: rgba(15, 23, 42, .65);
+    border: 1px solid rgba(148, 163, 184, .12);
+    border-radius: 10px;
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+    .tarifa-precio span {
+        color: #94a3b8;
+        font-size: .7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: .4px;
+    }
+
+    .tarifa-precio strong {
+        color: #f8fafc;
+        font-size: .9rem;
+        font-weight: 700;
+    }

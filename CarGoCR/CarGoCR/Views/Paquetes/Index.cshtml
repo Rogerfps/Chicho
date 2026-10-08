@@ -133,6 +133,60 @@
 
         </div>
 
+        <div class="filters-container">
+
+            <div class="filter-group">
+                <label for="estadoFilter">Estado</label>
+
+                <select id="estadoFilter" name="estado">
+                    <option value="">Todos los estados</option>
+
+                    <option value="Prealertado"
+                            selected="@(Context.Request.Query["estado"] == "Prealertado")">
+                        Prealertado
+                    </option>
+
+                    <option value="Recibido"
+                            selected="@(Context.Request.Query["estado"] == "Recibido")">
+                        Recibido
+                    </option>
+
+                    <option value="En tránsito"
+                            selected="@(Context.Request.Query["estado"] == "En tránsito")">
+                        En tránsito
+                    </option>
+
+                    <option value="Entregado"
+                            selected="@(Context.Request.Query["estado"] == "Entregado")">
+                        Entregado
+                    </option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label for="fechaDesde">Desde</label>
+
+                <input type="date"
+                       id="fechaDesde"
+                       name="fechaDesde"
+                       value="@Context.Request.Query["fechaDesde"]" />
+            </div>
+
+            <div class="filter-group">
+                <label for="fechaHasta">Hasta</label>
+
+                <input type="date"
+                       id="fechaHasta"
+                       name="fechaHasta"
+                       value="@Context.Request.Query["fechaHasta"]" />
+            </div>
+
+            <button type="button" id="btnLimpiarFiltros" class="btn-clear">
+                Limpiar
+            </button>
+
+        </div>
+
 
         <!-- ============================= -->
         <!-- TABLA DESKTOP -->
@@ -428,6 +482,28 @@
 
             <table class="data-table">
 
+                <thead>
+                    <tr>
+
+                        <th>Tracking</th>
+
+                        <th>Cliente</th>
+
+                        <th>Descripción</th>
+
+                        <th>Peso</th>
+
+                        <th>Costo envío</th>
+
+                        <th>Estado</th>
+
+                        <th>Fecha recepción</th>
+
+                        <th></th>
+
+                    </tr>
+                </thead>
+
                 <tbody id="resultadosBusquedaBody">
                 </tbody>
 
@@ -593,11 +669,13 @@
 <script>
 
     const searchInput = document.getElementById("searchInput");
+    const estadoFilter = document.getElementById("estadoFilter");
+    const fechaDesde = document.getElementById("fechaDesde");
+    const fechaHasta = document.getElementById("fechaHasta");
+    const btnLimpiarFiltros = document.getElementById("btnLimpiarFiltros");
 
     const tablaPaquetes = document.getElementById("tablaPaquetes");
-
-    const tablaPaquetesBody =
-        document.getElementById("tablaPaquetesBody");
+    const cardsPaquetes = document.getElementById("cardsPaquetes");
 
     const resultadosBusqueda =
         document.getElementById("resultadosBusqueda");
@@ -605,65 +683,171 @@
     const resultadosBusquedaBody =
         document.getElementById("resultadosBusquedaBody");
 
-    const cardsPaquetes =
-        document.getElementById("cardsPaquetes");
-
 
     let timer = null;
 
 
+    // =====================================================
+    // BUSCADOR
+    // =====================================================
+
     searchInput.addEventListener("input", function () {
-
-        const termino = this.value.trim();
-
-
-        // Cancelar búsqueda anterior
 
         clearTimeout(timer);
 
-
-        // Si borramos el buscador,
-        // volver a mostrar todos los paquetes.
-
-        if (termino === "") {
-
-            tablaPaquetes.style.display = "";
-
-            cardsPaquetes.style.display = "";
-
-            resultadosBusqueda.style.display = "none";
-
-            resultadosBusquedaBody.innerHTML = "";
-
-            return;
-        }
-
-
-        // Esperamos 200 ms antes de buscar
-
         timer = setTimeout(function () {
 
-            buscarPaquetes(termino);
+            buscarPaquetes();
 
         }, 200);
 
     });
 
 
-    async function buscarPaquetes(termino) {
+    // =====================================================
+    // FILTRO DE ESTADO
+    // =====================================================
+
+    estadoFilter.addEventListener("change", function () {
+
+        buscarPaquetes();
+
+    });
+
+
+    // =====================================================
+    // FECHA DESDE
+    // =====================================================
+
+    fechaDesde.addEventListener("change", function () {
+
+        buscarPaquetes();
+
+    });
+
+
+    // =====================================================
+    // FECHA HASTA
+    // =====================================================
+
+    fechaHasta.addEventListener("change", function () {
+
+        buscarPaquetes();
+
+    });
+
+
+    // =====================================================
+    // LIMPIAR FILTROS
+    // =====================================================
+
+    btnLimpiarFiltros.addEventListener("click", function () {
+
+        searchInput.value = "";
+        estadoFilter.value = "";
+        fechaDesde.value = "";
+        fechaHasta.value = "";
+
+        mostrarTablaOriginal();
+
+    });
+
+
+    // =====================================================
+    // BUSCAR PAQUETES
+    // =====================================================
+
+    async function buscarPaquetes() {
+
+        const termino = searchInput.value.trim();
+        const estado = estadoFilter.value;
+        const desde = fechaDesde.value;
+        const hasta = fechaHasta.value;
+
+
+        // Si no hay filtros activos
+        // mostramos la tabla original.
+
+        if (
+            termino === "" &&
+            estado === "" &&
+            desde === "" &&
+            hasta === ""
+        ) {
+
+            mostrarTablaOriginal();
+
+            return;
+        }
+
 
         try {
 
+            // =============================================
+            // CREAR PARÁMETROS
+            // =============================================
+
+            const params = new URLSearchParams();
+
+
+            if (termino !== "") {
+
+                params.append(
+                    "termino",
+                    termino
+                );
+
+            }
+
+
+            if (estado !== "") {
+
+                params.append(
+                    "estado",
+                    estado
+                );
+
+            }
+
+
+            if (desde !== "") {
+
+                params.append(
+                    "fechaDesde",
+                    desde
+                );
+
+            }
+
+
+            if (hasta !== "") {
+
+                params.append(
+                    "fechaHasta",
+                    hasta
+                );
+
+            }
+
+
             const url =
                 '@Url.Action("Buscar", "Paquetes")'
-                + '?termino='
-                + encodeURIComponent(termino);
+                + "?"
+                + params.toString();
 
 
-            console.log("Buscando:", url);
+            console.log(
+                "Buscando:",
+                url
+            );
 
 
-            const response = await fetch(url);
+            // =============================================
+            // CONSULTA
+            // =============================================
+
+            const response =
+                await fetch(url);
 
 
             if (!response.ok) {
@@ -679,27 +863,38 @@
                 await response.json();
 
 
-            console.log("Resultados:", paquetes);
+            console.log(
+                "Resultados:",
+                paquetes
+            );
 
 
-            // Ocultar tabla original
+            // =============================================
+            // OCULTAR TABLA ORIGINAL
+            // =============================================
 
             tablaPaquetes.style.display = "none";
 
             cardsPaquetes.style.display = "none";
 
 
-            // Mostrar resultados
+            // =============================================
+            // MOSTRAR RESULTADOS
+            // =============================================
 
             resultadosBusqueda.style.display = "block";
-
 
             resultadosBusquedaBody.innerHTML = "";
 
 
-            // No hay resultados
+            // =============================================
+            // SIN RESULTADOS
+            // =============================================
 
-            if (!paquetes || paquetes.length === 0) {
+            if (
+                !paquetes ||
+                paquetes.length === 0
+            ) {
 
                 resultadosBusquedaBody.innerHTML = `
 
@@ -708,11 +903,8 @@
                         <td colspan="8"
                             class="empty-message">
 
-                            No se encontraron paquetes para:
-
-                            <strong>
-                                ${escapeHtml(termino)}
-                            </strong>
+                            No se encontraron paquetes
+                            con los filtros seleccionados.
 
                         </td>
 
@@ -724,17 +916,19 @@
             }
 
 
-            // Crear filas
+            // =============================================
+            // CREAR FILAS
+            // =============================================
 
             paquetes.forEach(function (paquete) {
-
-                const fila =
-                    document.createElement("tr");
-
 
                 const estado =
                     paquete.estado || "";
 
+
+                // =========================================
+                // CLASE DEL ESTADO
+                // =========================================
 
                 const badge =
                     estado.toLowerCase() === "entregado"
@@ -742,7 +936,17 @@
                         : "badge-inactive";
 
 
+                // =========================================
+                // CREAR FILA
+                // =========================================
+
+                const fila =
+                    document.createElement("tr");
+
+
                 fila.innerHTML = `
+
+                    <!-- TRACKING -->
 
                     <td>
 
@@ -773,7 +977,9 @@
 
                                 <div class="client-name">
 
-                                    ${escapeHtml(paquete.tracking)}
+                                    ${escapeHtml(
+                                        paquete.tracking
+                                    )}
 
                                 </div>
 
@@ -791,53 +997,104 @@
                     </td>
 
 
+                    <!-- CLIENTE -->
+
                     <td>
 
                         <div class="contact-line">
 
-                            ${escapeHtml(paquete.cliente)}
+                            ${escapeHtml(
+                                paquete.cliente
+                            )}
+
+                        </div>
+
+
+                        ${
+                            paquete.cedula
+                                ? `
+                                    <div class="client-code">
+                                        ${escapeHtml(
+                                            paquete.cedula
+                                        )}
+                                    </div>
+                                  `
+                                : ""
+                        }
+
+                    </td>
+
+
+                    <!-- DESCRIPCIÓN -->
+
+                    <td>
+
+                        <div class="contact-line">
+
+                            ${escapeHtml(
+                                paquete.descripcion
+                            )}
 
                         </div>
 
                     </td>
 
 
+                    <!-- PESO -->
+
                     <td>
-                        -
+
+                        ${formatearNumero(
+                            paquete.peso
+                        )} kg
+
                     </td>
 
 
+                    <!-- COSTO ENVÍO -->
+
                     <td>
-                        -
+
+                        ₡${formatearNumero(
+                            paquete.costoEnvio
+                        )}
+
                     </td>
 
 
-                    <td>
-                        -
-                    </td>
-
+                    <!-- ESTADO -->
 
                     <td>
 
                         <span class="${badge}">
 
-                            ${escapeHtml(estado)}
+                            ${escapeHtml(
+                                estado
+                            )}
 
                         </span>
 
                     </td>
 
 
+                    <!-- FECHA RECEPCIÓN -->
+
                     <td>
 
-                        ${formatearFecha(paquete.fecha)}
+                        ${formatearFecha(
+                            paquete.fecha
+                        )}
 
                     </td>
 
 
+                    <!-- ACCIONES -->
+
                     <td>
 
                         <div style="display:flex;gap:5px;">
+
+                            <!-- VER -->
 
                             <a href="/Paquetes/Details/${paquete.id}"
                                class="actions-btn"
@@ -861,6 +1118,8 @@
                             </a>
 
 
+                            <!-- EDITAR -->
+
                             <a href="/Paquetes/Edit/${paquete.id}"
                                class="actions-btn"
                                title="Editar">
@@ -880,6 +1139,8 @@
 
                             </a>
 
+
+                            <!-- ELIMINAR -->
 
                             <a href="/Paquetes/Delete/${paquete.id}"
                                class="actions-btn"
@@ -913,12 +1174,13 @@
                 `;
 
 
-                resultadosBusquedaBody.appendChild(fila);
+                resultadosBusquedaBody.appendChild(
+                    fila
+                );
 
             });
 
         }
-
         catch (error) {
 
             console.error(
@@ -927,11 +1189,11 @@
             );
 
 
-            resultadosBusqueda.style.display = "block";
-
             tablaPaquetes.style.display = "none";
 
             cardsPaquetes.style.display = "none";
+
+            resultadosBusqueda.style.display = "block";
 
 
             resultadosBusquedaBody.innerHTML = `
@@ -960,10 +1222,61 @@
     }
 
 
+    // =====================================================
+    // MOSTRAR TABLA ORIGINAL
+    // =====================================================
+
+    function mostrarTablaOriginal() {
+
+        tablaPaquetes.style.display = "";
+
+        cardsPaquetes.style.display = "";
+
+        resultadosBusqueda.style.display = "none";
+
+        resultadosBusquedaBody.innerHTML = "";
+
+    }
+
+
+    // =====================================================
+    // FORMATEAR NÚMEROS
+    // =====================================================
+
+    function formatearNumero(numero) {
+
+        if (
+            numero === null ||
+            numero === undefined ||
+            numero === ""
+        ) {
+
+            return "0,00";
+
+        }
+
+
+        return Number(numero).toLocaleString(
+            "es-CR",
+            {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            }
+        );
+
+    }
+
+
+    // =====================================================
+    // SEGURIDAD HTML
+    // =====================================================
+
     function escapeHtml(text) {
 
-        if (text === null ||
-            text === undefined) {
+        if (
+            text === null ||
+            text === undefined
+        ) {
 
             return "";
 
@@ -972,23 +1285,44 @@
 
         return String(text)
 
-            .replace(/&/g, "&amp;")
+            .replace(
+                /&/g,
+                "&amp;"
+            )
 
-            .replace(/</g, "&lt;")
+            .replace(
+                /</g,
+                "&lt;"
+            )
 
-            .replace(/>/g, "&gt;")
+            .replace(
+                />/g,
+                "&gt;"
+            )
 
-            .replace(/"/g, "&quot;")
+            .replace(
+                /"/g,
+                "&quot;"
+            )
 
-            .replace(/'/g, "&#039;");
+            .replace(
+                /'/g,
+                "&#039;"
+            );
 
     }
 
 
+    // =====================================================
+    // FORMATEAR FECHA
+    // =====================================================
+
     function formatearFecha(fecha) {
 
         if (!fecha) {
+
             return "";
+
         }
 
 
@@ -996,13 +1330,22 @@
             new Date(fecha);
 
 
-        if (isNaN(date.getTime())) {
+        if (
+            isNaN(
+                date.getTime()
+            )
+        ) {
+
             return "";
+
         }
 
 
-        return date.toLocaleDateString("es-CR");
+        return date.toLocaleDateString(
+            "es-CR"
+        );
 
     }
 
 </script>
+            

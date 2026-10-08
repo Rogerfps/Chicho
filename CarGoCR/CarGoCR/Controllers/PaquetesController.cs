@@ -49,12 +49,17 @@ namespace CarGoCR.Controllers
         }
 
         // LISTADO
-        public async Task<IActionResult> Index(string? termino)
+        public async Task<IActionResult> Index(
+    string? termino,
+    string? estado,
+    DateTime? fechaDesde,
+    DateTime? fechaHasta)
         {
             var query = _context.Paquetes
                 .Include(p => p.Cliente)
                 .AsQueryable();
 
+            // 🔍 BÚSQUEDA
             if (!string.IsNullOrWhiteSpace(termino))
             {
                 termino = termino.Trim().ToLower();
@@ -66,6 +71,26 @@ namespace CarGoCR.Controllers
                 );
             }
 
+            // 📌 FILTRO POR ESTADO
+            if (!string.IsNullOrWhiteSpace(estado))
+            {
+                query = query.Where(p => p.Estado == estado);
+            }
+
+            // 📅 FILTRO FECHA DESDE
+            if (fechaDesde.HasValue)
+            {
+                query = query.Where(p =>
+                    p.FechaRecepcion.Date >= fechaDesde.Value.Date);
+            }
+
+            // 📅 FILTRO FECHA HASTA
+            if (fechaHasta.HasValue)
+            {
+                query = query.Where(p =>
+                    p.FechaRecepcion.Date <= fechaHasta.Value.Date);
+            }
+
             var paquetes = await query
                 .OrderByDescending(p => p.FechaRecepcion)
                 .ToListAsync();
@@ -75,33 +100,83 @@ namespace CarGoCR.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> Buscar(string? termino)
+        public async Task<IActionResult> Buscar(
+    string? termino,
+    string? estado,
+    DateTime? fechaDesde,
+    DateTime? fechaHasta)
         {
-            if (string.IsNullOrWhiteSpace(termino))
-                return Json(new List<object>());
-
-            termino = termino.Trim().ToLower();
-
-            var paquetes = await _context.Paquetes
+            var query = _context.Paquetes
                 .Include(p => p.Cliente)
-                .Where(p =>
+                .AsQueryable();
+
+            // 🔍 BÚSQUEDA
+            if (!string.IsNullOrWhiteSpace(termino))
+            {
+                termino = termino.Trim().ToLower();
+
+                query = query.Where(p =>
                     p.Tracking.ToLower().Contains(termino) ||
                     (p.Cliente != null &&
                      p.Cliente.NombreCompleto.ToLower().Contains(termino))
-                )
-                .OrderBy(p => p.Cliente != null
-                    ? p.Cliente.NombreCompleto
-                    : "")
-                .ThenBy(p => p.Tracking)
-                .Take(20)
+                );
+            }
+
+            // 📌 ESTADO
+            if (!string.IsNullOrWhiteSpace(estado))
+            {
+                query = query.Where(p => p.Estado == estado);
+            }
+
+            // 📅 FECHA DESDE
+            if (fechaDesde.HasValue)
+            {
+                var desdeUtc = DateTime.SpecifyKind(
+                    fechaDesde.Value.Date,
+                    DateTimeKind.Utc
+                );
+
+                query = query.Where(p =>
+                    p.FechaRecepcion >= desdeUtc);
+            }
+
+            // 📅 FECHA HASTA
+            if (fechaHasta.HasValue)
+            {
+                var hastaUtc = DateTime.SpecifyKind(
+                    fechaHasta.Value.Date.AddDays(1),
+                    DateTimeKind.Utc
+                );
+
+                query = query.Where(p =>
+                    p.FechaRecepcion < hastaUtc);
+            }
+
+            var paquetes = await query
+                .OrderByDescending(p => p.FechaRecepcion)
+                .Take(50)
                 .Select(p => new
                 {
                     id = p.Id,
+
                     tracking = p.Tracking,
+
                     cliente = p.Cliente != null
                         ? p.Cliente.NombreCompleto
                         : "Sin cliente",
+
+                    cedula = p.Cliente != null
+                        ? p.Cliente.Cedula
+                        : "",
+
+                    descripcion = p.Descripcion,
+
+                    peso = p.Peso,
+
+                    costoEnvio = p.CostoEnvio,
+
                     estado = p.Estado,
+
                     fecha = p.FechaRecepcion
                 })
                 .ToListAsync();
@@ -367,13 +442,16 @@ Gracias por confiar en nosotros.
 
             if (ModelState.IsValid)
             {
-                var tarifa = await _context.Tarifas
-                    .FirstOrDefaultAsync(t => t.Id == paquete.TarifaId);
+                // Buscar el paquete original en la base de datos
+                var paqueteOriginal = await _context.Paquetes
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(p => p.Id == id);
 
-                if (tarifa != null)
-                {
-                    paquete.CostoEnvio = tarifa.PrecioNacional;
-                }
+                if (paqueteOriginal == null)
+                    return NotFound();
+
+                // Conservar el costo de envío original
+                paquete.CostoEnvio = paqueteOriginal.CostoEnvio;
 
                 _context.Update(paquete);
 
@@ -381,6 +459,8 @@ Gracias por confiar en nosotros.
 
                 var cliente = await _context.Clientes
                     .FirstOrDefaultAsync(x => x.Id == paquete.ClienteId);
+
+                // AQUÍ CONTINÚA TU CÓDIGO DEL CORREO
 
                 if (cliente != null && !string.IsNullOrWhiteSpace(cliente.Correo))
                 {

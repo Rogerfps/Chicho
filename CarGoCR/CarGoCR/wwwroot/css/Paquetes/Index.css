@@ -172,6 +172,133 @@
             box-shadow: 0 0 0 4px rgba(59, 130, 246, .15);
         }
 
+/* =========================
+   FILTROS
+   ========================= */
+
+.filters-container {
+    display: flex;
+    align-items: flex-end;
+    gap: 14px;
+    padding: 18px 25px 20px;
+    border-bottom: 1px solid rgba(148, 163, 184, .12);
+    flex-wrap: wrap;
+}
+
+
+/* =========================
+   GRUPO DE FILTRO
+   ========================= */
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 180px;
+}
+
+
+    .filter-group label {
+        color: #94a3b8;
+        font-size: .75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: .5px;
+    }
+
+
+    /* =========================
+   SELECT
+   ========================= */
+
+    .filter-group select {
+        height: 42px;
+        min-width: 190px;
+        background: #0f172a;
+        border: 1px solid #334155;
+        border-radius: 10px;
+        color: #e2e8f0;
+        padding: 0 38px 0 12px;
+        font-size: .9rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: .2s;
+        outline: none;
+    }
+
+
+        .filter-group select:hover {
+            border-color: #475569;
+        }
+
+
+        .filter-group select:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, .15);
+        }
+
+
+    /* =========================
+   INPUTS DE FECHA
+   ========================= */
+
+    .filter-group input[type="date"] {
+        height: 42px;
+        min-width: 170px;
+        box-sizing: border-box;
+        background: #0f172a;
+        border: 1px solid #334155;
+        border-radius: 10px;
+        color: #e2e8f0;
+        padding: 0 12px;
+        font-size: .9rem;
+        outline: none;
+        transition: .2s;
+        color-scheme: dark;
+    }
+
+
+        .filter-group input[type="date"]:hover {
+            border-color: #475569;
+        }
+
+
+        .filter-group input[type="date"]:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, .15);
+        }
+
+
+/* =========================
+   BOTÓN LIMPIAR
+   ========================= */
+
+.btn-clear {
+    height: 42px;
+    padding: 0 18px;
+    border-radius: 10px;
+    background: #1e293b;
+    border: 1px solid #334155;
+    color: #cbd5e1;
+    font-size: .85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .2s;
+}
+
+
+    .btn-clear:hover {
+        background: #334155;
+        border-color: #475569;
+        color: white;
+        transform: translateY(-1px);
+    }
+
+
+    .btn-clear:active {
+        transform: translateY(0);
+    }
+
 
 /* =========================
    RESULTADOS DE BÚSQUEDA
