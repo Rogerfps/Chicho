@@ -27,11 +27,22 @@ builder.Services.AddTransient<IServicioEmail, ServicioEmail>();
 
 var app = builder.Build();
 
-// Crear roles automáticamente
+
+// ======================================================
+// CREAR ROLES Y USUARIO ADMINISTRADOR INICIAL
+// ======================================================
+
 using (var scope = app.Services.CreateScope())
 {
     var roleManager =
         scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+    var userManager =
+        scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+
+    // --------------------------------------------------
+    // ROLES
+    // --------------------------------------------------
 
     string[] roles =
     {
@@ -48,9 +59,64 @@ using (var scope = app.Services.CreateScope())
                 new IdentityRole(role));
         }
     }
+
+
+    // --------------------------------------------------
+    // USUARIO ADMINISTRADOR
+    // --------------------------------------------------
+
+    string usuarioAdmin = "admin";
+    string passwordAdmin = "Admin123*";
+    string emailAdmin = "admin@cargocr.com";
+
+    var admin = await userManager.FindByNameAsync(usuarioAdmin);
+
+    if (admin == null)
+    {
+        admin = new ApplicationUser
+        {
+            UserName = usuarioAdmin,
+            Email = emailAdmin,
+            NombreCompleto = "Administrador",
+            Activo = true,
+            EmailConfirmed = true
+        };
+
+        var resultado = await userManager.CreateAsync(
+            admin,
+            passwordAdmin);
+
+        if (!resultado.Succeeded)
+        {
+            var errores = string.Join(
+                ", ",
+                resultado.Errors.Select(e => e.Description));
+
+            throw new Exception(
+                $"No se pudo crear el usuario administrador: {errores}");
+        }
+    }
+
+
+    // --------------------------------------------------
+    // ASIGNAR ROL ADMINISTRADOR
+    // --------------------------------------------------
+
+    if (!await userManager.IsInRoleAsync(
+        admin,
+        "Administrador"))
+    {
+        await userManager.AddToRoleAsync(
+            admin,
+            "Administrador");
+    }
 }
 
-// Pipeline
+
+// ======================================================
+// PIPELINE
+// ======================================================
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
@@ -61,7 +127,6 @@ app.UseHttpsRedirection();
 
 app.UseRouting();
 
-// Identity
 app.UseAuthentication();
 app.UseAuthorization();
 

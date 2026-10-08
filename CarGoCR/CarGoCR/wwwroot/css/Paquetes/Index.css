@@ -1,11 +1,14 @@
-
-
 .content {
     width: 100%;
     max-width: 100%;
     padding: 2rem;
     box-sizing: border-box;
 }
+
+
+/* =========================
+   HEADER
+   ========================= */
 
 .page-header-row {
     display: flex;
@@ -26,8 +29,13 @@
     margin: 0;
 }
 
+
+/* =========================
+   BOTÓN PRINCIPAL
+   ========================= */
+
 .btn-primary {
-    background: linear-gradient(135deg,#2563eb,#1d4ed8);
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
     color: white;
     border: none;
     padding: 14px 22px;
@@ -42,12 +50,17 @@
     .btn-primary:hover {
         transform: translateY(-2px);
         color: white;
-        box-shadow: 0 12px 25px rgba(37,99,235,.35);
+        box-shadow: 0 12px 25px rgba(37, 99, 235, .35);
     }
+
+
+/* =========================
+   ESTADÍSTICAS
+   ========================= */
 
 .stats-grid {
     display: grid;
-    grid-template-columns: repeat(3,minmax(220px,1fr));
+    grid-template-columns: repeat(4, minmax(180px, 1fr));
     gap: 1rem;
     margin-bottom: 1.5rem;
 }
@@ -85,22 +98,47 @@
     }
 
 
+/* =========================
+   TARJETA DE TABLA
+   ========================= */
+
 .table-card {
     background: var(--card-bg);
-    border: 1px solid rgba(59,130,246,.15);
+    border: 1px solid rgba(59, 130, 246, .15);
     border-radius: 24px;
     overflow: hidden;
-    box-shadow: 0 15px 35px rgba(0,0,0,.25);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, .25);
 }
+
+
+/* =========================
+   TOOLBAR
+   ========================= */
 
 .table-toolbar {
     padding: 20px 25px;
-    border-bottom: 1px solid rgba(148,163,184,.15);
+    border-bottom: 1px solid rgba(148, 163, 184, .15);
 }
+
+
+/* =========================
+   CONTENEDOR DEL BUSCADOR
+   ========================= */
+
+.search-container {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+}
+
+
+/* =========================
+   BUSCADOR
+   ========================= */
 
 .table-search {
     position: relative;
-    width: 350px;
+    width: 100%;
 }
 
     .table-search svg {
@@ -108,22 +146,49 @@
         left: 14px;
         top: 50%;
         transform: translateY(-50%);
+        z-index: 2;
+        pointer-events: none;
     }
 
     .table-search input {
         width: 100%;
+        box-sizing: border-box;
         background: #0f172a;
         border: 1px solid #334155;
         color: white;
         border-radius: 14px;
         padding: 12px 14px 12px 40px;
+        font-size: .95rem;
+        transition: .2s;
     }
+
+        .table-search input::placeholder {
+            color: #64748b;
+        }
 
         .table-search input:focus {
             outline: none;
             border-color: #3b82f6;
-            box-shadow: 0 0 0 4px rgba(59,130,246,.15);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, .15);
         }
+
+
+/* =========================
+   RESULTADOS DE BÚSQUEDA
+   ========================= */
+
+#resultadosBusqueda {
+    width: 100%;
+}
+
+    #resultadosBusqueda .data-table {
+        width: 100%;
+    }
+
+
+/* =========================
+   TABLA
+   ========================= */
 
 .data-table {
     width: 100%;
@@ -131,7 +196,7 @@
 }
 
     .data-table thead {
-        background: rgba(15,23,42,.8);
+        background: rgba(15, 23, 42, .8);
     }
 
     .data-table th {
@@ -141,12 +206,14 @@
         font-size: .75rem;
         letter-spacing: .5px;
         padding: 18px;
+        text-align: left;
+        white-space: nowrap;
     }
 
     .data-table td {
         padding: 18px;
         color: #e2e8f0;
-        border-top: 1px solid rgba(148,163,184,.08);
+        border-top: 1px solid rgba(148, 163, 184, .08);
         vertical-align: middle;
     }
 
@@ -155,26 +222,99 @@
     }
 
         .data-table tbody tr:hover {
-            background: rgba(59,130,246,.05);
+            background: rgba(59, 130, 246, .05);
         }
 
+
+/* =========================
+   CELDA CLIENTE
+   ========================= */
+
+.client-cell {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.client-avatar {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+}
+
+.client-name {
+    color: #f8fafc;
+    font-weight: 700;
+    font-size: .9rem;
+}
+
+.client-code {
+    color: #64748b;
+    font-size: .75rem;
+    margin-top: 3px;
+}
+
+.contact-line {
+    color: #cbd5e1;
+    font-size: .88rem;
+    line-height: 1.4;
+}
+
+
+/* =========================
+   TRACKING
+   ========================= */
+
+.tracking-code {
+    background: rgba(59, 130, 246, .15);
+    color: #60a5fa;
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: .85rem;
+}
+
+.data-table strong {
+    color: #60a5fa;
+    font-size: .95rem;
+    letter-spacing: .5px;
+}
+
+
+/* =========================
+   BADGES
+   ========================= */
+
 .badge-active {
-    background: rgba(34,197,94,.15);
+    background: rgba(34, 197, 94, .15);
     color: #22c55e;
     padding: 8px 14px;
     border-radius: 999px;
     font-size: .8rem;
     font-weight: 700;
+    white-space: nowrap;
 }
 
 .badge-inactive {
-    background: rgba(239,68,68,.15);
+    background: rgba(239, 68, 68, .15);
     color: #ef4444;
     padding: 8px 14px;
     border-radius: 999px;
     font-size: .8rem;
     font-weight: 700;
+    white-space: nowrap;
 }
+
+
+/* =========================
+   BOTONES DE ACCIONES
+   ========================= */
 
 .actions-btn {
     width: 38px;
@@ -197,6 +337,11 @@
         transform: translateY(-2px);
     }
 
+
+/* =========================
+   MENSAJE VACÍO
+   ========================= */
+
 .empty-message {
     text-align: center;
     color: #94a3b8;
@@ -204,20 +349,83 @@
     font-size: 1rem;
 }
 
-.data-table strong {
-    color: #60a5fa;
-    font-size: .95rem;
-    letter-spacing: .5px;
+
+/* =========================
+   CARDS MOBILE
+   ========================= */
+
+.client-cards-mobile {
+    display: none;
 }
 
-.tracking-code {
-    background: rgba(59,130,246,.15);
-    color: #60a5fa;
-    padding: 8px 12px;
-    border-radius: 10px;
-    font-weight: 700;
-    font-size: .85rem;
+.client-card-mobile {
+    background: #0f172a;
+    border: 1px solid #1e293b;
+    border-radius: 16px;
+    padding: 16px;
 }
+
+.client-card-mobile-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+.client-card-mobile-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+}
+
+.client-card-mobile-meta {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.client-card-mobile-contacts {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 15px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(148, 163, 184, .1);
+}
+
+.client-card-mobile-actions {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 7px;
+    margin-top: 15px;
+}
+
+    .client-card-mobile-actions a {
+        text-align: center;
+        padding: 9px 6px;
+        background: #1e293b;
+        color: #cbd5e1;
+        border-radius: 9px;
+        text-decoration: none;
+        font-size: .8rem;
+        font-weight: 600;
+        transition: .2s;
+    }
+
+        .client-card-mobile-actions a:hover {
+            background: #2563eb;
+            color: white;
+        }
+
+        .client-card-mobile-actions a.danger:hover {
+            background: #dc2626;
+        }
+
+
+/* =========================
+   LAYOUT
+   ========================= */
 
 .layout-content {
     margin-left: 220px;
@@ -226,7 +434,33 @@
     padding: 2rem;
 }
 
+
+/* =========================
+   TABLET
+   ========================= */
+
+@media (max-width: 1100px) {
+
+    .stats-grid {
+        grid-template-columns: repeat(2, minmax(180px, 1fr));
+    }
+
+    .data-table {
+        min-width: 1050px;
+    }
+
+    .table-card {
+        overflow-x: auto;
+    }
+}
+
+
+/* =========================
+   MOBILE
+   ========================= */
+
 @media (max-width: 768px) {
+
     .layout-content {
         margin-left: 0 !important;
         width: 100% !important;
@@ -238,27 +472,62 @@
         padding: 1rem !important;
     }
 
+
+    /* HEADER */
+
     .page-header-row {
         flex-direction: column;
+        align-items: stretch;
         gap: 1rem;
         margin-bottom: 1.25rem;
     }
 
+    .page-header h1 {
+        font-size: 1.6rem;
+    }
+
+
+    /* ESTADISTICAS */
+
     .stats-grid {
         grid-template-columns: 1fr 1fr;
-        gap: 0.75rem;
+        gap: .75rem;
+    }
+
+    .stat-mini {
+        padding: 1rem;
     }
 
     .stat-mini-val {
         font-size: 1.5rem;
     }
 
+
+    /* BOTON */
+
+    .btn-primary {
+        width: 100%;
+        justify-content: center;
+    }
+
+
+    /* TABLA */
+
     .table-card {
         border-radius: 14px;
+        overflow-x: auto;
     }
 
     .table-toolbar {
         padding: 14px;
+    }
+
+
+    /* BUSCADOR */
+
+    .search-container {
+        width: 100%;
+        max-width: none;
     }
 
     .table-search {
@@ -269,34 +538,83 @@
             font-size: 16px;
         }
 
-    #tablaClientes {
-        display: none;
+
+    /* TABLA DESKTOP */
+
+    #tablaPaquetes {
+        min-width: 1050px;
     }
+
+
+    /* RESULTADOS */
+
+    #resultadosBusqueda .data-table {
+        min-width: 1050px;
+    }
+
+
+    /* MOBILE CARDS */
 
     .client-cards-mobile {
         display: flex;
         flex-direction: column;
-        gap: 0.75rem;
+        gap: .75rem;
         padding: 1rem;
     }
 
-    .data-table {
-        min-width: 580px;
-    }
-
-    .table-card {
-        overflow-x: auto;
-    }
-
-    .btn-primary {
+    .client-card-mobile {
         width: 100%;
-        justify-content: center;
+        box-sizing: border-box;
+    }
+
+
+    /* Ocultar tabla normal en móvil */
+
+    #tablaPaquetes {
+        display: none;
+    }
+
+    #resultadosBusqueda {
+        display: none;
     }
 }
 
+
+/* =========================
+   CELULARES PEQUEÑOS
+   ========================= */
+
 @media (max-width: 480px) {
+
+    .content {
+        padding: .75rem !important;
+    }
+
     .stats-grid {
         grid-template-columns: 1fr;
     }
-}
 
+    .stat-mini {
+        padding: 1rem;
+    }
+
+    .stat-mini-val {
+        font-size: 1.4rem;
+    }
+
+    .table-card {
+        border-radius: 12px;
+    }
+
+    .table-toolbar {
+        padding: 12px;
+    }
+
+    .client-card-mobile-actions {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+
+        .client-card-mobile-actions a {
+            font-size: .75rem;
+        }
+}

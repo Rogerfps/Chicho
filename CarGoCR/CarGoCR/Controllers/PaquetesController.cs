@@ -3,6 +3,7 @@ using CarGoCR.Models;
 using CarGoCR.Servicios;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -48,15 +49,64 @@ namespace CarGoCR.Controllers
         }
 
         // LISTADO
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string? termino)
         {
-            var paquetes = await _context.Paquetes
+            var query = _context.Paquetes
                 .Include(p => p.Cliente)
-                .Include(p => p.Tarifa)
-                .OrderByDescending(p => p.Id) 
+                .AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(termino))
+            {
+                termino = termino.Trim().ToLower();
+
+                query = query.Where(p =>
+                    p.Tracking.ToLower().Contains(termino) ||
+                    (p.Cliente != null &&
+                     p.Cliente.NombreCompleto.ToLower().Contains(termino))
+                );
+            }
+
+            var paquetes = await query
+                .OrderByDescending(p => p.FechaRecepcion)
                 .ToListAsync();
 
             return View(paquetes);
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> Buscar(string? termino)
+        {
+            if (string.IsNullOrWhiteSpace(termino))
+                return Json(new List<object>());
+
+            termino = termino.Trim().ToLower();
+
+            var paquetes = await _context.Paquetes
+                .Include(p => p.Cliente)
+                .Where(p =>
+                    p.Tracking.ToLower().Contains(termino) ||
+                    (p.Cliente != null &&
+                     p.Cliente.NombreCompleto.ToLower().Contains(termino))
+                )
+                .OrderBy(p => p.Cliente != null
+                    ? p.Cliente.NombreCompleto
+                    : "")
+                .ThenBy(p => p.Tracking)
+                .Take(20)
+                .Select(p => new
+                {
+                    id = p.Id,
+                    tracking = p.Tracking,
+                    cliente = p.Cliente != null
+                        ? p.Cliente.NombreCompleto
+                        : "Sin cliente",
+                    estado = p.Estado,
+                    fecha = p.FechaRecepcion
+                })
+                .ToListAsync();
+
+            return Json(paquetes);
         }
 
         // DETAILS

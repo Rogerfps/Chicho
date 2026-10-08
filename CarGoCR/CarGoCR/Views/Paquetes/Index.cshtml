@@ -3,70 +3,103 @@
 @{
     ViewData["Title"] = "Paquetes";
 }
-<link rel="stylesheet" href="~/css/Paquetes/Index.css" asp-append-version="true" />
 
+<link rel="stylesheet" href="~/css/Paquetes/Index.css" asp-append-version="true" />
 
 <div class="content">
 
+    <!-- HEADER -->
     <div class="page-header-row">
+
         <div class="page-header">
             <h1>Paquetes</h1>
-            <p>Gestión de paquetes y envíos</p>
+            <p>Gestiona y consulta los paquetes registrados</p>
         </div>
 
         <a asp-action="Create"
            class="btn-primary"
            style="text-decoration:none;">
 
-            <svg width="14" height="14"
+            <svg width="14"
+                 height="14"
                  fill="none"
                  stroke="currentColor"
                  stroke-width="2.5"
                  viewBox="0 0 24 24">
+
                 <line x1="12" y1="5" x2="12" y2="19" />
                 <line x1="5" y1="12" x2="19" y2="12" />
+
             </svg>
 
             Nuevo paquete
+
         </a>
+
     </div>
 
+
+    <!-- ESTADISTICAS -->
     <div class="stats-grid">
 
         <div class="stat-mini">
+
             <div class="stat-mini-label">
                 Total paquetes
             </div>
 
             <div class="stat-mini-val">
-                @Model.Count()
+                @Model.Count
             </div>
+
         </div>
 
+
         <div class="stat-mini">
+
+            <div class="stat-mini-label">
+                Prealertados
+            </div>
+
+            <div class="stat-mini-val">
+                @Model.Count(p => p.Estado == "Prealertado")
+            </div>
+
+        </div>
+
+
+        <div class="stat-mini">
+
             <div class="stat-mini-label">
                 Entregados
             </div>
 
             <div class="stat-mini-val green">
-                @Model.Count(x => x.Estado == "Entregado")
+                @Model.Count(p => p.Estado == "Entregado")
             </div>
+
         </div>
 
+
         <div class="stat-mini">
+
             <div class="stat-mini-label">
-                Pendientes
+                Pendientes de pago
             </div>
 
-            <div class="stat-mini-val blue">
-                @Model.Count(x => x.Estado != "Entregado")
+            <div class="stat-mini-val">
+                @Model.Count(p => !p.Pagado)
             </div>
+
         </div>
 
     </div>
 
+
+    <!-- TABLA -->
     <div class="table-card">
 
+        <!-- BUSCADOR -->
         <div class="table-toolbar">
 
             <div class="table-search">
@@ -78,66 +111,181 @@
                      stroke-width="2"
                      viewBox="0 0 24 24"
                      style="color:var(--text-muted)">
-                    <circle cx="11" cy="11" r="8" />
+
+                    <circle cx="11"
+                            cy="11"
+                            r="8" />
+
                     <line x1="21"
                           y1="21"
                           x2="16.65"
                           y2="16.65" />
+
                 </svg>
 
+
                 <input type="text"
-                       placeholder="Buscar tracking..." />
+                       id="searchInput"
+                       placeholder="Buscar por tracking, nombre o apellido..."
+                       autocomplete="off">
 
             </div>
 
         </div>
 
-        <table class="data-table">
+
+        <!-- ============================= -->
+        <!-- TABLA DESKTOP -->
+        <!-- ============================= -->
+
+        <table class="data-table"
+               id="tablaPaquetes">
 
             <thead>
+
                 <tr>
+
                     <th>Tracking</th>
+
                     <th>Cliente</th>
+
+                    <th>Descripción</th>
+
                     <th>Peso</th>
-                    <th>Costo</th>
+
+                    <th>Costo envío</th>
+
                     <th>Estado</th>
-                    <th>Pagado</th>
+
+                    <th>Fecha recepción</th>
+
                     <th></th>
+
                 </tr>
+
             </thead>
 
-            <tbody>
 
-                @if (Model.Any())
+            <tbody id="tablaPaquetesBody">
+
+                @if (Model != null && Model.Any())
                 {
+
                     @foreach (var paquete in Model)
                     {
+
                         <tr>
 
-                            <td>
-                                <span class="tracking-code">
-                                    @paquete.Tracking
-                                </span>
-                            </td>
+                            <!-- TRACKING -->
 
                             <td>
-                                @paquete.Cliente?.NombreCompleto
+
+                                <div class="client-cell">
+
+                                    <div class="client-avatar"
+                                         style="background:linear-gradient(135deg,#4f7cff,#a78bfa)">
+
+                                        <svg width="17"
+                                             height="17"
+                                             fill="none"
+                                             stroke="currentColor"
+                                             stroke-width="2"
+                                             viewBox="0 0 24 24">
+
+                                            <path d="M3 7h18" />
+
+                                            <path d="M5 7v12h14V7" />
+
+                                            <path d="M8 7V4h8v3" />
+
+                                        </svg>
+
+                                    </div>
+
+                                    <div>
+
+                                        <div class="client-name">
+                                            @paquete.Tracking
+                                        </div>
+
+                                        <div class="client-code">
+                                            #@paquete.Id
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
                             </td>
 
-                            <td>
-                                @paquete.Peso Kg
-                            </td>
+
+                            <!-- CLIENTE -->
 
                             <td>
+
+                                @if (paquete.Cliente != null)
+                                {
+                                    <div class="contact-line">
+                                        @paquete.Cliente.NombreCompleto
+                                    </div>
+
+                                    <div class="client-code">
+                                        @paquete.Cliente.Cedula
+                                    </div>
+                                }
+                                else
+                                {
+                                    <span style="color:var(--text-muted);">
+                                        Sin cliente
+                                    </span>
+                                }
+
+                            </td>
+
+
+                            <!-- DESCRIPCION -->
+
+                            <td>
+
+                                <div class="contact-line">
+                                    @paquete.Descripcion
+                                </div>
+
+                            </td>
+
+
+                            <!-- PESO -->
+
+                            <td>
+
+                                @paquete.Peso.ToString("N2") kg
+
+                            </td>
+
+
+                            <!-- COSTO -->
+
+                            <td>
+
                                 ₡@paquete.CostoEnvio.ToString("N2")
+
                             </td>
+
+
+                            <!-- ESTADO -->
 
                             <td>
 
                                 @if (paquete.Estado == "Entregado")
                                 {
                                     <span class="badge-active">
-                                        @paquete.Estado
+                                        Entregado
+                                    </span>
+                                }
+                                else if (paquete.Estado == "Prealertado")
+                                {
+                                    <span class="badge-inactive">
+                                        Prealertado
                                     </span>
                                 }
                                 else
@@ -149,30 +297,28 @@
 
                             </td>
 
+
+                            <!-- FECHA -->
+
                             <td>
 
-                                @if (paquete.Pagado)
-                                {
-                                    <span class="badge-active">
-                                        Sí
-                                    </span>
-                                }
-                                else
-                                {
-                                    <span class="badge-inactive">
-                                        No
-                                    </span>
-                                }
+                                @paquete.FechaRecepcion.ToLocalTime().ToString("dd/MM/yyyy")
 
                             </td>
 
+
+                            <!-- ACCIONES -->
+
                             <td>
 
-                                <div style="display:flex; gap:5px;">
+                                <div style="display:flex;gap:5px;">
+
+                                    <!-- VER -->
 
                                     <a asp-action="Details"
                                        asp-route-id="@paquete.Id"
-                                       class="actions-btn">
+                                       class="actions-btn"
+                                       title="Ver">
 
                                         <svg width="16"
                                              height="16"
@@ -180,17 +326,24 @@
                                              stroke="currentColor"
                                              stroke-width="2"
                                              viewBox="0 0 24 24">
-                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"></path>
+
+                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z" />
+
                                             <circle cx="12"
                                                     cy="12"
-                                                    r="3"></circle>
+                                                    r="3" />
+
                                         </svg>
 
                                     </a>
+
+
+                                    <!-- EDITAR -->
 
                                     <a asp-action="Edit"
                                        asp-route-id="@paquete.Id"
-                                       class="actions-btn">
+                                       class="actions-btn"
+                                       title="Editar">
 
                                         <svg width="16"
                                              height="16"
@@ -198,15 +351,22 @@
                                              stroke="currentColor"
                                              stroke-width="2"
                                              viewBox="0 0 24 24">
-                                            <path d="M12 20h9"></path>
-                                            <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"></path>
+
+                                            <path d="M12 20h9" />
+
+                                            <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z" />
+
                                         </svg>
 
                                     </a>
 
+
+                                    <!-- ELIMINAR -->
+
                                     <a asp-action="Delete"
                                        asp-route-id="@paquete.Id"
-                                       class="actions-btn">
+                                       class="actions-btn"
+                                       title="Eliminar">
 
                                         <svg width="16"
                                              height="16"
@@ -214,11 +374,17 @@
                                              stroke="currentColor"
                                              stroke-width="2"
                                              viewBox="0 0 24 24">
-                                            <polyline points="3 6 5 6 21 6"></polyline>
-                                            <path d="M19 6l-1 14H6L5 6"></path>
-                                            <path d="M10 11v6"></path>
-                                            <path d="M14 11v6"></path>
-                                            <path d="M9 6V4h6v2"></path>
+
+                                            <polyline points="3 6 5 6 21 6" />
+
+                                            <path d="M19 6l-1 14H6L5 6" />
+
+                                            <path d="M10 11v6" />
+
+                                            <path d="M14 11v6" />
+
+                                            <path d="M9 6V4h6v2" />
+
                                         </svg>
 
                                     </a>
@@ -228,24 +394,615 @@
                             </td>
 
                         </tr>
+
                     }
+
                 }
                 else
                 {
-                    <tr>
-                        <td colspan="7"
+
+                    <tr id="filaVacia">
+
+                        <td colspan="8"
                             class="empty-message">
 
                             No hay paquetes registrados
 
                         </td>
+
                     </tr>
+
                 }
 
             </tbody>
 
         </table>
 
+
+        <!-- ============================= -->
+        <!-- RESULTADOS DE BUSQUEDA -->
+        <!-- ============================= -->
+
+        <div id="resultadosBusqueda"
+             style="display:none;">
+
+            <table class="data-table">
+
+                <tbody id="resultadosBusquedaBody">
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <!-- ============================= -->
+        <!-- CARDS MOBILE -->
+        <!-- ============================= -->
+
+        <div class="client-cards-mobile"
+             id="cardsPaquetes">
+
+            @if (Model != null && Model.Any())
+            {
+
+                @foreach (var paquete in Model)
+                {
+
+                    <div class="client-card-mobile">
+
+                        <!-- TOP -->
+
+                        <div class="client-card-mobile-top">
+
+                            <div class="client-card-mobile-info">
+
+                                <div class="client-avatar"
+                                     style="background:linear-gradient(135deg,#4f7cff,#a78bfa)">
+
+                                    <svg width="17"
+                                         height="17"
+                                         fill="none"
+                                         stroke="currentColor"
+                                         stroke-width="2"
+                                         viewBox="0 0 24 24">
+
+                                        <path d="M3 7h18" />
+
+                                        <path d="M5 7v12h14V7" />
+
+                                        <path d="M8 7V4h8v3" />
+
+                                    </svg>
+
+                                </div>
+
+
+                                <div class="client-card-mobile-meta">
+
+                                    <span class="client-name">
+                                        @paquete.Tracking
+                                    </span>
+
+                                    <span class="client-code">
+
+                                        @(paquete.Cliente?.NombreCompleto ?? "Sin cliente")
+
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            @if (paquete.Estado == "Entregado")
+                            {
+                                <span class="badge-active">
+                                    Entregado
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="badge-inactive">
+                                    @paquete.Estado
+                                </span>
+                            }
+
+                        </div>
+
+
+                        <!-- INFORMACION -->
+
+                        <div class="client-card-mobile-contacts">
+
+                            <div class="contact-line">
+                                @paquete.Descripcion
+                            </div>
+
+                            <div class="contact-line">
+                                Peso: @paquete.Peso.ToString("N2") kg
+                            </div>
+
+                            <div class="contact-line">
+                                Envío: ₡@paquete.CostoEnvio.ToString("N2")
+                            </div>
+
+                            <div class="contact-line">
+                                @paquete.FechaRecepcion.ToLocalTime().ToString("dd/MM/yyyy")
+                            </div>
+
+                        </div>
+
+
+                        <!-- ACCIONES -->
+
+                        <div class="client-card-mobile-actions">
+
+                            <a asp-action="Details"
+                               asp-route-id="@paquete.Id">
+
+                                Ver
+
+                            </a>
+
+
+                            <a asp-action="Edit"
+                               asp-route-id="@paquete.Id">
+
+                                Editar
+
+                            </a>
+
+
+                            <a asp-action="Delete"
+                               asp-route-id="@paquete.Id"
+                               class="danger">
+
+                                Eliminar
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                }
+
+            }
+            else
+            {
+
+                <p style="text-align:center;
+                    padding:2rem;
+                    color:var(--text-muted);
+                    font-size:0.875rem;">
+
+                    No hay paquetes registrados
+
+                </p>
+
+            }
+
+        </div>
+
     </div>
 
 </div>
+
+
+<script>
+
+    const searchInput = document.getElementById("searchInput");
+
+    const tablaPaquetes = document.getElementById("tablaPaquetes");
+
+    const tablaPaquetesBody =
+        document.getElementById("tablaPaquetesBody");
+
+    const resultadosBusqueda =
+        document.getElementById("resultadosBusqueda");
+
+    const resultadosBusquedaBody =
+        document.getElementById("resultadosBusquedaBody");
+
+    const cardsPaquetes =
+        document.getElementById("cardsPaquetes");
+
+
+    let timer = null;
+
+
+    searchInput.addEventListener("input", function () {
+
+        const termino = this.value.trim();
+
+
+        // Cancelar búsqueda anterior
+
+        clearTimeout(timer);
+
+
+        // Si borramos el buscador,
+        // volver a mostrar todos los paquetes.
+
+        if (termino === "") {
+
+            tablaPaquetes.style.display = "";
+
+            cardsPaquetes.style.display = "";
+
+            resultadosBusqueda.style.display = "none";
+
+            resultadosBusquedaBody.innerHTML = "";
+
+            return;
+        }
+
+
+        // Esperamos 200 ms antes de buscar
+
+        timer = setTimeout(function () {
+
+            buscarPaquetes(termino);
+
+        }, 200);
+
+    });
+
+
+    async function buscarPaquetes(termino) {
+
+        try {
+
+            const url =
+                '@Url.Action("Buscar", "Paquetes")'
+                + '?termino='
+                + encodeURIComponent(termino);
+
+
+            console.log("Buscando:", url);
+
+
+            const response = await fetch(url);
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "HTTP " + response.status
+                );
+
+            }
+
+
+            const paquetes =
+                await response.json();
+
+
+            console.log("Resultados:", paquetes);
+
+
+            // Ocultar tabla original
+
+            tablaPaquetes.style.display = "none";
+
+            cardsPaquetes.style.display = "none";
+
+
+            // Mostrar resultados
+
+            resultadosBusqueda.style.display = "block";
+
+
+            resultadosBusquedaBody.innerHTML = "";
+
+
+            // No hay resultados
+
+            if (!paquetes || paquetes.length === 0) {
+
+                resultadosBusquedaBody.innerHTML = `
+
+                    <tr>
+
+                        <td colspan="8"
+                            class="empty-message">
+
+                            No se encontraron paquetes para:
+
+                            <strong>
+                                ${escapeHtml(termino)}
+                            </strong>
+
+                        </td>
+
+                    </tr>
+
+                `;
+
+                return;
+            }
+
+
+            // Crear filas
+
+            paquetes.forEach(function (paquete) {
+
+                const fila =
+                    document.createElement("tr");
+
+
+                const estado =
+                    paquete.estado || "";
+
+
+                const badge =
+                    estado.toLowerCase() === "entregado"
+                        ? "badge-active"
+                        : "badge-inactive";
+
+
+                fila.innerHTML = `
+
+                    <td>
+
+                        <div class="client-cell">
+
+                            <div class="client-avatar"
+                                 style="background:linear-gradient(135deg,#4f7cff,#a78bfa)">
+
+                                <svg width="17"
+                                     height="17"
+                                     fill="none"
+                                     stroke="currentColor"
+                                     stroke-width="2"
+                                     viewBox="0 0 24 24">
+
+                                    <path d="M3 7h18" />
+
+                                    <path d="M5 7v12h14V7" />
+
+                                    <path d="M8 7V4h8v3" />
+
+                                </svg>
+
+                            </div>
+
+
+                            <div>
+
+                                <div class="client-name">
+
+                                    ${escapeHtml(paquete.tracking)}
+
+                                </div>
+
+
+                                <div class="client-code">
+
+                                    #${paquete.id}
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </td>
+
+
+                    <td>
+
+                        <div class="contact-line">
+
+                            ${escapeHtml(paquete.cliente)}
+
+                        </div>
+
+                    </td>
+
+
+                    <td>
+                        -
+                    </td>
+
+
+                    <td>
+                        -
+                    </td>
+
+
+                    <td>
+                        -
+                    </td>
+
+
+                    <td>
+
+                        <span class="${badge}">
+
+                            ${escapeHtml(estado)}
+
+                        </span>
+
+                    </td>
+
+
+                    <td>
+
+                        ${formatearFecha(paquete.fecha)}
+
+                    </td>
+
+
+                    <td>
+
+                        <div style="display:flex;gap:5px;">
+
+                            <a href="/Paquetes/Details/${paquete.id}"
+                               class="actions-btn"
+                               title="Ver">
+
+                                <svg width="16"
+                                     height="16"
+                                     fill="none"
+                                     stroke="currentColor"
+                                     stroke-width="2"
+                                     viewBox="0 0 24 24">
+
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z" />
+
+                                    <circle cx="12"
+                                            cy="12"
+                                            r="3" />
+
+                                </svg>
+
+                            </a>
+
+
+                            <a href="/Paquetes/Edit/${paquete.id}"
+                               class="actions-btn"
+                               title="Editar">
+
+                                <svg width="16"
+                                     height="16"
+                                     fill="none"
+                                     stroke="currentColor"
+                                     stroke-width="2"
+                                     viewBox="0 0 24 24">
+
+                                    <path d="M12 20h9" />
+
+                                    <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z" />
+
+                                </svg>
+
+                            </a>
+
+
+                            <a href="/Paquetes/Delete/${paquete.id}"
+                               class="actions-btn"
+                               title="Eliminar">
+
+                                <svg width="16"
+                                     height="16"
+                                     fill="none"
+                                     stroke="currentColor"
+                                     stroke-width="2"
+                                     viewBox="0 0 24 24">
+
+                                    <polyline points="3 6 5 6 21 6" />
+
+                                    <path d="M19 6l-1 14H6L5 6" />
+
+                                    <path d="M10 11v6" />
+
+                                    <path d="M14 11v6" />
+
+                                    <path d="M9 6V4h6v2" />
+
+                                </svg>
+
+                            </a>
+
+                        </div>
+
+                    </td>
+
+                `;
+
+
+                resultadosBusquedaBody.appendChild(fila);
+
+            });
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "ERROR BUSCANDO PAQUETES:",
+                error
+            );
+
+
+            resultadosBusqueda.style.display = "block";
+
+            tablaPaquetes.style.display = "none";
+
+            cardsPaquetes.style.display = "none";
+
+
+            resultadosBusquedaBody.innerHTML = `
+
+                <tr>
+
+                    <td colspan="8"
+                        class="empty-message">
+
+                        Error al realizar la búsqueda.
+
+                        <br>
+
+                        <small>
+                            Revisa la consola del navegador.
+                        </small>
+
+                    </td>
+
+                </tr>
+
+            `;
+
+        }
+
+    }
+
+
+    function escapeHtml(text) {
+
+        if (text === null ||
+            text === undefined) {
+
+            return "";
+
+        }
+
+
+        return String(text)
+
+            .replace(/&/g, "&amp;")
+
+            .replace(/</g, "&lt;")
+
+            .replace(/>/g, "&gt;")
+
+            .replace(/"/g, "&quot;")
+
+            .replace(/'/g, "&#039;");
+
+    }
+
+
+    function formatearFecha(fecha) {
+
+        if (!fecha) {
+            return "";
+        }
+
+
+        const date =
+            new Date(fecha);
+
+
+        if (isNaN(date.getTime())) {
+            return "";
+        }
+
+
+        return date.toLocaleDateString("es-CR");
+
+    }
+
+</script>
