@@ -10,17 +10,26 @@
     <div class="page-header-row">
 
         <div class="page-header">
+
             <h1>Nueva Proforma</h1>
-            <p>Seleccione los paquetes que desea facturar</p>
+
+            <p>
+                Seleccione los paquetes que desea facturar
+            </p>
+
         </div>
+
 
         <a asp-action="Index"
            class="btn-secondary"
            style="text-decoration:none;">
+
             Volver
+
         </a>
 
     </div>
+
 
     <div class="form-card">
 
@@ -30,59 +39,125 @@
                  class="text-danger mb-3">
             </div>
 
+
+            <!-- ========================= -->
+            <!-- CLIENTE -->
+            <!-- ========================= -->
+
             <div class="form-group">
 
                 <label class="form-label">
                     Cliente
                 </label>
 
-                <select name="clienteId"
-                        id="clienteId"
-                        class="form-input"
-                        required>
 
-                    <option value="">
-                        Seleccione un cliente
-                    </option>
+                <div class="cliente-buscador">
 
-                    @foreach (var cliente in ViewBag.Clientes)
-                    {
-                        <option value="@cliente.Id">
-                            @cliente.NombreCompleto
-                        </option>
-                    }
+                    <input type="text"
+                           id="buscarCliente"
+                           class="form-input"
+                           placeholder="Buscar por nombre, cédula o teléfono..."
+                           autocomplete="off" />
 
-                </select>
+
+                    <div id="resultadosClientes"
+                         class="resultados-clientes">
+                    </div>
+
+                </div>
+
+
+                <!-- ID DEL CLIENTE -->
+                <input type="hidden"
+                       name="clienteId"
+                       id="clienteId" />
+
+
+                <!-- CLIENTE SELECCIONADO -->
+
+                <div id="clienteSeleccionado"
+                     class="cliente-seleccionado"
+                     style="display:none;">
+
+                    <div>
+
+                        <strong id="nombreClienteSeleccionado">
+                        </strong>
+
+                    </div>
+
+
+                    <div id="datosClienteSeleccionado"
+                         class="cliente-datos-seleccionado">
+                    </div>
+
+
+                    <button type="button"
+                            id="cambiarCliente"
+                            class="btn-cambiar-cliente">
+
+                        Cambiar cliente
+
+                    </button>
+
+                </div>
 
             </div>
+
+
+
+            <!-- ========================= -->
+            <!-- PAQUETES -->
+            <!-- ========================= -->
 
             <div class="form-group">
 
                 <label class="form-label">
+
                     Paquetes pendientes
+
                 </label>
 
-                <div id="paquetesContainer" class="paquetes-box">
+
+                <div id="paquetesContainer"
+                     class="paquetes-box">
 
                     <div class="sin-paquetes">
+
                         Seleccione un cliente para visualizar sus paquetes.
+
                     </div>
 
                 </div>
 
             </div>
 
+
+
+            <!-- ========================= -->
+            <!-- OBSERVACIONES -->
+            <!-- ========================= -->
+
             <div class="form-group">
 
                 <label class="form-label">
+
                     Observaciones
+
                 </label>
+
 
                 <textarea name="observaciones"
                           class="form-input"
                           rows="4"></textarea>
 
             </div>
+
+
+
+            <!-- ========================= -->
+            <!-- BOTÓN -->
+            <!-- ========================= -->
 
             <div class="form-actions">
 
@@ -101,83 +176,485 @@
 
 </div>
 
+
+
 @section Scripts {
 
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 
+
     <script>
 
-        document.getElementById("clienteId")
-            .addEventListener("change", function () {
+        /* ==========================================
+           ELEMENTOS
+        ========================================== */
 
-                let clienteId = this.value;
+        const buscarCliente =
+            document.getElementById("buscarCliente");
 
-                const container =
-                    document.getElementById("paquetesContainer");
 
-                if (!clienteId) {
+        const resultadosClientes =
+            document.getElementById("resultadosClientes");
 
-                    container.innerHTML =
-                        '<div class="sin-paquetes">Seleccione un cliente para visualizar sus paquetes.</div>';
+
+        const clienteId =
+            document.getElementById("clienteId");
+
+
+        const clienteSeleccionado =
+            document.getElementById("clienteSeleccionado");
+
+
+        const nombreClienteSeleccionado =
+            document.getElementById("nombreClienteSeleccionado");
+
+
+        const datosClienteSeleccionado =
+            document.getElementById("datosClienteSeleccionado");
+
+
+        const cambiarCliente =
+            document.getElementById("cambiarCliente");
+
+
+        const paquetesContainer =
+            document.getElementById("paquetesContainer");
+
+
+        let temporizadorBusqueda;
+
+
+
+        /* ==========================================
+           BUSCAR CLIENTES
+        ========================================== */
+
+        buscarCliente.addEventListener(
+            "input",
+            function () {
+
+                clearTimeout(temporizadorBusqueda);
+
+
+                const termino =
+                    this.value.trim();
+
+
+                /*
+                    Si no hay texto,
+                    ocultamos resultados.
+                */
+
+                if (termino.length === 0) {
+
+                    resultadosClientes.innerHTML = "";
+
+                    resultadosClientes.style.display =
+                        "none";
 
                     return;
                 }
 
-                fetch('/Proformas/ObtenerPaquetes?clienteId=' + clienteId)
-                    .then(response => response.json())
-                    .then(data => {
 
-                        if (data.length === 0) {
+                /*
+                    Esperamos 300ms antes de
+                    consultar la base de datos.
+                */
 
-                            container.innerHTML =
-                                '<div class="sin-paquetes">Este cliente no tiene paquetes pendientes.</div>';
+                temporizadorBusqueda =
+                    setTimeout(async function () {
 
-                            return;
-                        }
+                        try {
 
-                        let html = '';
+                            const response =
+                                await fetch(
+                                    '@Url.Action("BuscarClientes", "Proformas")?termino='
+                                    + encodeURIComponent(termino)
+                                );
 
-                        data.forEach(paquete => {
 
-                            html += `
-                                <div class="paquete-item">
+                            if (!response.ok) {
 
-                                    <input type="checkbox"
-                                           name="paquetesSeleccionados"
-                                           value="${paquete.id}" />
+                                console.error(
+                                    "Error al buscar clientes."
+                                );
 
-                                    <div class="paquete-info">
+                                return;
+                            }
 
-                                        <div class="paquete-tracking">
-                                            ${paquete.tracking}
-                                        </div>
 
-                                        <div class="paquete-detalle">
-                                            ${paquete.descripcion}
-                                            |
-                                            Peso: ${paquete.peso} kg
-                                            |
-                                            ₡${paquete.costoEnvio}
-                                        </div>
+                            const clientes =
+                                await response.json();
+
+
+                            resultadosClientes.innerHTML = "";
+
+
+                            /*
+                                No encontramos clientes
+                            */
+
+                            if (clientes.length === 0) {
+
+                                resultadosClientes.innerHTML = `
+
+                                    <div class="sin-resultados">
+
+                                        No se encontraron clientes
 
                                     </div>
 
+                                `;
+
+
+                                resultadosClientes.style.display =
+                                    "block";
+
+
+                                return;
+                            }
+
+
+
+                            /* ==================================
+                               MOSTRAR RESULTADOS
+                            ================================== */
+
+                            clientes.forEach(
+                                cliente => {
+
+                                    const item =
+                                        document.createElement("div");
+
+
+                                    item.className =
+                                        "cliente-resultado";
+
+
+                                    item.innerHTML = `
+
+                                        <div class="cliente-nombre">
+
+                                            ${cliente.nombre}
+
+                                        </div>
+
+
+                                        <div class="cliente-datos">
+
+                                            Cédula:
+                                            ${cliente.cedula}
+
+                                            &nbsp; | &nbsp;
+
+                                            Tel:
+                                            ${cliente.telefono}
+
+                                        </div>
+
+                                    `;
+
+
+
+                                    /* ============================
+                                       SELECCIONAR CLIENTE
+                                    ============================ */
+
+                                    item.addEventListener(
+                                        "click",
+                                        function () {
+
+
+                                            /*
+                                                Guardamos el ID
+                                                que se enviará al POST
+                                            */
+
+                                            clienteId.value =
+                                                cliente.id;
+
+
+
+                                            /*
+                                                Mostramos información
+                                                del cliente
+                                            */
+
+                                            nombreClienteSeleccionado.textContent =
+                                                cliente.nombre;
+
+
+                                            datosClienteSeleccionado.textContent =
+                                                `Cédula: ${cliente.cedula} | Tel: ${cliente.telefono}`;
+
+
+
+                                            /*
+                                                Limpiar búsqueda
+                                            */
+
+                                            buscarCliente.value = "";
+
+
+                                            resultadosClientes.innerHTML = "";
+
+                                            resultadosClientes.style.display =
+                                                "none";
+
+
+
+                                            /*
+                                                Mostrar cliente seleccionado
+                                            */
+
+                                            clienteSeleccionado.style.display =
+                                                "flex";
+
+
+
+                                            /*
+                                                Cargar paquetes
+                                            */
+
+                                            cargarPaquetes(cliente.id);
+
+                                        }
+                                    );
+
+
+                                    resultadosClientes.appendChild(
+                                        item
+                                    );
+
+                                }
+                            );
+
+
+                            resultadosClientes.style.display =
+                                "block";
+
+                        }
+                        catch (error) {
+
+                            console.error(
+                                "Error buscando clientes:",
+                                error
+                            );
+
+                        }
+
+                    }, 300);
+
+            }
+        );
+
+
+
+        /* ==========================================
+           CAMBIAR CLIENTE
+        ========================================== */
+
+        cambiarCliente.addEventListener(
+            "click",
+            function () {
+
+                clienteId.value = "";
+
+
+                clienteSeleccionado.style.display =
+                    "none";
+
+
+                buscarCliente.value = "";
+
+
+                resultadosClientes.innerHTML = "";
+
+                resultadosClientes.style.display =
+                    "none";
+
+
+                paquetesContainer.innerHTML = `
+
+                    <div class="sin-paquetes">
+
+                        Seleccione un cliente para visualizar sus paquetes.
+
+                    </div>
+
+                `;
+
+
+                buscarCliente.focus();
+
+            }
+        );
+
+
+
+        /* ==========================================
+           CARGAR PAQUETES DEL CLIENTE
+        ========================================== */
+
+        function cargarPaquetes(idCliente) {
+
+            paquetesContainer.innerHTML = `
+
+                <div class="sin-paquetes">
+
+                    Cargando paquetes...
+
+                </div>
+
+            `;
+
+
+            fetch(
+                '@Url.Action("ObtenerPaquetes", "Proformas")?clienteId='
+                + idCliente
+            )
+
+            .then(response => response.json())
+
+            .then(data => {
+
+
+                /*
+                    No tiene paquetes pendientes
+                */
+
+                if (data.length === 0) {
+
+                    paquetesContainer.innerHTML = `
+
+                        <div class="sin-paquetes">
+
+                            Este cliente no tiene paquetes pendientes.
+
+                        </div>
+
+                    `;
+
+                    return;
+                }
+
+
+
+                let html = "";
+
+
+
+                /* ==================================
+                   CREAR LISTA DE PAQUETES
+                ================================== */
+
+                data.forEach(paquete => {
+
+                    html += `
+
+                        <div class="paquete-item">
+
+
+                            <input type="checkbox"
+                                   name="paquetesSeleccionados"
+                                   value="${paquete.id}" />
+
+
+                            <div class="paquete-info">
+
+
+                                <div class="paquete-tracking">
+
+                                    ${paquete.tracking}
+
                                 </div>
-                            `;
-                        });
 
-                        container.innerHTML = html;
-                    })
-                    .catch(error => {
 
-                        console.error(error);
+                                <div class="paquete-detalle">
 
-                        container.innerHTML =
-                            '<div class="sin-paquetes">Error al cargar los paquetes.</div>';
-                    });
+                                    ${paquete.descripcion}
+
+                                    |
+
+                                    Peso:
+                                    ${paquete.peso}
+                                    kg
+
+                                    |
+
+                                    ₡${Number(
+                                        paquete.costoEnvio
+                                    ).toLocaleString(
+                                        "es-CR",
+                                        {
+                                            minimumFractionDigits: 2,
+                                            maximumFractionDigits: 2
+                                        }
+                                    )}
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+                    `;
+
+                });
+
+
+
+                paquetesContainer.innerHTML =
+                    html;
+
+            })
+
+            .catch(error => {
+
+                console.error(error);
+
+
+                paquetesContainer.innerHTML = `
+
+                    <div class="sin-paquetes">
+
+                        Error al cargar los paquetes.
+
+                    </div>
+
+                `;
+
             });
 
+        }
+
+
+
+        /* ==========================================
+           CERRAR RESULTADOS AL HACER CLICK AFUERA
+        ========================================== */
+
+        document.addEventListener(
+            "click",
+            function (e) {
+
+                if (
+                    !e.target.closest(
+                        ".cliente-buscador"
+                    )
+                ) {
+
+                    resultadosClientes.style.display =
+                        "none";
+
+                }
+
+            }
+        );
+
     </script>
+
 }

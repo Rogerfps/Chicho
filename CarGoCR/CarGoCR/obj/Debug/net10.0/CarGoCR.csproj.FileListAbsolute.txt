@@ -466,10 +466,8 @@ C:\Proyectos\Chicho\CarGoCR\CarGoCR\obj\Debug\net10.0\compressed\xxyut6kvk3-{0}-
 C:\Proyectos\Chicho\CarGoCR\CarGoCR\obj\Debug\net10.0\compressed\c4cxh5234u-{0}-b18t7uqk4f-b18t7uqk4f.gz
 C:\Proyectos\Chicho\CarGoCR\CarGoCR\obj\Debug\net10.0\compressed\lsbs42377c-{0}-uacqspzzkn-uacqspzzkn.gz
 C:\Proyectos\Chicho\CarGoCR\CarGoCR\obj\Debug\net10.0\compressed\1bhiavbd53-{0}-5rzrrqpn9n-5rzrrqpn9n.gz
-C:\Proyectos\Chicho\CarGoCR\CarGoCR\obj\Debug\net10.0\compressed\qw0rzpo8h8-{0}-plmoemym6m-plmoemym6m.gz
 C:\Proyectos\Chicho\CarGoCR\CarGoCR\obj\Debug\net10.0\compressed\8tc5e2wbl1-{0}-p9b278ohv0-p9b278ohv0.gz
 C:\Proyectos\Chicho\CarGoCR\CarGoCR\obj\Debug\net10.0\compressed\2s38bnzhua-{0}-0x34elfquy-0x34elfquy.gz
-C:\Proyectos\Chicho\CarGoCR\CarGoCR\obj\Debug\net10.0\compressed\5ypsj38odr-{0}-i70jpt23kf-i70jpt23kf.gz
 C:\Proyectos\Chicho\CarGoCR\CarGoCR\obj\Debug\net10.0\compressed\nh96ukiu9a-{0}-d85lk503bw-d85lk503bw.gz
 C:\Proyectos\Chicho\CarGoCR\CarGoCR\obj\Debug\net10.0\compressed\lnol619rab-{0}-69n7l1dkmx-69n7l1dkmx.gz
 C:\Proyectos\Chicho\CarGoCR\CarGoCR\obj\Debug\net10.0\compressed\7dc1eqp5j6-{0}-miwk1tzvgh-miwk1tzvgh.gz
@@ -520,3 +518,5 @@ C:\Proyectos\Chicho\CarGoCR\CarGoCR\obj\Debug\net10.0\compressed\8eb45sq1i2-{0}-
 C:\Proyectos\Chicho\CarGoCR\CarGoCR\obj\Debug\net10.0\compressed\vssccrvvq5-{0}-9vr69e8ynj-9vr69e8ynj.gz
 C:\Proyectos\Chicho\CarGoCR\CarGoCR\obj\Debug\net10.0\compressed\rfysuz8a43-{0}-yt75sxqu98-yt75sxqu98.gz
 C:\Proyectos\Chicho\CarGoCR\CarGoCR\obj\Debug\net10.0\compressed\69lpdbhhxx-{0}-qbx8h31fqp-qbx8h31fqp.gz
+C:\Proyectos\Chicho\CarGoCR\CarGoCR\obj\Debug\net10.0\compressed\qw0rzpo8h8-{0}-06u604w9nt-06u604w9nt.gz
+C:\Proyectos\Chicho\CarGoCR\CarGoCR\obj\Debug\net10.0\compressed\5ypsj38odr-{0}-65rnxxdg5z-65rnxxdg5z.gz

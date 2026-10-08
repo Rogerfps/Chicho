@@ -3,11 +3,13 @@
 @{
     ViewData["Title"] = "Nuevo Paquete";
 }
+
 <link rel="stylesheet" href="~/css/Paquetes/Create.css" asp-append-version="true" />
 
 <div class="content">
 
     <div class="page-header-row">
+
         <div class="page-header">
             <h1>Nuevo Paquete</h1>
             <p>Registrar paquete recibido</p>
@@ -18,7 +20,9 @@
            style="text-decoration:none;">
             Volver
         </a>
+
     </div>
+
 
     <div class="form-card">
 
@@ -28,9 +32,13 @@
                  class="text-danger mb-3">
             </div>
 
+
             <div class="form-grid">
 
+
+                <!-- TRACKING -->
                 <div class="form-group">
+
                     <label asp-for="Tracking"
                            class="form-label">
                         Tracking
@@ -40,28 +48,69 @@
                            class="form-input" />
 
                     <span asp-validation-for="Tracking"
-                          class="text-danger"></span>
+                          class="text-danger">
+                    </span>
+
                 </div>
 
+
+                <!-- CLIENTE -->
                 <div class="form-group">
-                    <label asp-for="ClienteId"
-                           class="form-label">
+
+                    <label class="form-label">
                         Cliente
                     </label>
 
-                    <select asp-for="ClienteId"
-                            asp-items="ViewBag.Clientes"
-                            class="form-input">
-                        <option value="">
-                            Seleccione un cliente
-                        </option>
-                    </select>
+                    <div class="cliente-buscador">
+
+                        <input type="text"
+                               id="buscarCliente"
+                               class="form-input"
+                               placeholder="Buscar por nombre, cédula o teléfono..."
+                               autocomplete="off" />
+
+                        <div id="resultadosClientes"
+                             class="resultados-clientes">
+                        </div>
+
+                    </div>
+
+                    <!-- ID REAL DEL CLIENTE -->
+                    <input asp-for="ClienteId"
+                           type="hidden"
+                           id="ClienteId" />
+
+                    <!-- CLIENTE SELECCIONADO -->
+                    <div id="clienteSeleccionado"
+                         class="cliente-seleccionado"
+                         style="display:none;">
+
+                        <div>
+                            <strong id="nombreClienteSeleccionado"></strong>
+                        </div>
+
+                        <div id="datosClienteSeleccionado"
+                             class="cliente-datos-seleccionado">
+                        </div>
+
+                        <button type="button"
+                                id="cambiarCliente"
+                                class="btn-cambiar-cliente">
+                            Cambiar cliente
+                        </button>
+
+                    </div>
 
                     <span asp-validation-for="ClienteId"
-                          class="text-danger"></span>
+                          class="text-danger">
+                    </span>
+
                 </div>
 
+
+                <!-- DESCRIPCIÓN -->
                 <div class="form-group">
+
                     <label asp-for="Descripcion"
                            class="form-label">
                         Descripción
@@ -71,10 +120,15 @@
                            class="form-input" />
 
                     <span asp-validation-for="Descripcion"
-                          class="text-danger"></span>
+                          class="text-danger">
+                    </span>
+
                 </div>
 
+
+                <!-- PESO -->
                 <div class="form-group">
+
                     <label asp-for="Peso"
                            class="form-label">
                         Peso (kg)
@@ -86,10 +140,15 @@
                            class="form-input" />
 
                     <span asp-validation-for="Peso"
-                          class="text-danger"></span>
+                          class="text-danger">
+                    </span>
+
                 </div>
 
+
+                <!-- VALOR DECLARADO -->
                 <div class="form-group">
+
                     <label asp-for="ValorDeclarado"
                            class="form-label">
                         Valor declarado
@@ -99,9 +158,41 @@
                            type="number"
                            step="0.01"
                            class="form-input" />
+
                 </div>
 
+
+                <!-- TIPO DE ENVÍO -->
                 <div class="form-group">
+
+                    <label asp-for="TipoEnvio"
+                           class="form-label">
+                        Tipo de envío
+                    </label>
+
+                    <select asp-for="TipoEnvio"
+                            class="form-input">
+
+                        <option value="Nacional">
+                            Nacional
+                        </option>
+
+                        <option value="Internacional">
+                            Internacional
+                        </option>
+
+                    </select>
+
+                    <span asp-validation-for="TipoEnvio"
+                          class="text-danger">
+                    </span>
+
+                </div>
+
+
+                <!-- ESTADO -->
+                <div class="form-group">
+
                     <label asp-for="Estado"
                            class="form-label">
                         Estado
@@ -135,9 +226,13 @@
                         </option>
 
                     </select>
+
                 </div>
 
+
+                <!-- OBSERVACIONES -->
                 <div class="form-group full-width">
+
                     <label asp-for="Observaciones"
                            class="form-label">
                         Observaciones
@@ -145,17 +240,29 @@
 
                     <textarea asp-for="Observaciones"
                               class="form-input"
-                              rows="5"></textarea>
+                              rows="5">
+                    </textarea>
+
                 </div>
+
+
+                <!-- PAGADO -->
                 <div class="checkbox-card">
-                    <input asp-for="Pagado" type="checkbox" />
+
+                    <input asp-for="Pagado"
+                           type="checkbox" />
 
                     <label asp-for="Pagado">
                         Paquete pagado
                     </label>
+
                 </div>
 
+
             </div>
+
+
+            <!-- BOTONES -->
             <div class="form-actions">
 
                 <button type="submit"
@@ -170,14 +277,228 @@
                 </a>
 
             </div>
+
         </form>
 
     </div>
 
 </div>
 
+
 @section Scripts {
+
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+
+
+    <script>
+
+        const buscarCliente =
+            document.getElementById("buscarCliente");
+
+        const resultadosClientes =
+            document.getElementById("resultadosClientes");
+
+        const clienteId =
+            document.getElementById("ClienteId");
+
+        const clienteSeleccionado =
+            document.getElementById("clienteSeleccionado");
+
+        const nombreClienteSeleccionado =
+            document.getElementById("nombreClienteSeleccionado");
+
+        const datosClienteSeleccionado =
+            document.getElementById("datosClienteSeleccionado");
+
+        const cambiarCliente =
+            document.getElementById("cambiarCliente");
+
+
+        let temporizadorBusqueda;
+
+
+        buscarCliente.addEventListener("input", function () {
+
+            clearTimeout(temporizadorBusqueda);
+
+            const termino = this.value.trim();
+
+
+            if (termino.length === 0) {
+
+                resultadosClientes.innerHTML = "";
+
+                resultadosClientes.style.display = "none";
+
+                return;
+            }
+
+
+            temporizadorBusqueda = setTimeout(async function () {
+
+                try {
+
+                    const response = await fetch(
+                        '@Url.Action("BuscarClientes", "Paquetes")?termino='
+                        + encodeURIComponent(termino)
+                    );
+
+
+                    if (!response.ok) {
+
+                        console.error(
+                            "Error al buscar clientes."
+                        );
+
+                        return;
+                    }
+
+
+                    const clientes = await response.json();
+
+
+                    resultadosClientes.innerHTML = "";
+
+
+                    if (clientes.length === 0) {
+
+                        resultadosClientes.innerHTML = `
+                            <div class="sin-resultados">
+                                No se encontraron clientes
+                            </div>
+                        `;
+
+                        resultadosClientes.style.display = "block";
+
+                        return;
+                    }
+
+
+                    clientes.forEach(cliente => {
+
+                        const item =
+                            document.createElement("div");
+
+
+                        item.className =
+                            "cliente-resultado";
+
+
+                        item.innerHTML = `
+
+                            <div class="cliente-nombre">
+                                ${cliente.nombre}
+                            </div>
+
+                            <div class="cliente-datos">
+                                Cédula: ${cliente.cedula}
+                                &nbsp; | &nbsp;
+                                Tel: ${cliente.telefono}
+                            </div>
+
+                        `;
+
+
+                        item.addEventListener(
+                            "click",
+                            function () {
+
+                                // Guardar ID
+                                clienteId.value =
+                                    cliente.id;
+
+
+                                // Mostrar cliente seleccionado
+                                nombreClienteSeleccionado.textContent =
+                                    cliente.nombre;
+
+
+                                datosClienteSeleccionado.textContent =
+                                    `Cédula: ${cliente.cedula} | Tel: ${cliente.telefono}`;
+
+
+                                // Limpiar búsqueda
+                                buscarCliente.value = "";
+
+
+                                // Ocultar resultados
+                                resultadosClientes.innerHTML = "";
+
+                                resultadosClientes.style.display =
+                                    "none";
+
+
+                                // Mostrar cliente
+                                clienteSeleccionado.style.display =
+                                    "flex";
+
+                            }
+                        );
+
+
+                        resultadosClientes.appendChild(item);
+
+                    });
+
+
+                    resultadosClientes.style.display =
+                        "block";
+
+                }
+                catch (error) {
+
+                    console.error(
+                        "Error buscando clientes:",
+                        error
+                    );
+
+                }
+
+            }, 300);
+
+        });
+
+
+        // CAMBIAR CLIENTE
+        cambiarCliente.addEventListener(
+            "click",
+            function () {
+
+                clienteId.value = "";
+
+                clienteSeleccionado.style.display =
+                    "none";
+
+                buscarCliente.value = "";
+
+                resultadosClientes.innerHTML = "";
+
+                resultadosClientes.style.display =
+                    "none";
+
+                buscarCliente.focus();
+
+            }
+        );
+
+
+        // Cerrar resultados al hacer click fuera
+        document.addEventListener(
+            "click",
+            function (e) {
+
+                if (!e.target.closest(".cliente-buscador")) {
+
+                    resultadosClientes.style.display =
+                        "none";
+
+                }
+
+            }
+        );
+
+    </script>
+
 }

@@ -53,10 +53,6 @@ namespace CarGoCR.Controllers
         // CREATE GET
         public IActionResult Create()
         {
-            ViewBag.Clientes = _context.Clientes
-                .OrderBy(x => x.NombreCompleto)
-                .ToList();
-
             ViewBag.Paquetes = new List<Paquete>();
 
             return View();
@@ -70,9 +66,7 @@ namespace CarGoCR.Controllers
             List<int> paquetesSeleccionados,
             string? observaciones)
         {
-            ViewBag.Clientes = _context.Clientes
-                .OrderBy(x => x.NombreCompleto)
-                .ToList();
+            
 
             if (paquetesSeleccionados == null || !paquetesSeleccionados.Any())
             {
@@ -128,6 +122,34 @@ namespace CarGoCR.Controllers
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> BuscarClientes(string termino)
+        {
+            if (string.IsNullOrWhiteSpace(termino))
+                return Json(new List<object>());
+
+            termino = termino.Trim();
+
+            var clientes = await _context.Clientes
+                .Where(c =>
+                    c.NombreCompleto.Contains(termino) ||
+                    c.Cedula.Contains(termino) ||
+                    c.Telefono.Contains(termino))
+                .OrderBy(c => c.NombreCompleto)
+                .Take(10)
+                .Select(c => new
+                {
+                    id = c.Id,
+                    nombre = c.NombreCompleto,
+                    cedula = c.Cedula,
+                    telefono = c.Telefono,
+                    correo = c.Correo
+                })
+                .ToListAsync();
+
+            return Json(clientes);
         }
 
         // APROBAR PAGO

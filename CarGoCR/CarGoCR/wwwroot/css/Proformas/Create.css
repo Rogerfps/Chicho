@@ -185,3 +185,102 @@ textarea.form-input {
     margin-top: .4rem;
 }
 
+/* ==========================================
+   BUSCADOR DE CLIENTES
+========================================== */
+
+.cliente-buscador {
+    position: relative;
+    width: 100%;
+}
+
+.resultados-clientes {
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 1000;
+    display: none;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .15);
+}
+
+.cliente-resultado {
+    padding: 13px 15px;
+    cursor: pointer;
+    border-bottom: 1px solid #e5e7eb;
+    transition: background .15s ease;
+}
+
+    .cliente-resultado:last-child {
+        border-bottom: none;
+    }
+
+    .cliente-resultado:hover {
+        background: #f1f5f9;
+    }
+
+.cliente-nombre {
+    font-weight: 600;
+    color: #1e293b;
+    font-size: .95rem;
+}
+
+.cliente-datos {
+    margin-top: 4px;
+    font-size: .8rem;
+    color: #64748b;
+}
+
+.sin-resultados {
+    padding: 15px;
+    color: #64748b;
+    text-align: center;
+    font-size: .9rem;
+}
+
+
+/* ==========================================
+   CLIENTE SELECCIONADO
+========================================== */
+
+.cliente-seleccionado {
+    margin-top: 10px;
+    padding: 14px 16px;
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+#nombreClienteSeleccionado {
+    color: #0f172a;
+    font-size: 16px;
+}
+
+.cliente-datos-seleccionado {
+    color: #64748b;
+    font-size: 13px;
+}
+
+.btn-cambiar-cliente {
+    align-self: flex-start;
+    margin-top: 5px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: #2563eb;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: .85rem;
+}
+
+    .btn-cambiar-cliente:hover {
+        text-decoration: underline;
+    }

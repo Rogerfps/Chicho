@@ -204,11 +204,6 @@ namespace CarGoCR.Controllers
         // CREATE GET
         public IActionResult Create()
         {
-            ViewBag.Clientes = new SelectList(
-                _context.Clientes,
-                "Id",
-                "NombreCompleto");
-
             return View();
         }
 
@@ -232,10 +227,14 @@ namespace CarGoCR.Controllers
                         "",
                         "No existe una tarifa configurada para ese peso.");
 
-                    ViewBag.Clientes = new SelectList(
-                        _context.Clientes,
-                        "Id",
-                        "NombreCompleto");
+                    if (tarifa == null)
+                    {
+                        ModelState.AddModelError(
+                            "",
+                            "No existe una tarifa configurada para ese peso.");
+
+                        return View(paquete);
+                    }
 
                     return View(paquete);
                 }
@@ -409,6 +408,34 @@ Gracias por confiar en nosotros.
                 "NombreCompleto");
 
             return View(paquete);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> BuscarClientes(string termino)
+        {
+            if (string.IsNullOrWhiteSpace(termino))
+                return Json(new List<object>());
+
+            termino = termino.Trim();
+
+            var clientes = await _context.Clientes
+                .Where(c =>
+                    c.NombreCompleto.Contains(termino) ||
+                    c.Cedula.Contains(termino) ||
+                    c.Telefono.Contains(termino))
+                .OrderBy(c => c.NombreCompleto)
+                .Take(10)
+                .Select(c => new
+                {
+                    id = c.Id,
+                    nombre = c.NombreCompleto,
+                    cedula = c.Cedula,
+                    telefono = c.Telefono,
+                    correo = c.Correo
+                })
+                .ToListAsync();
+
+            return Json(clientes);
         }
 
         // EDIT GET
