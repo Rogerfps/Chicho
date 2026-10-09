@@ -5,6 +5,8 @@
 }
 
 <link rel="stylesheet" href="~/css/Paquetes/Index.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/paginacion.css" asp-append-version="true" />
+<script src="~/js/paginacion.js" asp-append-version="true"></script>
 
 <div class="content">
 
@@ -509,6 +511,8 @@
 
             </table>
 
+            <div class="paginacion" id="paginacion-resultados"></div>
+
         </div>
 
 
@@ -661,6 +665,8 @@
 
         </div>
 
+        <div class="paginacion" id="paginacion"></div>
+
     </div>
 
 </div>
@@ -682,6 +688,15 @@
 
     const resultadosBusquedaBody =
         document.getElementById("resultadosBusquedaBody");
+
+
+    const paginacionOriginal = document.getElementById("paginacion");
+
+    crearPaginador({
+        grupos: ['#tablaPaquetesBody tr:not(#filaVacia)', '#cardsPaquetes .client-card-mobile'],
+        controles: '#paginacion',
+        porPagina: 10
+    });
 
 
     let timer = null;
@@ -877,12 +892,16 @@
 
             cardsPaquetes.style.display = "none";
 
+            paginacionOriginal.style.display = "none";
+
 
             // =============================================
             // MOSTRAR RESULTADOS
             // =============================================
 
             resultadosBusqueda.style.display = "block";
+
+            document.getElementById("paginacion-resultados").innerHTML = "";
 
             resultadosBusquedaBody.innerHTML = "";
 
@@ -1180,6 +1199,13 @@
 
             });
 
+
+            crearPaginador({
+                grupos: ['#resultadosBusquedaBody tr'],
+                controles: '#paginacion-resultados',
+                porPagina: 10
+            });
+
         }
         catch (error) {
 
@@ -1193,7 +1219,11 @@
 
             cardsPaquetes.style.display = "none";
 
+            paginacionOriginal.style.display = "none";
+
             resultadosBusqueda.style.display = "block";
+
+            document.getElementById("paginacion-resultados").innerHTML = "";
 
 
             resultadosBusquedaBody.innerHTML = `
@@ -1231,6 +1261,10 @@
         tablaPaquetes.style.display = "";
 
         cardsPaquetes.style.display = "";
+
+        paginacionOriginal.style.display = "";
+
+        document.getElementById("paginacion-resultados").innerHTML = "";
 
         resultadosBusqueda.style.display = "none";
 
@@ -1348,4 +1382,5 @@
     }
 
 </script>
+
             

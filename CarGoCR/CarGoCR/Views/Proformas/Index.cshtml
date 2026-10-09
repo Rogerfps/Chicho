@@ -4,6 +4,8 @@
     ViewData["Title"] = "Proformas";
 }
 <link rel="stylesheet" href="~/css/Proformas/Index.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/paginacion.css" asp-append-version="true" />
+<script src="~/js/paginacion.js" asp-append-version="true"></script>
 
 
 <div class="content">
@@ -86,7 +88,7 @@
                 {
                     @foreach (var item in Model)
                     {
-                        <tr>
+                        <tr data-fila>
 
                             <td>
                                 <span class="proforma-id">
@@ -212,6 +214,16 @@
 
         </table>
 
+        <div class="paginacion" id="paginacion"></div>
+
     </div>
 
 </div>
+
+<script>
+    crearPaginador({
+        grupos: ['.data-table tbody tr[data-fila]'],
+        controles: '#paginacion',
+        porPagina: 10
+    });
+</script>

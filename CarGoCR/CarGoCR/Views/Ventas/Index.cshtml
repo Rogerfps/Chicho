@@ -47,6 +47,8 @@
 }
 
 <link rel="stylesheet" href="~/css/Ventas/Index.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/paginacion.css" asp-append-version="true" />
+<script src="~/js/paginacion.js" asp-append-version="true"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap" />
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
@@ -342,6 +344,8 @@
                 </p>
             }
         </div>
+
+        <div class="paginacion" id="paginacion"></div>
     </div>
 
 </div>
@@ -403,28 +407,31 @@
     });
     })();
 
-    // ── Búsqueda y filtro ──────────────────────────────────────────────────────
+    // ── Búsqueda, filtro y paginación ──────────────────────────────────────────
     let filtroActivo = 'todas';
 
+    const paginador = crearPaginador({
+        grupos: ['#tabla-proformas tbody tr[data-estado]', '#cards-proformas .proforma-card-mobile'],
+        controles: '#paginacion',
+        porPagina: 10
+    });
+
     function aplicarFiltros() {
-    const q = document.getElementById('buscar').value.toLowerCase().trim();
+        const q = document.getElementById('buscar').value.toLowerCase().trim();
 
-    // Tabla desktop
-    document.querySelectorAll('#tabla-proformas tbody tr[data-estado]').forEach(tr => {
-    const estadoOk = filtroActivo === 'todas' || tr.dataset.estado === filtroActivo;
-    const buscarOk = !q || tr.dataset.buscar.toLowerCase().includes(q);
-    tr.style.display = estadoOk && buscarOk ? '' : 'none';
-    });
+        const marcar = el => {
+            const estadoOk = filtroActivo === 'todas' || el.dataset.estado === filtroActivo;
+            const buscarOk = !q || el.dataset.buscar.toLowerCase().includes(q);
+            el.classList.toggle('fuera-filtro', !(estadoOk && buscarOk));
+        };
 
-    // Cards mobile
-    document.querySelectorAll('#cards-proformas .proforma-card-mobile').forEach(card => {
-    const estadoOk = filtroActivo === 'todas' || card.dataset.estado === filtroActivo;
-    const buscarOk = !q || card.dataset.buscar.toLowerCase().includes(q);
-    card.style.display = estadoOk && buscarOk ? '' : 'none';
-    });
+        document.querySelectorAll('#tabla-proformas tbody tr[data-estado]').forEach(marcar);
+        document.querySelectorAll('#cards-proformas .proforma-card-mobile').forEach(marcar);
+
+        paginador.irA(1);
     }
 
     function buscar(val) {
-    aplicarFiltros();
+        aplicarFiltros();
     }
 </script>

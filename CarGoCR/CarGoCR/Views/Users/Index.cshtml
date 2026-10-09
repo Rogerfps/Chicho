@@ -5,6 +5,8 @@
 }
 
 <link rel="stylesheet" href="~/css/Usuarios/Index.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/paginacion.css" asp-append-version="true" />
+<script src="~/js/paginacion.js" asp-append-version="true"></script>
 
 
 <div class="content">
@@ -81,7 +83,9 @@
                 </svg>
 
                 <input type="text"
-                       placeholder="Buscar usuarios..." />
+                       id="buscarUsuarios"
+                       placeholder="Buscar usuarios..."
+                       autocomplete="off" />
             </div>
         </div>
 
@@ -102,7 +106,7 @@
                 {
                     @foreach (var usuario in Model)
                     {
-                        <tr>
+                        <tr data-buscar="@(((usuario.UserName ?? "") + " " + (usuario.Email ?? "") + " " + (usuario.PhoneNumber ?? "")).ToLower())">
                             <td>
                                 <div class="client-cell">
 
@@ -222,5 +226,22 @@
 
             </tbody>
         </table>
+
+        <div class="paginacion" id="paginacion"></div>
     </div>
 </div>
+
+<script>
+    const paginador = crearPaginador({
+        grupos: ['.data-table tbody tr[data-buscar]'],
+        controles: '#paginacion',
+        porPagina: 10
+    });
+
+    document.getElementById('buscarUsuarios').addEventListener('input', function () {
+        const q = this.value.toLowerCase().trim();
+        document.querySelectorAll('.data-table tbody tr[data-buscar]').forEach(tr =>
+            tr.classList.toggle('fuera-filtro', !!q && !tr.dataset.buscar.includes(q)));
+        paginador.irA(1);
+    });
+</script>

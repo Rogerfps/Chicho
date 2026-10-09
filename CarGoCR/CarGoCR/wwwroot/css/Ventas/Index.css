@@ -544,6 +544,7 @@ body {
         width: 110px;
     }
 }
+
 .layout-content {
     margin-left: 220px;
     width: calc(100% - 220px);
@@ -713,6 +714,7 @@ body {
         grid-template-columns: 1fr;
     }
 }
+
 @media (max-width: 768px) {
 
     .chart-card {

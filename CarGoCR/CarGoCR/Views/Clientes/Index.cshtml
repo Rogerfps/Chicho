@@ -5,6 +5,8 @@
 }
 
 <link rel="stylesheet" href="~/css/Clientes/Index.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/paginacion.css" asp-append-version="true" />
+<script src="~/js/paginacion.js" asp-append-version="true"></script>
 
 <div class="content">
     <div class="page-header-row">
@@ -206,21 +208,25 @@
                 </p>
             }
         </div>
+
+        <div class="paginacion" id="paginacion"></div>
     </div>
 </div>
 
 <script>
+    const paginador = crearPaginador({
+        grupos: ['#tablaClientes tbody tr[data-buscar]', '#cardsClientes .client-card-mobile'],
+        controles: '#paginacion',
+        porPagina: 10
+    });
+
     function filtrarClientes(val) {
         const q = val.toLowerCase().trim();
+        const marcar = el => el.classList.toggle('fuera-filtro', !!q && !el.dataset.buscar.includes(q));
 
-        // Filtrar filas de tabla
-        document.querySelectorAll('#tablaClientes tbody tr[data-buscar]').forEach(tr => {
-            tr.style.display = !q || tr.dataset.buscar.includes(q) ? '' : 'none';
-        });
+        document.querySelectorAll('#tablaClientes tbody tr[data-buscar]').forEach(marcar);
+        document.querySelectorAll('#cardsClientes .client-card-mobile').forEach(marcar);
 
-        // Filtrar cards mobile
-        document.querySelectorAll('#cardsClientes .client-card-mobile').forEach(card => {
-            card.style.display = !q || card.dataset.buscar.includes(q) ? '' : 'none';
-        });
+        paginador.irA(1);
     }
 </script>
