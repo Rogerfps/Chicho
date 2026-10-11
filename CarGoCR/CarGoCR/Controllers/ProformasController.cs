@@ -27,6 +27,9 @@ namespace CarGoCR.Controllers
         {
             var proformas = await _context.Proformas
                 .Include(x => x.Cliente)
+                .Include(x => x.Detalles)
+                .OrderByDescending(x => x.FechaCreacion)
+                .ThenByDescending(x => x.Id)
                 .ToListAsync();
 
             return View(proformas);
@@ -153,6 +156,87 @@ namespace CarGoCR.Controllers
         }
 
         // APROBAR PAGO
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CambiarEstado(int id, string estado)
+        {
+            var proforma = await _context.Proformas
+                .Include(x => x.Detalles)
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (proforma == null)
+                return NotFound();
+
+            // Validar los estados permitidos
+            var estadosPermitidos = new[]
+            {
+        "Pendiente",
+        "Aprobada",
+        "Anulada"
+    };
+
+            if (!estadosPermitidos.Contains(estado))
+            {
+                return BadRequest("El estado seleccionado no es válido.");
+            }
+
+            proforma.Estado = estado;
+
+            // Si se anula, se revierte la confirmación del pago
+            if (estado == "Anulada")
+            {
+                proforma.Pagada = false;
+
+                foreach (var detalle in proforma.Detalles)
+                {
+                    var paquete = await _context.Paquetes
+                        .FindAsync(detalle.PaqueteId);
+
+                    if (paquete != null)
+                    {
+                        paquete.Pagado = false;
+                    }
+                }
+            }
+            else if (estado == "Aprobada")
+            {
+                proforma.Pagada = true;
+
+                foreach (var detalle in proforma.Detalles)
+                {
+                    var paquete = await _context.Paquetes
+                        .FindAsync(detalle.PaqueteId);
+
+                    if (paquete != null)
+                    {
+                        paquete.Pagado = true;
+                    }
+                }
+            }
+            else if (estado == "Pendiente")
+            {
+                proforma.Pagada = false;
+
+                foreach (var detalle in proforma.Detalles)
+                {
+                    var paquete = await _context.Paquetes
+                        .FindAsync(detalle.PaqueteId);
+
+                    if (paquete != null)
+                    {
+                        paquete.Pagado = false;
+                    }
+                }
+            }
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Details), new { id = proforma.Id });
+        }
+
+        // APROBAR PAGO
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Aprobar(int id)
         {
             var proforma = await _context.Proformas

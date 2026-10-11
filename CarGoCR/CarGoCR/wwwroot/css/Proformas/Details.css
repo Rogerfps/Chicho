@@ -187,3 +187,59 @@
         border-color: #4f7cff;
         transform: translateY(-2px);
     }
+
+
+/* CAMBIO DE ESTADO */
+.estado-edicion {
+    margin-bottom: 1rem;
+    padding: 22px;
+}
+
+.estado-descripcion {
+    margin: 8px 0 18px;
+    color: #94a3b8;
+    font-size: .9rem;
+}
+
+.form-cambiar-estado {
+    display: flex;
+    align-items: flex-end;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.estado-campo {
+    flex: 1;
+    min-width: 200px;
+    max-width: 350px;
+}
+
+    .estado-campo .form-label {
+        display: block;
+        margin-bottom: 8px;
+    }
+
+    .estado-campo .form-input {
+        width: 100%;
+    }
+
+.form-cambiar-estado .btn-primary {
+    min-height: 42px;
+}
+
+@media (max-width: 600px) {
+    .form-cambiar-estado {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .estado-campo {
+        max-width: none;
+        width: 100%;
+    }
+
+    .form-cambiar-estado .btn-primary {
+        width: 100%;
+    }
+}
+

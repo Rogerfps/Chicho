@@ -6,8 +6,6 @@
 
 <link rel="stylesheet" href="~/css/Proformas/Details.css" asp-append-version="true" />
 
-   
-
 <div class="content">
 
     <div class="page-header-row">
@@ -21,12 +19,18 @@
 
             @if (!Model.Pagada)
             {
-                <a asp-action="Aprobar"
-                   asp-route-id="@Model.Id"
-                   class="btn-primary"
-                   style="text-decoration:none;">
-                    Confirmar Pago
-                </a>
+                <form asp-action="Aprobar"
+                      asp-route-id="@Model.Id"
+                      method="post"
+                      style="display:inline;">
+
+                    @Html.AntiForgeryToken()
+
+                    <button type="submit" class="btn-primary">
+                        Confirmar Pago
+                    </button>
+
+                </form>
             }
 
             <a asp-action="Imprimir"
@@ -57,56 +61,47 @@
 
     </div>
 
+
+    <!-- INFORMACIÓN DE LA PROFORMA -->
+
     <div class="info-grid">
 
         <div class="info-card">
-            <div class="info-label">
-                Cliente
-            </div>
-
+            <div class="info-label">Cliente</div>
             <div class="info-value">
                 @Model.Cliente?.NombreCompleto
             </div>
         </div>
 
         <div class="info-card">
-            <div class="info-label">
-                Fecha
-            </div>
-
+            <div class="info-label">Fecha</div>
             <div class="info-value">
                 @Model.FechaCreacion.ToLocalTime().ToString("dd/MM/yyyy HH:mm")
             </div>
         </div>
 
         <div class="info-card">
-            <div class="info-label">
-                Estado
-            </div>
-
+            <div class="info-label">Estado</div>
             <div class="info-value">
 
-                @if (Model.Pagada)
+                @if (Model.Estado == "Aprobada")
                 {
-                    <span class="badge-active">
-                        Aprobada
-                    </span>
+                    <span class="badge-active">Aprobada</span>
+                }
+                else if (Model.Estado == "Anulada")
+                {
+                    <span class="badge-inactive">Anulada</span>
                 }
                 else
                 {
-                    <span class="badge-inactive">
-                        Pendiente
-                    </span>
+                    <span class="badge-inactive">@Model.Estado</span>
                 }
 
             </div>
         </div>
 
         <div class="info-card">
-            <div class="info-label">
-                Total
-            </div>
-
+            <div class="info-label">Total</div>
             <div class="info-value">
                 ₡@Model.Total.ToString("N2")
             </div>
@@ -114,9 +109,73 @@
 
     </div>
 
+
+    <!-- CAMBIAR ESTADO -->
+
+    <div class="info-card estado-edicion">
+
+        <div class="info-label">
+            Modificar estado de la proforma
+        </div>
+
+        <p class="estado-descripcion">
+            Si el pago fue confirmado por error, puedes cambiar
+            el estado de la proforma desde aquí.
+        </p>
+
+        <form asp-action="CambiarEstado"
+              asp-route-id="@Model.Id"
+              method="post"
+              class="form-cambiar-estado">
+
+            @Html.AntiForgeryToken()
+
+            <div class="estado-campo">
+
+                <label for="estado" class="form-label">
+                    Nuevo estado
+                </label>
+
+                <select id="estado"
+                        name="estado"
+                        class="form-input"
+                        required>
+
+                    <option value="Pendiente"
+                            selected="@(Model.Estado == "Pendiente" ? "selected" : null)">
+                        Pendiente
+                    </option>
+
+                    <option value="Aprobada"
+                            selected="@(Model.Estado == "Aprobada" ? "selected" : null)">
+                        Aprobada
+                    </option>
+
+                    <option value="Anulada"
+                            selected="@(Model.Estado == "Anulada" ? "selected" : null)">
+                        Anulada
+                    </option>
+
+                </select>
+
+            </div>
+
+            <button type="submit"
+                    class="btn-primary"
+                    onclick="return confirm('¿Deseas cambiar el estado de esta proforma?');">
+                Guardar estado
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <!-- OBSERVACIONES -->
     @if (!string.IsNullOrWhiteSpace(Model.Observaciones))
     {
         <div class="info-card" style="margin-bottom:1rem;">
+
             <div class="info-label">
                 Observaciones
             </div>
@@ -124,8 +183,12 @@
             <div class="info-value">
                 @Model.Observaciones
             </div>
+
         </div>
     }
+
+
+    <!-- DETALLE DE PAQUETES -->
 
     <div class="table-card">
 
@@ -170,6 +233,7 @@
         </table>
 
     </div>
+
 
     <div class="total-box">
         Total Facturado: ₡@Model.Total.ToString("N2")
