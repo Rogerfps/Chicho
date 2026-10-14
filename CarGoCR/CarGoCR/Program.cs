@@ -4,6 +4,8 @@ using CarGoCR.Servicios;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using QuestPDF.Infrastructure;
+using Microsoft.AspNetCore.DataProtection;
+using System.IO;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +22,15 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
+
+// Persistir las claves de seguridad de ASP.NET Core
+var carpetaClaves = @"C:\CarGoCR-Keys";
+
+Directory.CreateDirectory(carpetaClaves);
+
+builder.Services.AddDataProtection()
+    .PersistKeysToFileSystem(new DirectoryInfo(carpetaClaves))
+    .SetApplicationName("CarGoCR");
 
 QuestPDF.Settings.License = LicenseType.Community;
 
@@ -113,6 +124,7 @@ using (var scope = app.Services.CreateScope())
 }
 
 
+
 // ======================================================
 // PIPELINE
 // ======================================================
@@ -125,16 +137,16 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+// Servir archivos de wwwroot, incluidos los logos y uploads
+app.UseStaticFiles();
+
 app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapStaticAssets();
-
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=SitioWeb}/{action=Index}/{id?}")
-    .WithStaticAssets();
+    pattern: "{controller=SitioWeb}/{action=Index}/{id?}");
 
 app.Run();

@@ -1,0 +1,49 @@
+.layout-content {
+    margin-left: 220px;
+    width: calc(100% - 220px);
+    min-height: 100vh;
+    padding: 2rem;
+}
+
+.paquetes-box {
+    margin-top: 1rem;
+    border: 1px solid #252836;
+    border-radius: 10px;
+    padding: 1rem;
+    max-height: 350px;
+    overflow-y: auto;
+}
+
+.paquete-item {
+    display: flex;
+    gap: .75rem;
+    align-items: center;
+    padding: .75rem 0;
+    border-bottom: 1px solid rgba(255,255,255,.05);
+}
+
+    .paquete-item:last-child {
+        border-bottom: none;
+    }
+
+.paquete-info {
+    flex: 1;
+}
+
+.paquete-tracking {
+    font-weight: 600;
+}
+
+.paquete-detalle {
+    color: #7b8099;
+    font-size: .8rem;
+}
+
+.alert-warning {
+    background: rgba(251,191,36,.10);
+    color: #fbbf24;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
